@@ -33,7 +33,6 @@ import java.util.zip.ZipFile;
 
 import org.martus.clientside.MtfAwareLocalization;
 import org.martus.clientside.UiLocalization;
-import org.martus.common.BulletinStore;
 import org.martus.common.EnglishCommonStrings;
 import org.martus.common.MartusUtilities.ServerErrorException;
 import org.martus.common.bulletin.AttachmentProxy;
@@ -41,6 +40,7 @@ import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinConstants;
 import org.martus.common.bulletin.BulletinHtmlGenerator;
 import org.martus.common.bulletin.BulletinLoader;
+import org.martus.common.bulletinstore.BulletinStore;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.database.ClientFileDatabase;
 import org.martus.common.database.DatabaseKey;
