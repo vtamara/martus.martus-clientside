@@ -236,7 +236,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 				"<tr><td align='right' valign='top'>Title</td><td valign='top'><strong>"+title+"</strong></td></tr>\n"+
 				"<tr><td align='right' valign='top'>Location</td><td valign='top'>"+location+"</td></tr>\n"+
 				"<tr><td align='right' valign='top'>Keywords</td><td valign='top'></td></tr>\n"+
-				"<tr><td align='right' valign='top'>Date of Event</td><td valign='top'>Between 08/20/2003 and 08/23/2003</td></tr>\n"+
+				"<tr><td align='right' valign='top'>Date of Event</td><td valign='top'>08/20/2003 - 08/23/2003</td></tr>\n"+
 				"<tr><td align='right' valign='top'>Date Created</td><td valign='top'>01/23/2004</td></tr>\n"+
 				"<tr><td align='right' valign='top'>Summary</td><td valign='top'><p></p></td></tr>\n"+
 				"<tr><td align='right' valign='top'>Details</td><td valign='top'><p></p></td></tr>\n"+
