@@ -34,6 +34,7 @@ import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinConstants;
 import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.test.MockBulletinStore;
 import org.martus.util.TestCaseEnhanced;
 
@@ -128,9 +129,9 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		assertEquals("Data for location not correct?", location, bulletinWrapper.getLocation());
 		assertEquals("PrivateData not visible?", privateData, bulletinWrapper.getPrivateInfo());
 		assertEquals("Is All Private incorrect?", bulletin.isAllPrivate(), bulletinWrapper.isAllPrivate());
-		assertEquals("Entry Date incorrect?", entryDate, Bulletin.getStoredDateFormat().format(bulletinWrapper.getEntryDate()));
-		assertEquals("Event Begin Date incorrect?", "2003-08-20", Bulletin.getStoredDateFormat().format(bulletinWrapper.getEventDate().getBeginDate()));
-		assertEquals("Event End Date incorrect?", "2003-08-23", Bulletin.getStoredDateFormat().format(bulletinWrapper.getEventDate().getEndDate()));
+		assertEquals("Entry Date incorrect?", entryDate, FieldSpec.getStoredDateFormat().format(bulletinWrapper.getEntryDate()));
+		assertEquals("Event Begin Date incorrect?", "2003-08-20", FieldSpec.getStoredDateFormat().format(bulletinWrapper.getEventDate().getBeginDate()));
+		assertEquals("Event End Date incorrect?", "2003-08-23", FieldSpec.getStoredDateFormat().format(bulletinWrapper.getEventDate().getEndDate()));
 		assertEquals("Has Public attachments?", 0, bulletinWrapper.getPublicAttachments().length);
 		assertEquals("Has Private attachments?", 0, bulletinWrapper.getPrivateAttachments().length);
 		bulletinWrapper.deleteAllData();

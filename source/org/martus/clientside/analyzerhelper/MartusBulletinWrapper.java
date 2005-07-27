@@ -45,6 +45,7 @@ import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.database.ClientFileDatabase;
 import org.martus.common.database.DatabaseKey;
 import org.martus.common.database.ReadableDatabase;
+import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.utilities.MartusFlexidate;
 
@@ -166,7 +167,7 @@ public class MartusBulletinWrapper
 	public Date getEntryDate()
 	{
 		String entryDate = bulletin.get(BulletinConstants.TAGENTRYDATE);
-		DateFormat dfStored = Bulletin.getStoredDateFormat();
+		DateFormat dfStored = FieldSpec.getStoredDateFormat();
 		try
 		{
 			return dfStored.parse(entryDate);
