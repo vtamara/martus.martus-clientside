@@ -30,21 +30,20 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
 import org.martus.swing.UiButton;
 import org.martus.swing.UiLabel;
 import org.martus.swing.UiParagraphPanel;
 import org.martus.swing.UiPasswordField;
 import org.martus.swing.UiTextField;
 import org.martus.swing.UiWrappedTextArea;
-import org.martus.util.language.LanguageOptions;
+import org.martus.swing.Utilities;
 
 public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHandler
 {
@@ -203,16 +202,9 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 	private JPanel createPanel(Component component1, Component component2)
 	{
 		JPanel panel = new JPanel();
-		if(LanguageOptions.isRightToLeftLanguage())
-		{
-			panel.add(component2);
-			panel.add(component1);
-		}
-		else
-		{
-			panel.add(component1);
-			panel.add(component2);
-		}
+		Box hBox = Box.createHorizontalBox();
+		Utilities.addComponentsRespectingOrientation(hBox, new Component[] {Box.createHorizontalGlue(), component1, component2});
+		panel.add(hBox);
 		return panel;
 	}
 	
