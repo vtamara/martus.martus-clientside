@@ -311,20 +311,13 @@ public class MtfAwareLocalization extends MiniLocalization
 		return translationVersion.equals(programVersion);
 	}
 
-	public String getTranslationVersion(String langCode) 
+	public String getTranslationVersion(String candidateLanguageCode) 
 	{
-		String originalLanguageCode = getCurrentLanguageCode();
-		loadTranslationFileIfNecessary(langCode, originalLanguageCode);
-		String translationRawVersion = extractVersion(getFieldLabel("translationVersion"));
-		loadTranslationFileIfNecessary(originalLanguageCode, langCode);
+		loadTranslationFile(candidateLanguageCode);
+		String translationRawVersion = extractVersion(getFieldLabel(candidateLanguageCode, "translationVersion"));
 		return extractVersion(translationRawVersion);
 	}
 
-	private void loadTranslationFileIfNecessary(String langCodeToLoad, String referenceLanguageCode) 
-	{
-		if(!referenceLanguageCode.equals(langCodeToLoad))
-			setCurrentLanguageCode(langCodeToLoad);
-	}
 	
 	public String extractVersion(String rawVersion)
 	{
