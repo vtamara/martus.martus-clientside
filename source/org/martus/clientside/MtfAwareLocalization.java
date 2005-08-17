@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.ZipEntry;
@@ -149,6 +150,16 @@ public class MtfAwareLocalization extends MiniLocalization
 	{
 		return MartusCrypto.getHexDigest(getLabel(ENGLISH, key)).substring(0,HASH_LENGTH);
 	}
+	
+	public boolean isTranslationInsideMLP()
+	{
+		return mlpDate != null;
+	}
+	
+	public Date getMlpDate()
+	{
+		return mlpDate;
+	}
 
 
 	/////////////////////////////////////////////////////////////////
@@ -156,6 +167,7 @@ public class MtfAwareLocalization extends MiniLocalization
 	
 	public void loadTranslationFile(String languageCode)
 	{
+		mlpDate = null;
 		InputStream transStream = null;
 		try
 		{
@@ -168,6 +180,7 @@ public class MtfAwareLocalization extends MiniLocalization
 			}
 			else if(isTranslationPackFile(translationFile))
 			{
+				mlpDate = new Date(translationFile.lastModified());
 				ZipFile zip = new ZipFile(translationFile);
 				ZipEntry zipEntry = zip.getEntry(mtfFileShortName);
 				transStream = new ZipEntryInputStreamWithSeekThatClosesZipFile(zip, zipEntry);
@@ -363,5 +376,5 @@ public class MtfAwareLocalization extends MiniLocalization
 	public static final String MTF_RIGHT_TO_LEFT_LANGUAGE_FLAG = "!right-to-left";
 	
 	public boolean includeOfficialLanguagesOnly;
-	
+	private Date mlpDate;
 }
