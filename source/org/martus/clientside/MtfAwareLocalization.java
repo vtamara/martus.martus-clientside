@@ -325,7 +325,9 @@ public class MtfAwareLocalization extends MiniLocalization
 		for (int i = 0; i < rawVersion.length(); ++i) 
 		{
 			char charAt = rawVersion.charAt(i);
-			if(Character.isDigit(charAt) || charAt == '.')
+			if(Character.isDigit(charAt))
+				version.append((new Integer(String.valueOf(charAt))));
+			else if(charAt == '.')
 				version.append(charAt);
 			else if(version.length()>0)
 				return version.toString();
