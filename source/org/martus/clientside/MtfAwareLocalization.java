@@ -180,10 +180,11 @@ public class MtfAwareLocalization extends MiniLocalization
 			}
 			else if(isTranslationPackFile(translationFile))
 			{
-				mlpDate = new Date(translationFile.lastModified());
 				ZipFile zip = new ZipFile(translationFile);
 				ZipEntry zipEntry = zip.getEntry(mtfFileShortName);
 				transStream = new ZipEntryInputStreamWithSeekThatClosesZipFile(zip, zipEntry);
+				ZipEntry metainf = zip.getEntry("META-INF");
+				mlpDate = new Date(metainf.getTime());
 			}
 			else
 			{
