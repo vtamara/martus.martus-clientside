@@ -68,8 +68,11 @@ public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#    added after the last release. Remove the english, insert/update the"); 
 		writer.writeln("#    VALUE translation to match the new English text which is in the"); 
 		writer.writeln("#    comment line directly above it, and remove the <>");
-		writer.writeln("# If you name it Martus-" + languageCode + ".mtf and put the file in");
-		writer.writeln("#     c:\\Martus, then Martus will automatically read it.");
+		writer.writeln("# If you name it Martus-" + languageCode + ".mtf, put the file in your");
+		writer.writeln("#     Martus directory, and create a file (which can be empty)");
+		writer.writeln("#     called use_unofficial_translations.txt in your Martus directory,");
+		writer.writeln("#     then Martus will automatically read it.  You will receive a warning");
+		writer.writeln("#     message when you use this file while testing.");
 		writer.writeln("# In Martus, to choose a language, pick one from the drop-down list");
 		writer.writeln("#    in the lower left-hand corner of the signin screen, or after you");
 		writer.writeln("#    are logged in, go to Options/Preferences.");
@@ -127,7 +130,10 @@ public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#      (e.g. BOOLEAN, DATE)");
 		writer.writeln("# 20.  Do not translate words used in XML for custom fields such as:");  
 		writer.writeln("#      <Field type='GRID'>, </Field>, <Tag>, </Tag>, <Label>, </Label>,");
-		writer.writeln("#      <GridSpecDetails>, </GridSpecDetails>, <Column>, </Column>");
+		writer.writeln("#      <GridSpecDetails>, </GridSpecDetails>, <Column>, </Column>,");
+		writer.writeln("#      <Message>, </Message>, <Choices>, </Choices>, <Choice>, </Choice>,");
+		writer.writeln("#      <Column type='STRING'>, <Column type='BOOLEAN'>, <Column type='DATE'>,");
+		writer.writeln("#      <Column type='DATERANGE'>, <Column type='DROPDOWN'>");
 		writer.writeln("# 21.  do not translate \"#UseUnofficialTranslationFiles#\" in");
 		writer.writeln("#      field:warningUnofficialTranslation since it contains a file name");
 		writer.writeln("# 22.  do not translate \"#CurrentNewsItem#\" (used for server news)");
