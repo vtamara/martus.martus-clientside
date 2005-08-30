@@ -142,17 +142,19 @@ public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("# 25.  do not translate \"#MtfVersionNumber#\" (used for Incompatible Mtf Version to Program Version Comparison)");
 		writer.writeln("# 26.  do not translate \"#ProgramVersionNumber#\" (used for Incompatible Mtf Version to Program Version Comparison)");
 		writer.writeln("# 27.  do not translate \"#MoveFolderUp#\" (used for Folder organization)");
-		writer.writeln("# 28.  do not translate \"#MoveFolderUp#\" (used for Folder organization)");
+		writer.writeln("# 28.  do not translate \"#MoveFolderDowm#\" (used for Folder organization)");
+		writer.writeln("# 29.  do not translate \"#UseOldCustomFields#\" (used when modifying a bulletin with old custom fields)");
+		writer.writeln("# 30.  do not translate \"#UseNewCustomFields#\" (used when modifying a bulletin with old custom fields)");
 		
 		if(rightToLeftLanguages.contains(languageCode))
 		{
-			writer.writeln("# 29.  If you want your language to appear left to right,");
+			writer.writeln("# 31.  If you want your language to appear left to right,");
 			writer.writeln("#      Comment the next line (by adding a # in front of !right-to-left)");
 			writer.writeln("!right-to-left");
 		}
 		else
 		{
-			writer.writeln("# 29.  If you want your language to appear right to left,");
+			writer.writeln("# 31.  If you want your language to appear right to left,");
 			writer.writeln("#      Uncomment the next line (by removing the # in front of #!right-to-left)");
 			writer.writeln("#!right-to-left");
 		}
