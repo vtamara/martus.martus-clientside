@@ -85,13 +85,10 @@ public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#      (by using the enter key) in any mtf entry");
 		writer.writeln("#      (from the field:xxx to the end of the translated text),");
 		writer.writeln("#      since a continuous block of text is needed.");
-		writer.writeln("#  3.  do NOT translate \"#N#\" or \"#M#\" (though move them as appropriate");
-		writer.writeln("#      grammatically for the language to make \"#N# of #M#\" [eg \"2 of 5\"] make");
-		writer.writeln("#      sense for creating/restoring multiple key backup files).");
-		writer.writeln("#  4.  in field:VirtualKeyboardKeys, keep the english alphabet, but include any");
+		writer.writeln("#  3.  in field:VirtualKeyboardKeys, keep the english alphabet, but include any");
 		writer.writeln("#      non-english characters at the end of the english alphabet/numbers/special");
 		writer.writeln("#      characters (e.g. attach entire Thai alphabet at the end of the line)");
-		writer.writeln("#  5.  in field:SearchBulletinRules, make sure to translate the english \"and\"");
+		writer.writeln("#  4.  in field:SearchBulletinRules, make sure to translate the english \"and\"");
 		writer.writeln("#      and \"or\" in the text to exactly match the keyword:and= and ");
 		writer.writeln("#      keyword:or= translations.  Also, the translation of the first sentence");
 		writer.writeln("#      should not exactly match the english version because Martus can handle");
@@ -102,59 +99,44 @@ public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#      in english or the-language-you-are-translating (or/or-translated,");
 		writer.writeln("#      and/and-translated) between multiple search term words");
 		writer.writeln("#      (e.g. prison or jail, prison and assault).");
-		writer.writeln("#  6.  in CreateCustomFieldsHelp2/3 fields, you can translate tags into foreign");
+		writer.writeln("#  5.  in CreateCustomFieldsHelp2/3 fields, you can translate tags into foreign");
 		writer.writeln("#      characters (but without punctuation or spaces)");
-		writer.writeln("#  7.  when there are file or directory names, do not translate them");
+		writer.writeln("#  6.  when there are file or directory names, do not translate them");
 		writer.writeln("#      (e.g.  \"acctmap.txt\" and \"packets\"");
 		writer.writeln("#      in field:confirmWarnMissingAccountMapFilecause=Warning: acctmap.txt");
 		writer.writeln("#      file in your account's packets directory...)");
-		writer.writeln("#  8.  do not translate the words \"Martus\" or \"Benetech\"");
-		writer.writeln("#  9.  do NOT translate \"#S#\" (used for search string entry)");
-		writer.writeln("# 10.  do not translate \"#L#\" as is it used to populate lists of values on");
-		writer.writeln("#      various dialogs.");
-		writer.writeln("# 11.  do not translate \"#Title#\" (used for bulletin title entry)");
-		writer.writeln("# 12.  do not translate \"#TITLES#\" (used for a list of the titles of previous");
-		writer.writeln("#      versions of the bulletin.");
-		writer.writeln("# 13.  do not translate \"#A#\" (used for bulletin details: Author Public Code)");
-		writer.writeln("# 14.  do not translate \"#I#\" (used for bulletin details: Bulletin ID)");
-		writer.writeln("# 15.  do not translate \"#H#\" (used for bulletin details: Headquarter entries)");
-		writer.writeln("# 16.  do not translate \"#NumberOfHQs#\" in various dialogs");
-		
-		writer.writeln("# 17.  Leave standard field tags in English in CreateCustomFieldsHelp1 and");
+		writer.writeln("#  7.  do not translate the words \"Martus\" or \"Benetech\"");
+		writer.writeln("#  8.  Leave standard field tags in English in CreateCustomFieldsHelp1 and");
 		writer.writeln("#      CreateCustomFieldsHelp2, but put translation in parentheses after");
 		writer.writeln("#      english : e.g.  'author' (autor), so users know what they refer to");
-		writer.writeln("# 18.  Leave field types in English in CreateCustomFieldsHelp2 (e.g. BOOLEAN,");
+		writer.writeln("#  9.  Leave field types in English in CreateCustomFieldsHelp2 (e.g. BOOLEAN,");
 		writer.writeln("#      DATE), but put translation in parentheses after english, so users know");
 		writer.writeln("#      what they refer to."); 
-		writer.writeln("# 19.  Leave field types in English in CreateCustomFieldsHelp3 examples");
+		writer.writeln("# 10.  Leave field types in English in CreateCustomFieldsHelp3 examples");
 		writer.writeln("#      (e.g. BOOLEAN, DATE)");
-		writer.writeln("# 20.  Do not translate words used in XML for custom fields such as:");  
+		writer.writeln("# 11.  Do not translate words used in XML for custom fields such as:");  
 		writer.writeln("#      <Field type='GRID'>, </Field>, <Tag>, </Tag>, <Label>, </Label>,");
 		writer.writeln("#      <GridSpecDetails>, </GridSpecDetails>, <Column>, </Column>,");
 		writer.writeln("#      <Message>, </Message>, <Choices>, </Choices>, <Choice>, </Choice>,");
 		writer.writeln("#      <Column type='STRING'>, <Column type='BOOLEAN'>, <Column type='DATE'>,");
 		writer.writeln("#      <Column type='DATERANGE'>, <Column type='DROPDOWN'>");
-		writer.writeln("# 21.  do not translate \"#UseUnofficialTranslationFiles#\" in");
-		writer.writeln("#      field:warningUnofficialTranslation since it contains a file name");
-		writer.writeln("# 22.  do not translate \"#CurrentNewsItem#\" (used for server news)");
-		writer.writeln("# 23.  do not translate \"#MaxNewsItems#\" (used for server news)");
-		writer.writeln("# 24.  do not translate \"#MtfLanguage#\" (used for Incompatible Mtf Version to Program Version Comparison)");
-		writer.writeln("# 25.  do not translate \"#MtfVersionNumber#\" (used for Incompatible Mtf Version to Program Version Comparison)");
-		writer.writeln("# 26.  do not translate \"#ProgramVersionNumber#\" (used for Incompatible Mtf Version to Program Version Comparison)");
-		writer.writeln("# 27.  do not translate \"#MoveFolderUp#\" (used for Folder organization)");
-		writer.writeln("# 28.  do not translate \"#MoveFolderDowm#\" (used for Folder organization)");
-		writer.writeln("# 29.  do not translate \"#UseOldCustomFields#\" (used when modifying a bulletin with old custom fields)");
-		writer.writeln("# 30.  do not translate \"#UseNewCustomFields#\" (used when modifying a bulletin with old custom fields)");
+		writer.writeln("# 12.  Do not translate words that are surrounded by #'s, but you may move");
+		writer.writeln("#      them around as grammatically appropriate.");
+		writer.writeln("#      Example: #TotalNumberOfFilesInBackup#, #Titles#, #FieldLabel#, etc.");  
+		writer.writeln("#      as these words will be replaced when the program runs with");
+		writer.writeln("#      a particular value.");  
+		writer.writeln("#      For Example. #TotalNumberOfFilesInBackup# = '5'");
+		writer.writeln("#                   #Titles# = 'A list of bulletin titles'");
 		
 		if(rightToLeftLanguages.contains(languageCode))
 		{
-			writer.writeln("# 31.  If you want your language to appear left to right,");
+			writer.writeln("# 13.  If you want your language to appear left to right,");
 			writer.writeln("#      Comment the next line (by adding a # in front of !right-to-left)");
 			writer.writeln("!right-to-left");
 		}
 		else
 		{
-			writer.writeln("# 31.  If you want your language to appear right to left,");
+			writer.writeln("# 13.  If you want your language to appear right to left,");
 			writer.writeln("#      Uncomment the next line (by removing the # in front of #!right-to-left)");
 			writer.writeln("#!right-to-left");
 		}
