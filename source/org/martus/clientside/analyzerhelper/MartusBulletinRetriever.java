@@ -67,11 +67,11 @@ public class MartusBulletinRetriever
 		security.readKeyPair(keyPair, password);
 	}
 	
-	public void initalizeServer(String serverIPAddress, String serverPublicKey)
+	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse)
 	{
-		this.serverPublicKey = serverPublicKey;
+		serverPublicKey = serverPublicKeyToUse;
 		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
-		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKey);
+		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse);
 	}
 
 	public boolean isServerAvailable()  
@@ -83,8 +83,8 @@ public class MartusBulletinRetriever
 
 	public String getServerPublicKey(String serverIPAddress, String serverPublicCode) throws ServerPublicCodeDoesNotMatchException, ServerNotAvailableException, ServerErrorException
 	{
-		ClientSideNetworkHandlerUsingXmlRpcForNonSSL serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
-		return getServerPublicKey(serverPublicCode, serverNonSSL);
+		ClientSideNetworkHandlerUsingXmlRpcForNonSSL newServerNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
+		return getServerPublicKey(serverPublicCode, newServerNonSSL);
 	}
 	
 	public List getFieldOfficeBulletinIds() throws ServerNotConfiguredException, MartusSignatureException, ServerErrorException
@@ -147,12 +147,12 @@ public class MartusBulletinRetriever
 		return bulletinIds;
 	}
 
-	String getServerPublicKey(String serverPublicCode, NonSSLNetworkAPI serverNonSSL) throws ServerNotAvailableException, ServerPublicCodeDoesNotMatchException, ServerErrorException
+	String getServerPublicKey(String serverPublicCode, NonSSLNetworkAPI serverNonSSLToUse) throws ServerNotAvailableException, ServerPublicCodeDoesNotMatchException, ServerErrorException
 	{
 		String ServerPublicKey;
 		try
 		{
-			ServerPublicKey = serverNonSSL.getServerPublicKey(security);
+			ServerPublicKey = serverNonSSLToUse.getServerPublicKey(security);
 			String serverPublicCodeToTest = MartusSecurity.computePublicCode(ServerPublicKey);
 			
 			if(!MartusCrypto.removeNonDigits(serverPublicCode).equals(serverPublicCodeToTest))

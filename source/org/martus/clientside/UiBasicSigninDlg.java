@@ -60,7 +60,7 @@ public class UiBasicSigninDlg extends JDialog
 		localization = localizationToUse;
 		uiState = uiStateToUse;
 		usersChoice = CANCEL;
-		setTitle(getTextForTitle(localization, currentMode));
+		setTitle(getTextForTitle(currentMode));
 		
 		signinPane = new UiSigninPanel(this, currentMode, username, password);
 		
@@ -110,7 +110,7 @@ public class UiBasicSigninDlg extends JDialog
 		return scrolledPanel;
 	}
 
-	public String getTextForTitle(UiLocalization localization, int mode)
+	public String getTextForTitle(int mode)
 	{		
 		switch (mode)
 		{

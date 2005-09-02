@@ -91,11 +91,11 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 	
 	public void testInvalidIOStream() throws Exception
 	{
-		char[] password = "test".toCharArray();
+		char[] testPassword = "test".toCharArray();
 		try
 		{
 			InputStream stream = new FileInputStream("");
-			new MartusBulletinRetriever(stream, password);
+			new MartusBulletinRetriever(stream, testPassword);
 			fail("Should have thrown IO exception on null input stream");
 		}
 		catch(IOException expectedException)
@@ -279,7 +279,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 			bulletinToRetrieve = bulletin;
 		}
 		
-		public Vector downloadFieldOfficeAccountIds(MartusCrypto security,
+		public Vector downloadFieldOfficeAccountIds(MartusCrypto securityToUse,
 				String myAccountId) throws ServerErrorException
 		{
 			return fieldOfficeAccountIds;
@@ -325,7 +325,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		
 		
 
-		public File retrieveBulletin(UniversalId uid, MartusCrypto security,
+		public File retrieveBulletin(UniversalId uid, MartusCrypto securityToUse,
 				int chunkSize, ProgressMeterInterface progressMeter)
 				throws IOException, FileNotFoundException,
 				MartusSignatureException, ServerErrorException,
@@ -340,7 +340,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 				store.saveBulletinForTesting(bulletinToRetrieve);
 				File bulletinZipFile = createTempFileFromName("$$$TestBulletinWrapperZipFile");
 				DatabaseKey key = bulletinToRetrieve.getDatabaseKey();
-				BulletinZipUtilities.exportBulletinPacketsFromDatabaseToZipFile(store.getDatabase(), key, bulletinZipFile, security);
+				BulletinZipUtilities.exportBulletinPacketsFromDatabaseToZipFile(store.getDatabase(), key, bulletinZipFile, securityToUse);
 				store.deleteAllData();
 				return bulletinZipFile;
 			}
