@@ -88,39 +88,28 @@ public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#  3.  in field:VirtualKeyboardKeys, keep the english alphabet, but include any");
 		writer.writeln("#      non-english characters at the end of the english alphabet/numbers/special");
 		writer.writeln("#      characters (e.g. attach entire Thai alphabet at the end of the line)");
-		writer.writeln("#  4.  in field:SearchBulletinRules, make sure to translate the english \"and\"");
-		writer.writeln("#      and \"or\" in the text to exactly match the keyword:and= and ");
-		writer.writeln("#      keyword:or= translations.  Also, the translation of the first sentence");
-		writer.writeln("#      should not exactly match the english version because Martus can handle");
-		writer.writeln("#      both english \"and\"/\"or\" and the translations of those keywords for");
-		writer.writeln("#      bulletin searching, since for some languages keyboards are not available");
-		writer.writeln("#      to all users in those alphabets. So please translate the following for the");
-		writer.writeln("#      first sentence: \"When searching for bulletins you can add key words either");
-		writer.writeln("#      in english or the-language-you-are-translating (or/or-translated,");
-		writer.writeln("#      and/and-translated) between multiple search term words");
-		writer.writeln("#      (e.g. prison or jail, prison and assault).");
-		writer.writeln("#  5.  in CreateCustomFieldsHelp2/3 fields, you can translate tags into foreign");
+		writer.writeln("#  4.  in CreateCustomFieldsHelp2/3 fields, you can translate tags into foreign");
 		writer.writeln("#      characters (but without punctuation or spaces)");
-		writer.writeln("#  6.  when there are file or directory names, do not translate them");
+		writer.writeln("#  5.  when there are file or directory names, do not translate them");
 		writer.writeln("#      (e.g.  \"acctmap.txt\" and \"packets\"");
 		writer.writeln("#      in field:confirmWarnMissingAccountMapFilecause=Warning: acctmap.txt");
 		writer.writeln("#      file in your account's packets directory...)");
-		writer.writeln("#  7.  do not translate the words \"Martus\" or \"Benetech\"");
-		writer.writeln("#  8.  Leave standard field tags in English in CreateCustomFieldsHelp1 and");
+		writer.writeln("#  6.  do not translate the words \"Martus\" or \"Benetech\"");
+		writer.writeln("#  7.  Leave standard field tags in English in CreateCustomFieldsHelp1 and");
 		writer.writeln("#      CreateCustomFieldsHelp2, but put translation in parentheses after");
 		writer.writeln("#      english : e.g.  'author' (autor), so users know what they refer to");
-		writer.writeln("#  9.  Leave field types in English in CreateCustomFieldsHelp2 (e.g. BOOLEAN,");
+		writer.writeln("#  8.  Leave field types in English in CreateCustomFieldsHelp2 (e.g. BOOLEAN,");
 		writer.writeln("#      DATE), but put translation in parentheses after english, so users know");
 		writer.writeln("#      what they refer to."); 
-		writer.writeln("# 10.  Leave field types in English in CreateCustomFieldsHelp3 examples");
+		writer.writeln("#  9.  Leave field types in English in CreateCustomFieldsHelp3 examples");
 		writer.writeln("#      (e.g. BOOLEAN, DATE)");
-		writer.writeln("# 11.  Do not translate words used in XML for custom fields such as:");  
+		writer.writeln("# 10.  Do not translate words used in XML for custom fields such as:");  
 		writer.writeln("#      <Field type='GRID'>, </Field>, <Tag>, </Tag>, <Label>, </Label>,");
 		writer.writeln("#      <GridSpecDetails>, </GridSpecDetails>, <Column>, </Column>,");
 		writer.writeln("#      <Message>, </Message>, <Choices>, </Choices>, <Choice>, </Choice>,");
 		writer.writeln("#      <Column type='STRING'>, <Column type='BOOLEAN'>, <Column type='DATE'>,");
 		writer.writeln("#      <Column type='DATERANGE'>, <Column type='DROPDOWN'>");
-		writer.writeln("# 12.  Do not translate words that are surrounded by #'s, but you may move");
+		writer.writeln("# 11.  Do not translate words that are surrounded by #'s, but you may move");
 		writer.writeln("#      them around as grammatically appropriate.");
 		writer.writeln("#      Example: #TotalNumberOfFilesInBackup#, #Titles#, #FieldLabel#, etc.");  
 		writer.writeln("#      as these words will be replaced when the program runs with");
@@ -130,13 +119,13 @@ public class UiLocalization extends MtfAwareLocalization
 		
 		if(rightToLeftLanguages.contains(languageCode))
 		{
-			writer.writeln("# 13.  If you want your language to appear left to right,");
+			writer.writeln("# 12.  If you want your language to appear left to right,");
 			writer.writeln("#      Comment the next line (by adding a # in front of !right-to-left)");
 			writer.writeln("!right-to-left");
 		}
 		else
 		{
-			writer.writeln("# 13.  If you want your language to appear right to left,");
+			writer.writeln("# 12.  If you want your language to appear right to left,");
 			writer.writeln("#      Uncomment the next line (by removing the # in front of #!right-to-left)");
 			writer.writeln("#!right-to-left");
 		}
