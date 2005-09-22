@@ -244,25 +244,6 @@ public class UiLocalization extends MtfAwareLocalization
 		return labels;
 	}
 
-	public ChoiceItem[] getLanguageNameChoices()
-	{
-		return getLanguageNameChoices(ALL_LANGUAGE_CODES);
-	}
-
-	public ChoiceItem[] getLanguageNameChoices(String[] languageCodes)
-	{
-		if(languageCodes == null)
-			return null;
-		ChoiceItem[] tempChoicesArray = new ChoiceItem[languageCodes.length];
-		for(int i = 0; i < languageCodes.length; i++)
-		{
-			tempChoicesArray[i] =
-				new ChoiceItem(languageCodes[i], getLanguageName(languageCodes[i]));
-		}
-		Arrays.sort(tempChoicesArray);
-		return tempChoicesArray;
-	}
-
 	public Vector getAllTranslationStrings(String languageCode)
 	{
 		SortedSet sorted = getAllKeysSorted();
