@@ -27,7 +27,6 @@ package org.martus.clientside.analyzerhelper;
 
 import java.io.File;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.zip.ZipFile;
 
 import org.martus.clientside.MtfAwareLocalization;
@@ -47,6 +46,7 @@ import org.martus.common.database.ReadableDatabase;
 import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.utilities.MartusFlexidate;
+import org.martus.util.MartusCalendar;
 
 public class MartusBulletinWrapper
 {
@@ -163,7 +163,7 @@ public class MartusBulletinWrapper
 		return MartusFlexidate.createFromMartusDateString(rawEventDate);
 	}
 	
-	public Calendar getEntryDate()
+	public MartusCalendar getEntryDate()
 	{
 		String entryDate = bulletin.get(BulletinConstants.TAGENTRYDATE);
 		try
