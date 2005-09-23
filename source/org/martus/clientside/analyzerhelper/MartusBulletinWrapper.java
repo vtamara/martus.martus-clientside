@@ -26,9 +26,8 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside.analyzerhelper;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.zip.ZipFile;
 
 import org.martus.clientside.MtfAwareLocalization;
@@ -164,13 +163,12 @@ public class MartusBulletinWrapper
 		return MartusFlexidate.createFromMartusDateString(rawEventDate);
 	}
 	
-	public Date getEntryDate()
+	public Calendar getEntryDate()
 	{
 		String entryDate = bulletin.get(BulletinConstants.TAGENTRYDATE);
-		DateFormat dfStored = FieldSpec.getStoredDateFormat();
 		try
 		{
-			return dfStored.parse(entryDate);
+			return FieldSpec.yyyymmddWithDashesToCalendar(entryDate);
 		}
 		catch(ParseException e)
 		{
