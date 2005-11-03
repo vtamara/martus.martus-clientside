@@ -26,7 +26,6 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside.analyzerhelper;
 
 import java.io.File;
-import java.text.ParseException;
 import java.util.zip.ZipFile;
 
 import org.martus.clientside.MtfAwareLocalization;
@@ -170,7 +169,7 @@ public class MartusBulletinWrapper
 		{
 			return FieldSpec.yyyymmddWithDashesToCalendar(entryDate);
 		}
-		catch(ParseException e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			return null;
