@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.Vector;
 import org.martus.common.ProgressMeterInterface;
 import org.martus.common.VersionBuildDate;
+import org.martus.common.MartusUtilities.NotYourBulletinErrorException;
 import org.martus.common.MartusUtilities.ServerErrorException;
 import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.crypto.MartusCrypto;
@@ -223,7 +224,7 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		}
 	}
 
-	public File retrieveBulletin(UniversalId uid, MartusCrypto security, int chunkSize, ProgressMeterInterface progressMeter) throws IOException, FileNotFoundException, MartusSignatureException, ServerErrorException, InvalidBase64Exception
+	public File retrieveBulletin(UniversalId uid, MartusCrypto security, int chunkSize, ProgressMeterInterface progressMeter) throws IOException, FileNotFoundException, MartusSignatureException, ServerErrorException, InvalidBase64Exception, NotYourBulletinErrorException
 	{
 		File tempFile = File.createTempFile("$$$MartusRetrievedBulletin", null);
 		tempFile.deleteOnExit();
