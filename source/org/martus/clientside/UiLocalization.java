@@ -46,7 +46,9 @@ public class UiLocalization extends MtfAwareLocalization
 	{
 		setCurrentLanguageCode("en");
 		String byteOrderMark = new String(new char[] {0xFEFF});
-		writer.writeln(byteOrderMark + "# Martus Client Translation File");
+		
+		writer.writeln(byteOrderMark + "# Translated by:");
+		writer.writeln("# Martus Client Translation File");
 		writer.writeln("# Language code:  " + languageCode);
 		writer.writeln("# Language name:  " + getLanguageName(languageCode));
 		writer.writeln("# Exported date:  " + new Date().toString());
