@@ -317,9 +317,9 @@ public class MtfAwareLocalization extends MiniLocalization
 
 		String minorTranslationVersion = "0";
 		String minorProgramVersion = "0";
-		if(translationVersion.length != 1)
+		if(translationVersion.length > 1)
 			minorTranslationVersion = translationVersion[1];
-		if(programVersion.length != 1)
+		if(programVersion.length > 1)
 			minorProgramVersion = programVersion[1];
 
 		return (minorTranslationVersion.equals(minorProgramVersion));
