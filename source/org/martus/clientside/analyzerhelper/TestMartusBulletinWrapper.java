@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside.analyzerhelper;
 
 import java.io.File;
+
 import org.martus.common.HQKey;
 import org.martus.common.HQKeys;
 import org.martus.common.MiniLocalization;
@@ -34,7 +35,6 @@ import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinConstants;
 import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.crypto.MartusSecurity;
-import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.test.MockBulletinStore;
 import org.martus.util.TestCaseEnhanced;
 
@@ -129,9 +129,9 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		assertEquals("Data for location not correct?", location, bulletinWrapper.getLocation());
 		assertEquals("PrivateData not visible?", privateData, bulletinWrapper.getPrivateInfo());
 		assertEquals("Is All Private incorrect?", bulletin.isAllPrivate(), bulletinWrapper.isAllPrivate());
-		assertEquals("Entry Date incorrect?", entryDate, FieldSpec.calendarToYYYYMMDD(bulletinWrapper.getEntryDate()));
-		assertEquals("Event Begin Date incorrect?", "2003-08-20", FieldSpec.calendarToYYYYMMDD(bulletinWrapper.getEventDate().getBeginDate()));
-		assertEquals("Event End Date incorrect?", "2003-08-23", FieldSpec.calendarToYYYYMMDD(bulletinWrapper.getEventDate().getEndDate()));
+		assertEquals("Entry Date incorrect?", entryDate, bulletinWrapper.getEntryDate().calendarToYYYYMMDD());
+		assertEquals("Event Begin Date incorrect?", "2003-08-20", bulletinWrapper.getEventDate().getBeginDate().calendarToYYYYMMDD());
+		assertEquals("Event End Date incorrect?", "2003-08-23", bulletinWrapper.getEventDate().getEndDate().calendarToYYYYMMDD());
 		assertEquals("Has Public attachments?", 0, bulletinWrapper.getPublicAttachments().length);
 		assertEquals("Has Private attachments?", 0, bulletinWrapper.getPrivateAttachments().length);
 		bulletinWrapper.deleteAllData();

@@ -42,7 +42,6 @@ import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.database.ClientFileDatabase;
 import org.martus.common.database.DatabaseKey;
 import org.martus.common.database.ReadableDatabase;
-import org.martus.common.fieldspec.FieldSpec;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.utilities.MartusFlexidate;
 import org.martus.util.MartusCalendar;
@@ -167,7 +166,7 @@ public class MartusBulletinWrapper
 		String entryDate = bulletin.get(BulletinConstants.TAGENTRYDATE);
 		try
 		{
-			return FieldSpec.yyyymmddWithDashesToCalendar(entryDate);
+			return MartusCalendar.yyyymmddWithDashesToCalendar(entryDate);
 		}
 		catch(Exception e)
 		{
