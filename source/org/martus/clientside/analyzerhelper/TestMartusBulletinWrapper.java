@@ -129,9 +129,9 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		assertEquals("Data for location not correct?", location, bulletinWrapper.getLocation());
 		assertEquals("PrivateData not visible?", privateData, bulletinWrapper.getPrivateInfo());
 		assertEquals("Is All Private incorrect?", bulletin.isAllPrivate(), bulletinWrapper.isAllPrivate());
-		assertEquals("Entry Date incorrect?", entryDate, bulletinWrapper.getEntryDate().calendarToYYYYMMDD());
-		assertEquals("Event Begin Date incorrect?", "2003-08-20", bulletinWrapper.getEventDate().getBeginDate().calendarToYYYYMMDD());
-		assertEquals("Event End Date incorrect?", "2003-08-23", bulletinWrapper.getEventDate().getEndDate().calendarToYYYYMMDD());
+		assertEquals("Entry Date incorrect?", entryDate, bulletinWrapper.getEntryDate().toIsoDateString());
+		assertEquals("Event Begin Date incorrect?", "2003-08-20", bulletinWrapper.getEventDate().getBeginDate().toIsoDateString());
+		assertEquals("Event End Date incorrect?", "2003-08-23", bulletinWrapper.getEventDate().getEndDate().toIsoDateString());
 		assertEquals("Has Public attachments?", 0, bulletinWrapper.getPublicAttachments().length);
 		assertEquals("Has Private attachments?", 0, bulletinWrapper.getPrivateAttachments().length);
 		bulletinWrapper.deleteAllData();

@@ -166,7 +166,7 @@ public class MartusBulletinWrapper
 		String entryDate = bulletin.get(BulletinConstants.TAGENTRYDATE);
 		try
 		{
-			return MartusCalendar.yyyymmddWithDashesToCalendar(entryDate);
+			return MartusCalendar.createFromIsoDateString(entryDate);
 		}
 		catch(Exception e)
 		{
