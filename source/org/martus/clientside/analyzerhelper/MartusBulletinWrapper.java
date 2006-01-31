@@ -44,7 +44,7 @@ import org.martus.common.database.DatabaseKey;
 import org.martus.common.database.ReadableDatabase;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.utilities.MartusFlexidate;
-import org.martus.util.MartusCalendar;
+import org.martus.util.MultiCalendar;
 
 public class MartusBulletinWrapper
 {
@@ -161,12 +161,12 @@ public class MartusBulletinWrapper
 		return MartusFlexidate.createFromBulletinFlexidateFormat(rawEventDate);
 	}
 	
-	public MartusCalendar getEntryDate()
+	public MultiCalendar getEntryDate()
 	{
 		String entryDate = bulletin.get(BulletinConstants.TAGENTRYDATE);
 		try
 		{
-			return MartusCalendar.createFromIsoDateString(entryDate);
+			return MultiCalendar.createFromIsoDateString(entryDate);
 		}
 		catch(Exception e)
 		{
