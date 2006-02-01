@@ -307,8 +307,8 @@ public class MtfAwareLocalization extends MiniLocalization
 	
 	public boolean doesTranslationVersionMatchProgramVersion(String languageCodeToTest, String rawProgramVersion)
 	{
-		String[] translationVersion = getTranslationVersion(languageCodeToTest).split("\\.");
-		String[] programVersion = extractVersion(rawProgramVersion).split("\\.");
+		String[] translationVersion = getTranslationVersionNumber(languageCodeToTest).split("\\.");
+		String[] programVersion = extractVersionNumber(rawProgramVersion).split("\\.");
 
 		String majorTranslationVersion = translationVersion[0];
 		String majorProgramVersion = programVersion[0];
@@ -325,15 +325,20 @@ public class MtfAwareLocalization extends MiniLocalization
 		return (minorTranslationVersion.equals(minorProgramVersion));
 	}
 
-	public String getTranslationVersion(String candidateLanguageCode) 
+	public String getTranslationFullVersionInfo()
+	{
+		return getFieldLabel("translationVersion");
+	}
+	
+	public String getTranslationVersionNumber(String candidateLanguageCode) 
 	{
 		loadTranslationFile(candidateLanguageCode);
-		String translationRawVersion = extractVersion(getFieldLabel(candidateLanguageCode, "translationVersion"));
-		return extractVersion(translationRawVersion);
+		String translationRawVersion = extractVersionNumber(getFieldLabel(candidateLanguageCode, "translationVersion"));
+		return extractVersionNumber(translationRawVersion);
 	}
 
 	
-	public String extractVersion(String rawVersion)
+	public String extractVersionNumber(String rawVersion)
 	{
 		StringBuffer version = new StringBuffer();
 		for (int i = 0; i < rawVersion.length(); ++i) 
