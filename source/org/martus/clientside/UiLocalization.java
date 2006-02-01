@@ -144,7 +144,10 @@ public class UiLocalization extends MtfAwareLocalization
 			Arrays.fill(filler, '_');
 			filler[0] = '#';
 			String result = new String(filler) + englishMtfEntry.substring(keyEnd);
-
+			
+			if(key.equals("field:translationVersion"))
+				mtfEntry += addProgramVersionNumber();
+			
 			writer.writeln();
 			writer.writeln(result);
 			writer.writeln(mtfEntry);
