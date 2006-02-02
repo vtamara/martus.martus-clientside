@@ -43,7 +43,7 @@ import org.martus.util.UnicodeReader;
 import org.martus.util.inputstreamwithseek.ZipEntryInputStreamWithSeekThatClosesZipFile;
 
 
-public class MtfAwareLocalization extends MiniLocalization
+abstract public class MtfAwareLocalization extends MiniLocalization
 {
 	public MtfAwareLocalization(File directoryToUse)
 	{
@@ -52,6 +52,8 @@ public class MtfAwareLocalization extends MiniLocalization
 		includeOfficialLanguagesOnly = true;
 	}
 	
+	abstract public String getProgramVersionLabel();
+
 	/////////////////////////////////////////////////////////////////
 	// Text-oriented stuff
 	public void setCurrentLanguageCode(String newLanguageCode)
@@ -345,7 +347,7 @@ public class MtfAwareLocalization extends MiniLocalization
 	
 	public String addProgramVersionNumber()
 	{
-		return " " + UiConstants.versionLabel;
+		return " " + getProgramVersionLabel();
 	}
 
 	public String getTranslationVersionNumber(String candidateLanguageCode) 

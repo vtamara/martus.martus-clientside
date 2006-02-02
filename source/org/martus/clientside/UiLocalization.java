@@ -39,7 +39,7 @@ import org.martus.common.fieldspec.ChoiceItem;
 import org.martus.util.UnicodeWriter;
 
 
-public class UiLocalization extends MtfAwareLocalization
+abstract public class UiLocalization extends MtfAwareLocalization
 {
     public void exportTranslations(String languageCode, String versionLabel, UnicodeWriter writer)
 		throws IOException 

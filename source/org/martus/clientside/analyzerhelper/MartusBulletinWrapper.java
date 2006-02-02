@@ -53,7 +53,7 @@ public class MartusBulletinWrapper
 		File tempDirectory = null;
 		try
 		{
-			localization  = new UiLocalization(getHomeDirectory(), EnglishCommonStrings.strings);	
+			localization  = new BulletnLocalization(getHomeDirectory(), EnglishCommonStrings.strings);	
 			localization.setCurrentLanguageCode(MtfAwareLocalization.ENGLISH);			
 			
 			tempDirectory = File.createTempFile("$$$BulletinWrapperDB", null);
@@ -255,9 +255,20 @@ public class MartusBulletinWrapper
 		bulletin.clearPrivateAttachments();
 	}
 	
-	
+	class BulletnLocalization extends UiLocalization
+	{
+		public BulletnLocalization(File directoryToUse, String[] englishTranslations)
+		{
+			super(directoryToUse, englishTranslations);
+		}
+
+		public String getProgramVersionLabel()
+		{
+			return "Bulletin Localization 1.0";
+		}
+	}
 	
 	private Bulletin bulletin;
 	private BulletinStore store;
-	private UiLocalization localization;
+	private BulletnLocalization localization;
 }

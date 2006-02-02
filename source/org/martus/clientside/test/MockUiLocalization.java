@@ -57,5 +57,10 @@ public class MockUiLocalization extends UiLocalization
 	{
 		return "<" + tag + ">";
 	}
+	
+	public String getProgramVersionLabel()
+	{
+		return "MockVersion 1.0";
+	}
 
 }
