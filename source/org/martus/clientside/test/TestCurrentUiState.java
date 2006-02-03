@@ -232,6 +232,28 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong Initial PreviewSplitterPosition?", 100, loaded.getCurrentPreviewSplitterPosition());
 		assertEquals("Wrong Initial FolderSplitterPosition?", 180, loaded.getCurrentFolderSplitterPosition());
 	}
+	
+	public void testStateFileFromFuture() throws Exception
+	{
+		class FutureUiState extends CurrentUiState
+		{
+			public int getVersion()
+			{
+				return super.getVersion() + 1;
+			}
+		}
+		
+		FutureUiState state = new FutureUiState();
+		state.setCurrentFolder("testing");
+		File file = createTempFileFromName("$$$TestCurrentFolder");
+		state.save(file);
+		
+		CurrentUiState loaded = new CurrentUiState();
+		loaded.load(file);
+		assertEquals("didn't load future folder?", state.getCurrentFolder(), loaded.getCurrentFolder());
+		
+		file.delete();
+	}
 
 	public class BadVersionUiState extends CurrentUiState
 	{

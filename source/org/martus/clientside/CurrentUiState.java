@@ -51,6 +51,11 @@ public class CurrentUiState
 		currentEditorDimension = new Dimension();
 		currentEditorPosition = new Point();
 	}
+	
+	public int getVersion()
+	{
+		return VERSION;
+	}
 
 	public void setCurrentFolder(String folderName)
 	{
@@ -222,7 +227,7 @@ public class CurrentUiState
 			FileOutputStream outputStream = new FileOutputStream(file);
 			DataOutputStream out = new DataOutputStream(outputStream);
 			out.writeInt(uiStateFirstIntegerInFile);
-			out.writeShort(VERSION);
+			out.writeShort(getVersion());
 			out.writeUTF(currentFolderName);
 			out.writeUTF(currentSortTag);
 			out.writeInt(currentSortDirection);
