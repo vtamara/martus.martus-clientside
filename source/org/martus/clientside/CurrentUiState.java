@@ -35,6 +35,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.martus.common.MiniLocalization;
 import org.martus.util.language.LanguageOptions;
 
 public class CurrentUiState
@@ -50,6 +51,7 @@ public class CurrentUiState
 		currentAppPosition = new Point();
 		currentEditorDimension = new Dimension();
 		currentEditorPosition = new Point();
+		currentCalendarSystem = MiniLocalization.GREGORIAN_SYSTEM;
 	}
 	
 	public int getVersion()
@@ -183,6 +185,11 @@ public class CurrentUiState
 	{
 		return currentEditorPosition;
 	}
+	
+	public String getCurrentCalendarSystem()
+	{
+		return currentCalendarSystem;
+	}
 
 	public void setCurrentAppDimension(Dimension currentAppDimension)
 	{
@@ -212,6 +219,11 @@ public class CurrentUiState
 	public void setCurrentEditorPosition(Point currentEditorPosition)
 	{
 		this.currentEditorPosition = currentEditorPosition;
+	}
+	
+	public void setCurrentCalendarSystem(String calendarSystem)
+	{
+		this.currentCalendarSystem = calendarSystem;
 	}
 	
 	public void save()
@@ -252,6 +264,8 @@ public class CurrentUiState
 			out.writeBoolean(currentEditorMaximized);
 
 			out.writeUTF(OPERATING_STATE_OK);
+			
+			out.writeUTF(currentCalendarSystem);
 
 			out.flush();
 			out.close();
@@ -300,6 +314,10 @@ public class CurrentUiState
 						if(version > 3)
 						{
 							in.readUTF();//OPERATING_STATE_OK
+							if(version > 5)
+							{
+								currentCalendarSystem = in.readUTF();
+							}
 						}
 					}
 				}
@@ -334,7 +352,7 @@ public class CurrentUiState
 	boolean modifyingBulletin;
 	
 	
-	public static final short VERSION = 5;
+	public static final short VERSION = 6;
 	//Version 1
 	protected static int uiStateFirstIntegerInFile = 2002;
 	protected String currentFolderName;
@@ -366,5 +384,8 @@ public class CurrentUiState
 	
 	//Version 5 
 	//Removed currentOperatingState
+	
+	//Version 6
+	public String currentCalendarSystem; 
 	
 }

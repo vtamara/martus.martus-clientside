@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
 import org.martus.clientside.CurrentUiState;
+import org.martus.common.MiniLocalization;
 import org.martus.util.TestCaseEnhanced;
 import org.martus.util.language.LanguageOptions;
 
@@ -49,7 +50,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 	public void testDefaultValues() throws Exception
 	{
 		CurrentUiState state = new CurrentUiState();
-		assertEquals("Current Version not 5 - more tests needed?", 5, CurrentUiState.VERSION);
+		assertEquals("Current Version not 5 - more tests needed?", 6, CurrentUiState.VERSION);
 
 		assertEquals("Default Keyboard not Virtual?", true, state.isCurrentDefaultKeyboardVirtual());
 		assertEquals("Default PreviewSplitterPosition not 100?", 100, state.getCurrentPreviewSplitterPosition());
@@ -104,6 +105,8 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		Dimension sampleEditorDimension = new Dimension(123, 43);
 		Point sampleEditorPosition = new Point(2, 99);
 		boolean sampleEditorMaximized = true;
+		
+		String sampleCalendarSystem = MiniLocalization.GREGORIAN_SYSTEM;
 
 		CurrentUiState state = new CurrentUiState();
 
@@ -125,6 +128,8 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		state.setCurrentEditorDimension(sampleEditorDimension);
 		state.setCurrentEditorPosition(sampleEditorPosition);
 		state.setCurrentEditorMaximized(sampleEditorMaximized);
+		
+		state.setCurrentCalendarSystem(sampleCalendarSystem);
 
 
 		File file = createTempFileFromName("$$$TestCurrentFolder");
@@ -149,6 +154,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong Editor Position?", sampleEditorPosition, loaded.getCurrentEditorPosition());
 		assertEquals("Wrong Editor Maximized?", sampleEditorMaximized, loaded.isCurrentEditorMaximized());
 
+		assertEquals("Wrong calendar system?", sampleCalendarSystem, loaded.getCurrentCalendarSystem());
 
 		file.delete();
 	}
@@ -231,6 +237,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong Language?", sampleLanguage, loaded.getCurrentLanguage());
 		assertEquals("Wrong Initial PreviewSplitterPosition?", 100, loaded.getCurrentPreviewSplitterPosition());
 		assertEquals("Wrong Initial FolderSplitterPosition?", 180, loaded.getCurrentFolderSplitterPosition());
+		assertEquals("Wrong calendar?", MiniLocalization.GREGORIAN_SYSTEM, loaded.getCurrentCalendarSystem());
 	}
 	
 	public void testStateFileFromFuture() throws Exception
