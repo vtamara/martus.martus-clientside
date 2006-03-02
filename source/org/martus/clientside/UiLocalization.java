@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.Vector;
+
 import org.martus.common.VersionBuildDate;
 import org.martus.common.fieldspec.ChoiceItem;
 import org.martus.util.UnicodeWriter;
@@ -207,6 +208,17 @@ abstract public class UiLocalization extends MtfAwareLocalization
 				nonDuplicateLanguages.addElement(languageChoiceItem);
 		}
 		return nonDuplicateLanguages;
+	}
+	
+	public ChoiceItem[] getAvailableCalendarSystems()
+	{
+		ChoiceItem[] calendarChoices = new ChoiceItem[ALL_CALENDAR_SYSTEMS.length];
+		for(int i = 0; i < calendarChoices.length; ++i)
+		{
+			String system = ALL_CALENDAR_SYSTEMS[i];
+			calendarChoices[i] = new ChoiceItem(system, getFieldLabel("CalendarSystem" + system));
+		}
+		return calendarChoices;
 	}
 	
 	public String getLocalizedFolderName(String folderName)
