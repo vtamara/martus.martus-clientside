@@ -166,7 +166,7 @@ public class MartusBulletinWrapper
 		String entryDate = bulletin.get(BulletinConstants.TAGENTRYDATE);
 		try
 		{
-			return MultiCalendar.createFromIsoDateString(entryDate);
+			return localization.createCalendarFromIsoDateString(entryDate);
 		}
 		catch(Exception e)
 		{
