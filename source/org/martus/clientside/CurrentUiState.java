@@ -191,6 +191,16 @@ public class CurrentUiState
 		return currentCalendarSystem;
 	}
 
+	public boolean getAdjustThaiLegacyDates()
+	{
+		return currentAdjustThaiLegacyDates;
+	}
+	
+	public boolean getAdjustPersianLegacyDates()
+	{
+		return currentAdjustPersianLegacyDates;
+	}
+	
 	public void setCurrentAppDimension(Dimension currentAppDimension)
 	{
 		this.currentAppDimension = currentAppDimension;
@@ -224,6 +234,16 @@ public class CurrentUiState
 	public void setCurrentCalendarSystem(String calendarSystem)
 	{
 		this.currentCalendarSystem = calendarSystem;
+	}
+	
+	public void setCurrentAdjustThaiLegacyDates(boolean newThaiAdjust)
+	{
+		currentAdjustThaiLegacyDates = newThaiAdjust;
+	}
+	
+	public void setCurrentAdjustPersianLegacyDates(boolean newPersianAdjust)
+	{
+		currentAdjustPersianLegacyDates = newPersianAdjust;
 	}
 	
 	public void save()
@@ -266,6 +286,9 @@ public class CurrentUiState
 			out.writeUTF(OPERATING_STATE_OK);
 			
 			out.writeUTF(currentCalendarSystem);
+			
+			out.writeBoolean(currentAdjustThaiLegacyDates);
+			out.writeBoolean(currentAdjustPersianLegacyDates);
 
 			out.flush();
 			out.close();
@@ -284,50 +307,70 @@ public class CurrentUiState
 		{
 			FileInputStream inputStream = new FileInputStream(file);
 			DataInputStream in = new DataInputStream(inputStream);
-			if(isCorrectFileFormat(in))
+			try
 			{
-				short version = in.readShort();
-				currentFolderName = in.readUTF();
-				currentSortTag = in.readUTF();
-				currentSortDirection = in.readInt();
-				currentBulletinPosition = in.readInt();
-				currentDefaultKeyboardIsVirtual = in.readBoolean();
-				currentDateFormat = in.readUTF();
-				currentLanguage = in.readUTF();
-				if(version > 1)
-				{
-					currentPreviewSplitterPosition = in.readInt();
-					currentLeftToRightFolderSplitterPosition = in.readInt();
-					if(version > 2)
-					{
-						currentAppDimension.height = in.readInt();
-						currentAppDimension.width = in.readInt();
-						currentAppPosition.x = in.readInt();
-						currentAppPosition.y = in.readInt();
-						currentAppMaximized = in.readBoolean();
-
-						currentEditorDimension.height = in.readInt();
-						currentEditorDimension.width = in.readInt();
-						currentEditorPosition.x = in.readInt();
-						currentEditorPosition.y = in.readInt();
-						currentEditorMaximized = in.readBoolean();
-						if(version > 3)
-						{
-							in.readUTF();//OPERATING_STATE_OK
-							if(version > 5)
-							{
-								currentCalendarSystem = in.readUTF();
-							}
-						}
-					}
-				}
+				load(in);
 			}
-			in.close();
+			finally
+			{
+				in.close();
+			}
 		}
 		catch (Exception e)
 		{
 			//System.out.println("CurrentUiState.load " + e);
 		}
+	}
+
+	private void load(DataInputStream in) throws IOException
+	{
+		if(!isCorrectFileFormat(in))
+			return;
+		
+		short version = in.readShort();
+		currentFolderName = in.readUTF();
+		currentSortTag = in.readUTF();
+		currentSortDirection = in.readInt();
+		currentBulletinPosition = in.readInt();
+		currentDefaultKeyboardIsVirtual = in.readBoolean();
+		currentDateFormat = in.readUTF();
+		currentLanguage = in.readUTF();
+
+		if(version < 2)
+			return;
+		currentPreviewSplitterPosition = in.readInt();
+		currentLeftToRightFolderSplitterPosition = in.readInt();
+
+		if(version < 3)
+			return;
+		
+		currentAppDimension.height = in.readInt();
+		currentAppDimension.width = in.readInt();
+		currentAppPosition.x = in.readInt();
+		currentAppPosition.y = in.readInt();
+		currentAppMaximized = in.readBoolean();
+
+		currentEditorDimension.height = in.readInt();
+		currentEditorDimension.width = in.readInt();
+		currentEditorPosition.x = in.readInt();
+		currentEditorPosition.y = in.readInt();
+		currentEditorMaximized = in.readBoolean();
+
+		if(version < 4)
+			return;
+		
+		in.readUTF();//OPERATING_STATE_OK
+
+		if(version < 6)
+			return;
+		
+		currentCalendarSystem = in.readUTF();
+		
+		if(version < 7)
+			return;
+		
+		currentAdjustThaiLegacyDates = in.readBoolean();
+		currentAdjustPersianLegacyDates = in.readBoolean();
 	}
 
 	private boolean isCorrectFileFormat(DataInputStream in) throws IOException
@@ -352,7 +395,7 @@ public class CurrentUiState
 	boolean modifyingBulletin;
 	
 	
-	public static final short VERSION = 6;
+	public static final short VERSION = 7;
 	//Version 1
 	protected static int uiStateFirstIntegerInFile = 2002;
 	protected String currentFolderName;
@@ -387,5 +430,9 @@ public class CurrentUiState
 	
 	//Version 6
 	public String currentCalendarSystem; 
+	
+	//Version 7
+	public boolean currentAdjustThaiLegacyDates;
+	public boolean currentAdjustPersianLegacyDates;
 	
 }
