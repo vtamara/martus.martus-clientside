@@ -158,7 +158,7 @@ public class MartusBulletinWrapper
 	public MartusFlexidate getEventDate()
 	{
 		String rawEventDate = bulletin.get(BulletinConstants.TAGEVENTDATE);
-		return MartusFlexidate.createFromBulletinFlexidateFormat(rawEventDate);
+		return localization.createFlexidateFromStoredData(rawEventDate);
 	}
 	
 	public MultiCalendar getEntryDate()
