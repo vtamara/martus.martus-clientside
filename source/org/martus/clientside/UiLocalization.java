@@ -248,11 +248,20 @@ abstract public class UiLocalization extends MtfAwareLocalization
 
 	public String[] getMonthLabels()
 	{
+		String[] legacyMonthTags = {
+				"jan", "feb", "mar", "apr", "may", "jun",
+				"jul", "aug", "sep", "oct", "nov", "dec",
+		};
 		int months = 12;
 		String calendarSystem = getCurrentCalendarSystem();
 		String[] labels = new String[months];
 		for(int i = 0; i < labels.length; ++i)
-			labels[i] = getMonthLabel(calendarSystem + Integer.toString(i + 1));
+		{
+			String tag = calendarSystem + Integer.toString(i + 1);
+			if(!hasTranslation("month:" + tag))
+				tag = legacyMonthTags[i];
+			labels[i] = getMonthLabel(tag);
+		}
 
 		return labels;
 	}
