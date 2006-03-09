@@ -258,7 +258,7 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		for(int i = 0; i < labels.length; ++i)
 		{
 			String tag = calendarSystem + Integer.toString(i + 1);
-			if(!hasTranslation("month:" + tag))
+			if(calendarSystem.equals(GREGORIAN_SYSTEM))
 				tag = legacyMonthTags[i];
 			labels[i] = getMonthLabel(tag);
 		}
