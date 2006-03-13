@@ -52,6 +52,7 @@ public class CurrentUiState
 		currentEditorDimension = new Dimension();
 		currentEditorPosition = new Point();
 		currentCalendarSystem = MiniLocalization.GREGORIAN_SYSTEM;
+		searchFinalBulletinsOnly = false;
 	}
 	
 	public int getVersion()
@@ -145,7 +146,7 @@ public class CurrentUiState
 			return splitterPosition;
 		return currentAppDimension.width - splitterPosition;
 	}
-
+	
 	public int getCurrentPreviewSplitterPosition()
 	{
 		return currentPreviewSplitterPosition;
@@ -199,6 +200,16 @@ public class CurrentUiState
 	public boolean getAdjustPersianLegacyDates()
 	{
 		return currentAdjustPersianLegacyDates;
+	}
+	
+	public boolean searchFinalBulletinsOnly()
+	{
+		return searchFinalBulletinsOnly;
+	}
+	
+	public void setSearchFinalBulletinsOnly(boolean searchFinalBulletinsOnly)
+	{
+		this.searchFinalBulletinsOnly = searchFinalBulletinsOnly;
 	}
 	
 	public void setCurrentAppDimension(Dimension currentAppDimension)
@@ -289,6 +300,8 @@ public class CurrentUiState
 			
 			out.writeBoolean(currentAdjustThaiLegacyDates);
 			out.writeBoolean(currentAdjustPersianLegacyDates);
+			
+			out.writeBoolean(searchFinalBulletinsOnly);
 
 			out.flush();
 			out.close();
@@ -371,6 +384,12 @@ public class CurrentUiState
 		
 		currentAdjustThaiLegacyDates = in.readBoolean();
 		currentAdjustPersianLegacyDates = in.readBoolean();
+		
+		if(version < 8)
+			return;
+		
+		searchFinalBulletinsOnly = in.readBoolean();
+		
 	}
 
 	private boolean isCorrectFileFormat(DataInputStream in) throws IOException
@@ -395,7 +414,7 @@ public class CurrentUiState
 	boolean modifyingBulletin;
 	
 	
-	public static final short VERSION = 7;
+	public static final short VERSION = 8;
 	//Version 1
 	protected static int uiStateFirstIntegerInFile = 2002;
 	protected String currentFolderName;
@@ -434,5 +453,8 @@ public class CurrentUiState
 	//Version 7
 	public boolean currentAdjustThaiLegacyDates;
 	public boolean currentAdjustPersianLegacyDates;
+	
+	//Version 8
+	public boolean searchFinalBulletinsOnly;
 	
 }
