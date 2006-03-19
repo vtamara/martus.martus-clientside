@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.Vector;
 import org.martus.common.ProgressMeterInterface;
 import org.martus.common.VersionBuildDate;
+import org.martus.common.MartusUtilities.BulletinNotFoundException;
 import org.martus.common.MartusUtilities.NotYourBulletinErrorException;
 import org.martus.common.MartusUtilities.ServerErrorException;
 import org.martus.common.bulletin.BulletinZipUtilities;
@@ -224,17 +225,23 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		}
 	}
 
-	public File retrieveBulletin(UniversalId uid, MartusCrypto security, int chunkSize, ProgressMeterInterface progressMeter) throws IOException, FileNotFoundException, MartusSignatureException, ServerErrorException, InvalidBase64Exception, NotYourBulletinErrorException
+	public File retrieveBulletin(UniversalId uid, MartusCrypto security,
+			int chunkSize, ProgressMeterInterface progressMeter)
+			throws IOException, FileNotFoundException,
+			MartusSignatureException, ServerErrorException,
+			InvalidBase64Exception, NotYourBulletinErrorException,
+			BulletinNotFoundException
 	{
 		File tempFile = File.createTempFile("$$$MartusRetrievedBulletin", null);
 		tempFile.deleteOnExit();
 		FileOutputStream outputStream = new FileOutputStream(tempFile);
-	
-		int masterTotalSize = BulletinZipUtilities.retrieveBulletinZipToStream(uid, outputStream,
-				chunkSize, this,  security,	progressMeter);
+
+		int masterTotalSize = BulletinZipUtilities.retrieveBulletinZipToStream(
+				uid, outputStream, chunkSize, this, security, progressMeter);
 		outputStream.close();
-		if(tempFile.length() != masterTotalSize)
-			throw new ServerErrorException("bulletin totalSize didn't match data length");
+		if (tempFile.length() != masterTotalSize)
+			throw new ServerErrorException(
+					"bulletin totalSize didn't match data length");
 		return tempFile;
 	}
 
