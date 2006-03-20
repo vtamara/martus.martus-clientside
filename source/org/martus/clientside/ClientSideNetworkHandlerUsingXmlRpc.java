@@ -28,6 +28,7 @@ package org.martus.clientside;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -40,6 +41,7 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.SimpleHostnameVerifier;
 import org.martus.common.network.SimpleX509TrustManager;
+import org.martus.util.Stopwatch;
 
 public class ClientSideNetworkHandlerUsingXmlRpc
 	implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants, NetworkInterface
@@ -326,7 +328,13 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
 		// memory exceptions if we reuse an XmlRpcClient object
 		XmlRpcClient client = new XmlRpcClient(serverUrl);
-		return client.execute("MartusServer." + method, params);
+		Stopwatch sw = new Stopwatch();
+		Object result = client.execute("MartusServer." + method, params);
+		sw.stop();
+		final int MAX_EXPECTED_TIME_MILLIS = 60 * 1000;
+		if(sw.elapsed() > MAX_EXPECTED_TIME_MILLIS)
+			System.out.println("SLOW SERVER: " + new Date() + " " + serverUrl + " " + method + " " + sw.elapsed()/1000 + " seconds");
+		return result;
 	}
 
 	public SimpleX509TrustManager getSimpleX509TrustManager()
