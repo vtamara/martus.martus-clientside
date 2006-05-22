@@ -120,7 +120,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		streamIn.close();
 	}
 	
-	private class TestServerNetworkInterfaceForNonSSLHandler extends NonSSLNetworkAPI
+	class TestServerNetworkInterfaceForNonSSLHandler extends NonSSLNetworkAPI
 	{
 
 		public String ping()
