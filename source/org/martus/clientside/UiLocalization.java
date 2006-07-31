@@ -118,16 +118,18 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#      a particular value.");  
 		writer.writeln("#      For Example. #TotalNumberOfFilesInBackup# = '5'");
 		writer.writeln("#                   #Titles# = 'A list of bulletin titles'");
+		writer.writeln("# 12.  Do not translate the numbers in the field:translationVersion string.");
+		writer.writeln("# 13.  Do not translate the numbers in the field:ErrorCustomFields string.");
 		
 		if(rightToLeftLanguages.contains(languageCode))
 		{
-			writer.writeln("# 12.  If you want your language to appear left to right,");
+			writer.writeln("# 14.  If you want your language to appear left to right,");
 			writer.writeln("#      Comment the next line (by adding a # in front of !right-to-left)");
 			writer.writeln("!right-to-left");
 		}
 		else
 		{
-			writer.writeln("# 12.  If you want your language to appear right to left,");
+			writer.writeln("# 14.  If you want your language to appear right to left,");
 			writer.writeln("#      Uncomment the next line (by removing the # in front of #!right-to-left)");
 			writer.writeln("#!right-to-left");
 		}
