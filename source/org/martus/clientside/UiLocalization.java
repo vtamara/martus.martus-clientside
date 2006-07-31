@@ -120,16 +120,26 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#                   #Titles# = 'A list of bulletin titles'");
 		writer.writeln("# 12.  Do not translate the numbers in the field:translationVersion string.");
 		writer.writeln("# 13.  Do not translate the numbers in the field:ErrorCustomFields string.");
+		writer.writeln("# 14.  For Thai and Persian months, please do the following:");
+		writer.writeln("#          - for a Thai translation, Thai months should be the same as the translation");
+		writer.writeln("#            of regular months, and Persian dates are the same as in English.");
+		writer.writeln("#          - for a Persian translation, both Thai and Persian months");
+		writer.writeln("#            should be the same as the translation of regular months");
+		writer.writeln("#          - for an Arabic translation, Thai months should be the same as");
+		writer.writeln("#            the translation of regular months, but do an Arabic translation");
+		writer.writeln("#            (or transliteration) of Persian dates (not the same as in English).");
+		writer.writeln("#          - for all other languages, Thai and Persian dates can be the same");
+		writer.writeln("#            as the translation of regular months");
 		
 		if(rightToLeftLanguages.contains(languageCode))
 		{
-			writer.writeln("# 14.  If you want your language to appear left to right,");
+			writer.writeln("# 15.  If you want your language to appear left to right,");
 			writer.writeln("#      Comment the next line (by adding a # in front of !right-to-left)");
 			writer.writeln("!right-to-left");
 		}
 		else
 		{
-			writer.writeln("# 14.  If you want your language to appear right to left,");
+			writer.writeln("# 15.  If you want your language to appear right to left,");
 			writer.writeln("#      Uncomment the next line (by removing the # in front of #!right-to-left)");
 			writer.writeln("#!right-to-left");
 		}
