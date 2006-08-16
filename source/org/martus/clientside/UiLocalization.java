@@ -130,16 +130,19 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#            (or transliteration) of Persian dates (not the same as in English).");
 		writer.writeln("#          - for all other languages, Thai and Persian dates can be the same");
 		writer.writeln("#            as the translation of regular months");
-		
+		writer.writeln("# 15       - We have file filters like 'Martus Report Format (.mrf)'");
+		writer.writeln("#            and 'Martus Search Specification (.mss)'.");
+		writer.writeln("#            The descriptive names should be translated, but the (.mrf) and (.mss)");
+		writer.writeln("#            must not be translated.");
 		if(rightToLeftLanguages.contains(languageCode))
 		{
-			writer.writeln("# 15.  If you want your language to appear left to right,");
+			writer.writeln("# 16.  If you want your language to appear left to right,");
 			writer.writeln("#      Comment the next line (by adding a # in front of !right-to-left)");
 			writer.writeln("!right-to-left");
 		}
 		else
 		{
-			writer.writeln("# 15.  If you want your language to appear right to left,");
+			writer.writeln("# 16.  If you want your language to appear right to left,");
 			writer.writeln("#      Uncomment the next line (by removing the # in front of #!right-to-left)");
 			writer.writeln("#!right-to-left");
 		}
