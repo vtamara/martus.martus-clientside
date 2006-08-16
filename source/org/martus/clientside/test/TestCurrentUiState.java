@@ -50,11 +50,12 @@ public class TestCurrentUiState extends TestCaseEnhanced
 	public void testDefaultValues() throws Exception
 	{
 		CurrentUiState state = new CurrentUiState();
-		assertEquals("Current Version not correct - more tests needed?", 8, CurrentUiState.VERSION);
+		assertEquals("Current Version not correct - more tests needed?", 9, CurrentUiState.VERSION);
 
 		assertEquals("Default Keyboard not Virtual?", true, state.isCurrentDefaultKeyboardVirtual());
 		assertEquals("Default PreviewSplitterPosition not 100?", 100, state.getCurrentPreviewSplitterPosition());
 		assertEquals("Default FolderSplitterPosition not 180?", 180, state.getCurrentFolderSplitterPosition());
+		assertEquals("Default searchString not blank?", "", state.getSearchString());
 	}
 
 	public void testDefaultValuesRightToLeft() throws Exception
@@ -111,6 +112,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		boolean sampleAdjustThai = true;
 		boolean sampleAdjustPersian = true;
 		boolean sampleSearchFinalBulletinsOnly = true;
+		String sampleSearchString = "(a = b)";
 
 		CurrentUiState state = new CurrentUiState();
 
@@ -139,6 +141,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		state.setCurrentAdjustPersianLegacyDates(sampleAdjustPersian);
 		
 		state.setSearchFinalBulletinsOnly(sampleSearchFinalBulletinsOnly);
+		state.setSearchString(sampleSearchString);
 
 
 		File file = createTempFileFromName("$$$TestCurrentFolder");
@@ -169,6 +172,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong adjustPersian?", sampleAdjustPersian, loaded.getAdjustPersianLegacyDates());
 		
 		assertEquals("Wrong searchFinalBulletinsOnly?", sampleSearchFinalBulletinsOnly, loaded.searchFinalBulletinsOnly());
+		assertEquals("Wrong searchString?", sampleSearchString, loaded.getSearchString());
 
 		file.delete();
 	}
@@ -255,6 +259,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong adjustThai?", false, loaded.getAdjustThaiLegacyDates());
 		assertEquals("Wrong adjustPersian?", false, loaded.getAdjustPersianLegacyDates());
 		assertEquals("Wrong searchFinalBulletinsOnly?", false, loaded.searchFinalBulletinsOnly());
+		assertEquals("Wrong searchString?", "", loaded.getSearchString());
 	}
 	
 	public void testStateFileFromFuture() throws Exception
