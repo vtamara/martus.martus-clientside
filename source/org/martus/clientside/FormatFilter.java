@@ -25,9 +25,18 @@ Boston, MA 02111-1307, USA.
 */
 package org.martus.clientside;
 
+import java.io.File;
+
 import javax.swing.filechooser.FileFilter;
 
 abstract public class FormatFilter extends FileFilter
 {
 	abstract public String getExtension();
+
+	public boolean accept(File f)
+	{
+		if(f.isDirectory())
+			return true;
+		return (f.getName().toLowerCase().endsWith(getExtension()));
+	}
 }
