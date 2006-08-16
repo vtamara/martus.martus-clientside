@@ -28,6 +28,7 @@ package org.martus.clientside;
 import java.awt.Component;
 import java.io.File;
 
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
 import org.martus.swing.UiFileChooser;
@@ -56,6 +57,27 @@ public class FileDialogHelpers
 			directory = chosenFile;
 		}
 		return chosenFile;
+	}
+
+	static public File doFileSaveDialog(JFrame owner, String title, File directory, FormatFilter filter, UiLocalization localization)
+	{
+		File file = null;
+		while(true)
+		{
+			FileDialogResults results = UiFileChooser.displayFileSaveDialog(owner, 
+					title, directory, filter);
+			if(results.wasCancelChoosen())
+				return null;
+			file = results.getChosenFile();
+			if(!file.getName().toLowerCase().endsWith(filter.getExtension()))
+				file = new File(file.getAbsolutePath() + filter.getExtension());
+			if(!file.exists())
+				break;
+			if(UiUtilities.confirmDlg(localization, owner, "OverWriteExistingFile"))
+				break;
+		}
+		
+		return file;
 	}
 
 }
