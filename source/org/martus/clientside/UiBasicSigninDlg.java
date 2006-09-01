@@ -37,12 +37,11 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import org.martus.swing.UiButton;
 import org.martus.swing.UiLabel;
+import org.martus.swing.UiScrollPane;
 import org.martus.swing.Utilities;
 
 public class UiBasicSigninDlg extends JDialog
@@ -76,9 +75,9 @@ public class UiBasicSigninDlg extends JDialog
 		buttonBox.add(Box.createHorizontalGlue());
 		
 		buttonBox.setBorder(new EmptyBorder(5,5,5,5));
-		JPanel scrolledPanel = createMainPanel();
+		Component scrolledPanel = createMainPanel();
 	
-		Container scrollingPane = new JScrollPane(scrolledPanel);
+		Container scrollingPane = new UiScrollPane(scrolledPanel);
 		getContentPane().add(scrollingPane);
 		getContentPane().add(buttonBox, BorderLayout.SOUTH);
 		
@@ -103,11 +102,9 @@ public class UiBasicSigninDlg extends JDialog
 		return new UiLabel();
 	}
 
-	protected JPanel createMainPanel()
+	protected Component createMainPanel()
 	{
-		JPanel scrolledPanel = new JPanel(); 
-		scrolledPanel.add(signinPane);
-		return scrolledPanel;
+		return signinPane;
 	}
 
 	public String getTextForTitle(int mode)

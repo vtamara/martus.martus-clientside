@@ -80,14 +80,14 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 
 		nameField = new UiTextField(20);
 		nameField.setText(username);
-		JLabel userNameLabel = new UiLabel(localization.getFieldLabel("username"));
+		UiLabel userNameLabel = new UiLabel(localization.getFieldLabel("username"));
 		addComponents(userNameLabel, createPanel(userNameDescription, nameField));
 
 		passwordField = new UiPasswordField(20);
 		passwordField.setPassword(password);
 		switchToNormalKeyboard = new UiButton(localization.getButtonLabel("VirtualKeyboardSwitchToNormal"));
 		switchToNormalKeyboard.addActionListener(new SwitchKeyboardHandler());
-		JLabel passwordLabel = new UiLabel(localization.getFieldLabel("password"));
+		UiLabel passwordLabel = new UiLabel(localization.getFieldLabel("password"));
 		passwordArea = new UiParagraphPanel();
 		addComponents(passwordLabel, passwordArea);
 
