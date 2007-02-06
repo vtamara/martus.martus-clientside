@@ -132,9 +132,9 @@ public class UiBasicSigninDlg extends JDialog
 		return usersChoice;
 	}
 
-	public String getName()
+	public String getNameText()
 	{
-		return signinPane.getName();
+		return signinPane.getNameText();
 	}
 
 	public char[] getPassword()

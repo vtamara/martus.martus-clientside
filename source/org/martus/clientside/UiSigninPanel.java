@@ -98,7 +98,7 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 			passwordField.requestFocus();
 	}
 	
-	public String getName()
+	public String getNameText()
 	{
 		return nameField.getText();
 	}
