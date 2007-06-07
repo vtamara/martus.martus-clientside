@@ -60,9 +60,9 @@ import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.test.MockBulletinStore;
-import org.martus.util.Base64;
+import org.martus.util.StreamableBase64;
 import org.martus.util.TestCaseEnhanced;
-import org.martus.util.Base64.InvalidBase64Exception;
+import org.martus.util.StreamableBase64.InvalidBase64Exception;
 
 
 
@@ -133,13 +133,13 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 			Vector result = new Vector();
 			try
 			{
-				byte[] publicKeyBytes = Base64.decode(publicKeyString);
+				byte[] publicKeyBytes = StreamableBase64.decode(publicKeyString);
 				ByteArrayInputStream in = new ByteArrayInputStream(publicKeyBytes);
 				byte[] sigBytes = serverSecurity.createSignatureOfStream(in);
 				
 				result.add(NetworkInterfaceConstants.OK);
 				result.add(publicKeyString);
-				result.add(Base64.encode(sigBytes));
+				result.add(StreamableBase64.encode(sigBytes));
 			}
 			catch(Exception e)
 			{

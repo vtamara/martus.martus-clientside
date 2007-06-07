@@ -45,7 +45,7 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.packet.UniversalId;
-import org.martus.util.Base64.InvalidBase64Exception;
+import org.martus.util.StreamableBase64.InvalidBase64Exception;
 
 public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterface
 {
