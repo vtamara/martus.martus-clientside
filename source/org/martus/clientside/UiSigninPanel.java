@@ -30,6 +30,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -37,18 +38,32 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
 import org.martus.swing.UiButton;
 import org.martus.swing.UiLabel;
-import org.martus.swing.UiParagraphPanel;
+import org.martus.swing.UiLanguageDirection;
 import org.martus.swing.UiPasswordField;
 import org.martus.swing.UiTextField;
 import org.martus.swing.UiWrappedTextArea;
 import org.martus.swing.Utilities;
+import org.martus.util.language.LanguageOptions;
 
-public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHandler
+import com.jhlabs.awt.Alignment;
+import com.jhlabs.awt.GridLayoutPlus;
+
+public class UiSigninPanel extends JPanel implements VirtualKeyboardHandler
 {
 	public UiSigninPanel(UiBasicSigninDlg dialogToUse, int mode, String username, char[] password)
 	{
+		GridLayoutPlus layout = new GridLayoutPlus(0, 2);
+		
+		// NOTE: Cheap hack: In English, this will cause the prompts in the first column
+		// to float over toward the associated field. In Arabic, it will cause the fields 
+		// to float over toward the prompts. The two won't be aligned the same way, but 
+		// should be "ok".
+		layout.setColAlignment(0, Alignment.RIGHT);
+		layout.setFill(Alignment.FILL_NONE);
+		setLayout(layout);
 		owner = dialogToUse;
 		localization = owner.getLocalization();
 		uiState = owner.getCurrentUiState();
@@ -88,7 +103,7 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 		switchToNormalKeyboard = new UiButton(localization.getButtonLabel("VirtualKeyboardSwitchToNormal"));
 		switchToNormalKeyboard.addActionListener(new SwitchKeyboardHandler());
 		UiLabel passwordLabel = new UiLabel(localization.getFieldLabel("password"));
-		passwordArea = new UiParagraphPanel();
+		passwordArea = new JPanel(new GridLayoutPlus(0, 1));
 		addComponents(passwordLabel, passwordArea);
 
 		new UiVirtualKeyboard(localization, this, passwordField);
@@ -96,6 +111,25 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 		
 		if(username != null && username.length() > 0)
 			passwordField.requestFocus();
+	}
+	
+	private void addOnNewLine(Component component)
+	{
+		addComponents(new UiLabel(" "), component);
+	}
+	
+	private void addComponents(Component left, Component right)
+	{
+		if(LanguageOptions.isRightToLeftLanguage())
+		{
+			add(right);
+			add(left);
+		}
+		else
+		{
+			add(left);
+			add(right);
+		}
 	}
 	
 	public String getNameText()
@@ -139,9 +173,9 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 		passwordArea.setBorder(new LineBorder(Color.BLACK, 2));
 		switchToNormalKeyboard.setText(localization.getButtonLabel("VirtualKeyboardSwitchToNormal"));
 
-		passwordArea.addOnNewLine(createPanel(passwordDescription, passwordField));
-		passwordArea.addOnNewLine(virtualKeyboardPanel);
-		passwordArea.addOnNewLine(switchToNormalKeyboard);
+		passwordArea.add(createPanel(passwordDescription, passwordField));
+		passwordArea.add(virtualKeyboardPanel);
+		passwordArea.add(switchToNormalKeyboard);
 
 		refreshForNewVirtualMode();
 		owner.sizeHasChanged();
@@ -156,15 +190,19 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 		passwordArea.setBorder(new LineBorder(Color.black, 2));
 
 		passwordField.setVirtualMode(false);
-		passwordArea.addOnNewLine(passwordField);
+		passwordArea.add(passwordField);
 
 		JLabel warningNormalKeyboard = new UiLabel(localization.getFieldLabel("NormalKeyboardMsg1"));
 		warningNormalKeyboard.setFont(warningNormalKeyboard.getFont().deriveFont(Font.BOLD));
-		passwordArea.addOnNewLine(warningNormalKeyboard);
-		passwordArea.addOnNewLine(new UiLabel(localization.getFieldLabel("NormalKeyboardMsg2")));
+		warningNormalKeyboard.setAlignmentX(UiLanguageDirection.getAlignmentX());
+		passwordArea.add(warningNormalKeyboard);
+		UiLabel switchToNormalMessage = new UiLabel(localization.getFieldLabel("NormalKeyboardMsg2"));
+		switchToNormalMessage.setAlignmentX(UiLanguageDirection.getAlignmentX());
+		passwordArea.add(switchToNormalMessage);
 
 		switchToNormalKeyboard.setText(localization.getButtonLabel("VirtualKeyboardSwitchToVirtual"));
-		passwordArea.addOnNewLine(switchToNormalKeyboard);
+		switchToNormalKeyboard.setAlignmentX(UiLanguageDirection.getAlignmentX());
+		passwordArea.add(switchToNormalKeyboard);
 		
 		refreshForNewVirtualMode();
 		owner.sizeHasChanged();
@@ -216,7 +254,7 @@ public class UiSigninPanel extends UiParagraphPanel implements VirtualKeyboardHa
 	private JLabel passwordDescription;
 	private UiTextField nameField;
 	private UiPasswordField passwordField;
-	private UiParagraphPanel passwordArea;
+	private JPanel passwordArea;
 	private JPanel virtualKeyboardPanel;
 	private JButton switchToNormalKeyboard;
 }
