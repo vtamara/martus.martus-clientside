@@ -55,13 +55,13 @@ public class UiSigninPanel extends JPanel implements VirtualKeyboardHandler
 {
 	public UiSigninPanel(UiBasicSigninDlg dialogToUse, int mode, String username, char[] password)
 	{
-		GridLayoutPlus layout = new GridLayoutPlus(0, 2);
+		GridLayoutPlus layout = new GridLayoutPlus(0, 2, 5, 5, 5, 5);
 		
 		// NOTE: Cheap hack: In English, this will cause the prompts in the first column
 		// to float over toward the associated field. In Arabic, it will cause the fields 
 		// to float over toward the prompts. The two won't be aligned the same way, but 
 		// should be "ok".
-		layout.setColAlignment(0, Alignment.RIGHT);
+		layout.setColAlignment(0, Alignment.EAST);
 		layout.setFill(Alignment.FILL_NONE);
 		setLayout(layout);
 		owner = dialogToUse;
@@ -103,7 +103,9 @@ public class UiSigninPanel extends JPanel implements VirtualKeyboardHandler
 		switchToNormalKeyboard = new UiButton(localization.getButtonLabel("VirtualKeyboardSwitchToNormal"));
 		switchToNormalKeyboard.addActionListener(new SwitchKeyboardHandler());
 		UiLabel passwordLabel = new UiLabel(localization.getFieldLabel("password"));
-		passwordArea = new JPanel(new GridLayoutPlus(0, 1));
+		GridLayoutPlus passwordLayout = new GridLayoutPlus(0, 1, 15, 10, 15, 10);
+		passwordLayout.setFill(Alignment.FILL_NONE);
+		passwordArea = new JPanel(passwordLayout);
 		addComponents(passwordLabel, passwordArea);
 
 		new UiVirtualKeyboard(localization, this, passwordField);
