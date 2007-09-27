@@ -105,6 +105,8 @@ public class UiSigninPanel extends JPanel implements VirtualKeyboardHandler
 		UiLabel passwordLabel = new UiLabel(localization.getFieldLabel("password"));
 		GridLayoutPlus passwordLayout = new GridLayoutPlus(0, 1, 15, 10, 15, 10);
 		passwordLayout.setFill(Alignment.FILL_NONE);
+		if(LanguageOptions.isRightToLeftLanguage())
+			passwordLayout.setAlignment(Alignment.EAST);
 		passwordArea = new JPanel(passwordLayout);
 		addComponents(passwordLabel, passwordArea);
 
