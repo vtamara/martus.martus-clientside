@@ -31,6 +31,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import org.martus.common.MiniLocalization;
 import org.martus.swing.UiNotifyDlg;
 
 public class UiUtilities
@@ -79,13 +80,13 @@ public class UiUtilities
 		return confirmDlg(localization, parent, title, contents, tokenReplacement);
 	}
 
-	public static boolean confirmDlg(UiLocalization localization, JFrame parent, String title, String[] contents)
+	public static boolean confirmDlg(MiniLocalization localization, JFrame parent, String title, String[] contents)
 	{
 		HashMap emptyTokenReplacement = new HashMap();
 		return confirmDlg(localization, parent, title, contents, emptyTokenReplacement);
 	}
 
-	public static boolean confirmDlg(UiLocalization localization, JFrame parent, String title, String[] contents, Map tokenReplacement)
+	public static boolean confirmDlg(MiniLocalization localization, JFrame parent, String title, String[] contents, Map tokenReplacement)
 	{
 		String yes = localization.getButtonLabel("yes");
 		String no = localization.getButtonLabel("no");

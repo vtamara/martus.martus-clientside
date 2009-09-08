@@ -42,6 +42,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import org.martus.common.MiniLocalization;
 import org.martus.swing.UiButton;
 import org.martus.swing.UiLabel;
 import org.martus.swing.UiPasswordField;
@@ -52,7 +53,7 @@ import org.martus.swing.Utilities;
 public class UiVirtualKeyboard
 {
 
-	public UiVirtualKeyboard(UiLocalization localization, VirtualKeyboardHandler uiHandler, UiPasswordField passwordFieldToUse)
+	public UiVirtualKeyboard(MiniLocalization localization, VirtualKeyboardHandler uiHandler, UiPasswordField passwordFieldToUse)
 	{
 		handler = uiHandler;
 		passwordField = passwordFieldToUse;
