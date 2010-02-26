@@ -54,6 +54,7 @@ public class CurrentUiState
 		currentCalendarSystem = MiniLocalization.GREGORIAN_SYSTEM;
 		searchFinalBulletinsOnly = false;
 		searchString = "";
+		searchSameRowsOnly = false;
 	}
 	
 	public int getVersion()
@@ -213,9 +214,19 @@ public class CurrentUiState
 		return searchString;
 	}
 	
+	public boolean searchSameRowsOnly()
+	{
+		return searchSameRowsOnly;
+	}
+	
 	public void setSearchFinalBulletinsOnly(boolean searchFinalBulletinsOnly)
 	{
 		this.searchFinalBulletinsOnly = searchFinalBulletinsOnly;
+	}
+	
+	public void setSearchSameRowsOnly(boolean searchSameRowsOnly)
+	{
+		this.searchSameRowsOnly = searchSameRowsOnly;
 	}
 	
 	public void setSearchString(String search)
@@ -315,6 +326,8 @@ public class CurrentUiState
 			out.writeBoolean(searchFinalBulletinsOnly);
 			
 			out.writeUTF(searchString);
+			
+			out.writeBoolean(searchSameRowsOnly);
 
 			out.flush();
 			out.close();
@@ -408,6 +421,11 @@ public class CurrentUiState
 		
 		searchString = in.readUTF();
 		
+		if(version < 10)
+			return;
+		
+		searchSameRowsOnly = in.readBoolean();
+		
 	}
 
 	private boolean isCorrectFileFormat(DataInputStream in) throws IOException
@@ -432,7 +450,8 @@ public class CurrentUiState
 	boolean modifyingBulletin;
 	
 	
-	public static final short VERSION = 9;
+	public static final short VERSION = 10;
+	
 	//Version 1
 	protected static int uiStateFirstIntegerInFile = 2002;
 	protected String currentFolderName;
@@ -477,5 +496,9 @@ public class CurrentUiState
 	
 	//Version 9
 	public String searchString;
-	
+
+	//Version 10
+	private boolean searchSameRowsOnly;
+
+
 }

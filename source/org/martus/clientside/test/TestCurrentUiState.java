@@ -50,7 +50,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 	public void testDefaultValues() throws Exception
 	{
 		CurrentUiState state = new CurrentUiState();
-		assertEquals("Current Version not correct - more tests needed?", 9, CurrentUiState.VERSION);
+		assertEquals("Current Version not correct - more tests needed?", 10, CurrentUiState.VERSION);
 
 		assertEquals("Default Keyboard not Virtual?", true, state.isCurrentDefaultKeyboardVirtual());
 		assertEquals("Default PreviewSplitterPosition not 100?", 100, state.getCurrentPreviewSplitterPosition());
@@ -113,6 +113,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		boolean sampleAdjustPersian = true;
 		boolean sampleSearchFinalBulletinsOnly = true;
 		String sampleSearchString = "(a = b)";
+		boolean sampleSearchSameRowsOnly = true;
 
 		CurrentUiState state = new CurrentUiState();
 
@@ -142,6 +143,8 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		
 		state.setSearchFinalBulletinsOnly(sampleSearchFinalBulletinsOnly);
 		state.setSearchString(sampleSearchString);
+		
+		state.setSearchSameRowsOnly(sampleSearchSameRowsOnly);
 
 
 		File file = createTempFileFromName("$$$TestCurrentFolder");
@@ -173,6 +176,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		
 		assertEquals("Wrong searchFinalBulletinsOnly?", sampleSearchFinalBulletinsOnly, loaded.searchFinalBulletinsOnly());
 		assertEquals("Wrong searchString?", sampleSearchString, loaded.getSearchString());
+		assertEquals("Wrong searchSameRowsOnly?", sampleSearchSameRowsOnly, loaded.searchSameRowsOnly());
 
 		file.delete();
 	}
@@ -260,6 +264,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong adjustPersian?", false, loaded.getAdjustPersianLegacyDates());
 		assertEquals("Wrong searchFinalBulletinsOnly?", false, loaded.searchFinalBulletinsOnly());
 		assertEquals("Wrong searchString?", "", loaded.getSearchString());
+		assertEquals("Wrong searchFinalBulletinsOnly?", false, loaded.searchSameRowsOnly());
 	}
 	
 	public void testStateFileFromFuture() throws Exception
