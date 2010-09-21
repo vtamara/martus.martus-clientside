@@ -98,7 +98,7 @@ public class MartusBulletinWrapper
 		}
 	}
 	
-	public String getHTML()
+	public String getHTML() throws Exception
 	{
 		BulletinHtmlGenerator htmlGenerator = new BulletinHtmlGenerator(100, localization);
 		//TODO: Once HQ's can retrieve their own bulletins we will need to pass in the HQ's account ID to determin if it is their own bulletin.
