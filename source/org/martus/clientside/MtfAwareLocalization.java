@@ -400,6 +400,8 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 	
 	public File directory;
 
+	public static final String TRANSLATEDBY_PREFIX = "# Translated by:";
+	
 	public static final int HASH_LENGTH  = 4;
 	public static final String UNUSED_TAG = "";
 	public static final String MARTUS_LANGUAGE_FILE_PREFIX = "Martus-";
