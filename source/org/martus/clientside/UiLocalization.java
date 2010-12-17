@@ -173,7 +173,25 @@ abstract public class UiLocalization extends MtfAwareLocalization
 			String result = new String(filler) + englishMtfEntry.substring(keyEnd);
 			
 			if(key.equals("field:translationVersion"))
-				mtfEntry += addProgramVersionNumber();
+			{
+				String englishLanguageName = getLanguageName(languageCode);
+				String version = addProgramVersionNumber();
+				result = new String(filler) + "=" + englishLanguageName + version;
+
+				String translatedLanguageNameAndVersion = getLabel(languageCode, key);
+				if(translatedLanguageNameAndVersion.equals("<English>"))
+				{
+					translatedLanguageNameAndVersion = englishLanguageName + addProgramVersionNumber();
+					translatedLanguageNameAndVersion = formatAsUntranslated(translatedLanguageNameAndVersion);
+				}
+				else 
+				{
+					String translatedLanguageName = getLanguageName(languageCode);
+					if(!translatedLanguageNameAndVersion.equals(translatedLanguageName + version))
+						translatedLanguageNameAndVersion = formatAsUntranslated(translatedLanguageNameAndVersion);
+				}	
+				mtfEntry = key + "=" + translatedLanguageNameAndVersion;
+			}
 			
 			writer.writeln();
 			writer.writeln(result);
