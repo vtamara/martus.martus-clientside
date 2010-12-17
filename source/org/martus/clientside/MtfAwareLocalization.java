@@ -80,7 +80,13 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 			addRightToLeftLanguage(languageCode);
 			return;
 		}
-			
+
+		if(mtfEntryText.startsWith(TRANSLATEDBY_PREFIX))
+		{
+			translatedBy = mtfEntryText;
+			return;
+		}
+		
 		if(mtfEntryText.startsWith(MTF_COMMENT_FLAG))
 			return;
 		
@@ -128,6 +134,7 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 	
 	public boolean loadTranslations(String languageCode, InputStream inputStream)
 	{
+		translatedBy = null;
 		try
 		{
 			UnicodeReader reader = new UnicodeReader(inputStream);
@@ -393,6 +400,13 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 		return false;
 	}
 	
+	public String getTranslatedBy()
+	{
+		if(translatedBy != null)
+			return translatedBy;
+		return TRANSLATEDBY_PREFIX;
+	}
+	
 	private boolean isOfficialMlpTranslation(File translationFile)
 	{
 		return (JarVerifier.verify(translationFile, false) == JarVerifier.JAR_VERIFIED_TRUE);
@@ -413,4 +427,5 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 	
 	public boolean includeOfficialLanguagesOnly;
 	private Date mlpDate;
+	private String translatedBy;
 }

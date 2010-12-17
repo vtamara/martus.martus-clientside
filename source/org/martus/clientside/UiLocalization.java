@@ -50,7 +50,7 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		writer.writeln(byteOrderMark + "# Martus Client Translation File");
 		writer.writeln("# Language code:  " + languageCode);
 		writer.writeln("# Language name:  " + getLanguageName(languageCode));
-		writer.writeln(TRANSLATEDBY_PREFIX);
+		writer.writeln(getTranslatedBy());
 		writer.writeln("# Exported date:  " + new Date().toString());
 		writer.writeln("# Client version: " + versionLabel);
 		writer.writeln("# Client build:   " + VersionBuildDate.getVersionBuildDate());
