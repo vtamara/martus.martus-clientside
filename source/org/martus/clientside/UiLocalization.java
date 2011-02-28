@@ -117,7 +117,7 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#      <Column type='DATERANGE'>, <Column type='DROPDOWN'> ");
 		writer.writeln("#      <KeepWithPrevious/>, <RequiredField/>, <DefaultValue>, </DefaultValue>,");
 		writer.writeln("#      <MinimumDate>, </MinimumDate>, <MaximumDate>, </MaximumDate>, <MaximumDate/>.");   
-		writer.writeln("#      For Reusable choices sections, translate anything within single quotes ‘…’, but not  <UseReusableChoices code= , </UseReusableChoices>"); 
+		writer.writeln("#      For Reusable choices sections, translate anything within single quotes '...', but not  <UseReusableChoices code= , </UseReusableChoices>"); 
 		writer.writeln("#      <ReusableChoices code= , </ReusableChoices>, label= , <Choice code= . ");
 		writer.writeln("# 10b.  In CreateCustomFieldsHelp2, change the \"ddd\" in \"<DefaultValue>ddd</DefaultValue>\" to whatever letter the translation of \"default\" begins with.");  
 		writer.writeln("# 10c.  For  CreateCustomFieldsHelp1/2/2b/3, check the User Guide section 10b to see if the text has already been translated and use the same translation for consistency.");
