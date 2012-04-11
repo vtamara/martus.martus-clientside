@@ -35,6 +35,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.xmlrpc.XmlRpcClient;
 import org.apache.xmlrpc.XmlRpcException;
+import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.network.NetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
@@ -296,6 +297,12 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			if(e.getMessage().startsWith("Connection"))
 				return RESULT_NO_SERVER;
 
+			if(e.getMessage().contains("RSA premaster"))
+			{
+				MartusLogger.log("Possible problem with RSA key size limitations");
+				MartusLogger.logException(e);
+				return null;
+			}
 			//TODO throw IOExceptions so caller can decide what to do.
 			//This was added for connection refused: connect (no server connected)
 			//System.out.println("ServerInterfaceXmlRpcHandler:callServer Exception=" + e);
