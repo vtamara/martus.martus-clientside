@@ -28,13 +28,16 @@ package org.martus.clientside;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.apache.xmlrpc.XmlRpcClient;
 import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.network.NetworkInterface;
@@ -192,7 +195,11 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		int portIndexToTryNext = indexOfPortThatWorkedLast;
 		for(int i=0; i < numPorts; ++i)
 		{
-			Vector result = caller.call(this, serverName, ports[portIndexToTryNext]);
+			int port = ports[portIndexToTryNext];
+			if(ClientPortOverride.useInsecurePorts)
+				port += 9000;
+			
+			Vector result = caller.call(this, serverName, port);
 			
 			if(result == null || !result.equals(RESULT_NO_SERVER))
 			{
@@ -287,10 +294,13 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	{
 		try
 		{
-			Vector result = (Vector)executeXmlRpc(serverName, method, params, port);
+			Object[] result = (Object[])executeXmlRpc(serverName, method, params, port);
 			if(tm.getExpectedPublicKey() == null)
 				throw new Exception("Trust Manager never called");
-			return result;
+			if(result == null)
+				return null;
+			
+			return new Vector(Arrays.asList(result));
 		}
 		catch (IOException e)
 		{
@@ -329,12 +339,17 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		throws MalformedURLException, XmlRpcException, IOException 
 	{
 		final String serverUrl = "https://" + serverName + ":" + port + "/RPC2";
-		//System.out.println("ServerInterfaceXmlRpcHandler:callServer serverUrl=" + serverUrl);
+		MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer serverUrl=" + serverUrl);
 		
 		// NOTE: We **MUST** create a new XmlRpcClient for each call, because
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
 		// memory exceptions if we reuse an XmlRpcClient object
-		XmlRpcClient client = new XmlRpcClient(serverUrl);
+		XmlRpcClient client = new XmlRpcClient();
+		
+		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+		config.setServerURL(new URL(serverUrl));
+		client.setConfig(config);
+		
 		Stopwatch sw = new Stopwatch();
 		Object result = client.execute("MartusServer." + method, params);
 		sw.stop();

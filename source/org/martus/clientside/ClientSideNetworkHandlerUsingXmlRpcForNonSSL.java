@@ -29,17 +29,20 @@ package org.martus.clientside;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Vector;
 
-import org.apache.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.XmlRpcClientLite;
 import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.martus.common.network.NetworkInterfaceConstants;
-import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
+import org.martus.common.network.NonSSLNetworkAPI;
+import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
 
-public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkAPI implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
+public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkAPIWithHelpers implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
 	
 {
 	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName)
@@ -64,7 +67,8 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 	{
 		logging("MartusServerProxyViaXmlRpc:getServerInformation");
 		Vector params = new Vector();
-		return (Vector)callServer(server, CMD_SERVER_INFO, params);
+		Object[] result = (Object[]) callServer(server, CMD_SERVER_INFO, params);
+		return new Vector(Arrays.asList(result));
 	}
 
 	// end MartusXmlRpc interface
@@ -97,13 +101,21 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 	public Object callServerAtPort(String serverName, String method, Vector params, int port)
 		throws MalformedURLException, XmlRpcException, IOException
 	{
+		if(ClientPortOverride.useInsecurePorts)
+			port += 9000;
+		
 		final String serverUrl = "http://" + serverName + ":" + port + "/RPC2";
 		logging("MartusServerProxyViaXmlRpc:callServer serverUrl=" + serverUrl);
 
 		// NOTE: We **MUST** create a new XmlRpcClient for each call, because
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
 		// memory exceptions if we reuse an XmlRpcClient object
-		XmlRpcClient client = new XmlRpcClientLite(serverUrl);
+		XmlRpcClient client = new XmlRpcClient();
+		
+		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+		config.setServerURL(new URL(serverUrl));
+		client.setConfig(config);
+		
 		return client.execute("MartusServer." + method, params);
 	}
 

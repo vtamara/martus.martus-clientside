@@ -47,6 +47,7 @@ import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
+import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
 import org.martus.common.packet.UniversalId;
 import org.martus.util.StreamableBase64.InvalidBase64Exception;
 
@@ -147,7 +148,7 @@ public class MartusBulletinRetriever
 		return bulletinIds;
 	}
 
-	String getServerPublicKey(String serverPublicCode, NonSSLNetworkAPI serverNonSSLToUse) throws ServerNotAvailableException, ServerPublicCodeDoesNotMatchException, ServerErrorException
+	String getServerPublicKey(String serverPublicCode, NonSSLNetworkAPIWithHelpers serverNonSSLToUse) throws ServerNotAvailableException, ServerPublicCodeDoesNotMatchException, ServerErrorException
 	{
 		String ServerPublicKey;
 		try
