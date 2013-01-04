@@ -28,9 +28,9 @@ package org.martus.clientside.test;
 
 import java.util.Vector;
 
-import org.martus.common.network.NetworkInterface;
+import org.martus.common.network.ClientSideNetworkInterface;
 
-public class NoServerNetworkInterfaceHandler implements NetworkInterface
+public class NoServerNetworkInterfaceHandler implements ClientSideNetworkInterface
 {
 
 	public Vector getServerInfo(Vector reservedForFuture)

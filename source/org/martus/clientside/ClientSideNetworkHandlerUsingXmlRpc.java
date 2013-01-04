@@ -40,7 +40,7 @@ import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
-import org.martus.common.network.NetworkInterface;
+import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.SimpleHostnameVerifier;
@@ -48,7 +48,7 @@ import org.martus.common.network.SimpleX509TrustManager;
 import org.martus.util.Stopwatch;
 
 public class ClientSideNetworkHandlerUsingXmlRpc
-	implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants, NetworkInterface
+	implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants, ClientSideNetworkInterface
 {
 
 	public static class SSLSocketSetupException extends Exception 

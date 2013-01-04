@@ -27,9 +27,9 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside.test;
 import java.util.Vector;
 
-import org.martus.common.network.NetworkInterface;
+import org.martus.common.network.ClientSideNetworkInterface;
 
-public class ServerSideNetworkHandlerNotAvailable implements NetworkInterface
+public class ServerSideNetworkHandlerNotAvailable implements ClientSideNetworkInterface
 {
 	public Vector getServerInfo(Vector reservedForFuture)
 	{
