@@ -322,8 +322,8 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		{
 			if(e.getMessage().indexOf("NoSuchMethodException") < 0)
 			{
-				System.out.println("ServerInterfaceXmlRpcHandler:callServer XmlRpcException=" + e);
-				e.printStackTrace();
+				MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer XmlRpcException=" + e);
+				MartusLogger.logException(e);
 			}
 		}
 		catch (Exception e)
