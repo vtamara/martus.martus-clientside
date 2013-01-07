@@ -41,28 +41,28 @@ import org.martus.clientside.ClientSideNetworkGateway;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcForNonSSL;
 import org.martus.clientside.analyzerhelper.MartusBulletinRetriever.ServerPublicCodeDoesNotMatchException;
 import org.martus.clientside.test.NoServerNetworkInterfaceForNonSSLHandler;
-import org.martus.common.ProgressMeterInterface;
 import org.martus.common.Exceptions.ServerNotAvailableException;
 import org.martus.common.MartusUtilities.ServerErrorException;
+import org.martus.common.ProgressMeterInterface;
 import org.martus.common.bulletin.AttachmentProxy;
 import org.martus.common.bulletin.Bulletin;
 import org.martus.common.bulletin.BulletinConstants;
 import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.bulletinstore.BulletinStore;
 import org.martus.common.crypto.MartusCrypto;
-import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.crypto.MartusCrypto.AuthorizationFailedException;
 import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
+import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.database.DatabaseKey;
 import org.martus.common.network.NetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
-import org.martus.common.network.NonSSLNetworkAPI;
+import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.test.MockBulletinStore;
 import org.martus.util.StreamableBase64;
-import org.martus.util.TestCaseEnhanced;
 import org.martus.util.StreamableBase64.InvalidBase64Exception;
+import org.martus.util.TestCaseEnhanced;
 
 
 
@@ -120,7 +120,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		streamIn.close();
 	}
 	
-	class TestServerNetworkInterfaceForNonSSLHandler extends NonSSLNetworkAPI
+	class TestServerNetworkInterfaceForNonSSLHandler extends NonSSLNetworkAPIWithHelpers
 	{
 
 		public String ping()
@@ -171,7 +171,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
 		MartusBulletinRetriever retriever = new MartusBulletinRetriever(streamIn, password );
 		streamIn.close();
-		NonSSLNetworkAPI noServer = new NoServerNetworkInterfaceForNonSSLHandler();
+		NonSSLNetworkAPIWithHelpers noServer = new NoServerNetworkInterfaceForNonSSLHandler();
 		try
 		{
 			retriever.getServerPublicKey("Some Random code", noServer);
@@ -235,7 +235,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		
 		Vector bulletinSummaries = new Vector();
 		bulletinSummaries.add(NetworkInterfaceConstants.OK);
-		bulletinSummaries.add(testBulletinSummaries);
+		bulletinSummaries.add(testBulletinSummaries.toArray());
 		response = new NetworkResponse(bulletinSummaries);
 		Vector returnedBulletinIDs = retriever.getListOfBulletinUniversalIds(fieldOfficeAccountId, response);
 		assertEquals("retriever should have a vector of size 3", 3, returnedBulletinIDs.size());
@@ -294,7 +294,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 			
 			Vector rawResponse = new Vector();
 			rawResponse.add(NetworkInterfaceConstants.OK);
-			rawResponse.add(draftBulletinSummaries);
+			rawResponse.add(draftBulletinSummaries.toArray());
 			return new NetworkResponse(rawResponse);
 		}
 
@@ -307,7 +307,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 			
 			Vector rawResponse = new Vector();
 			rawResponse.add(NetworkInterfaceConstants.OK);
-			rawResponse.add(sealedBulletinSummaries);
+			rawResponse.add(sealedBulletinSummaries.toArray());
 			return new NetworkResponse(rawResponse);
 		}
 

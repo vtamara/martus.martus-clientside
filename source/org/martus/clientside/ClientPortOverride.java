@@ -1,7 +1,7 @@
 /*
 
 The Martus(tm) free, social justice documentation and
-monitoring software. Copyright (C) 2001-2007, Beneficent
+monitoring software. Copyright (C) 2001-2012, Beneficent
 Technology, Inc. (The Benetech Initiative).
 
 Martus is free software; you can redistribute it and/or
@@ -24,23 +24,9 @@ Boston, MA 02111-1307, USA.
 
 */
 
-package org.martus.clientside.test;
+package org.martus.clientside;
 
-import java.util.Vector;
-
-import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
-
-public class NoServerNetworkInterfaceForNonSSLHandler
-	extends NonSSLNetworkAPIWithHelpers
+public class ClientPortOverride 
 {
-
-	public String ping()
-	{
-		return null;
-	}
-
-	public Vector getServerInformation()
-	{
-		return null;
-	}
+	public static boolean useInsecurePorts = false;
 }
