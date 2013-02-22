@@ -34,8 +34,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.net.SocketFactory;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -76,13 +78,15 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		}
 		catch (Exception e)
 		{
+			MartusLogger.logException(e);
 			throw new SSLSocketSetupException();
 		}
 	}
 
 	private void restrictCipherSuites() throws NoSuchAlgorithmException 
 	{
-		String[] rawCipherSuites = SSLContext.getDefault().getDefaultSSLParameters().getCipherSuites();
+		SSLSocketFactory socketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
+		String[] rawCipherSuites = socketFactory.getDefaultCipherSuites();
 		Vector<String> supportedCipherSuites = new Vector<String>(Arrays.asList(rawCipherSuites));
 		Vector<String> goodCipherSuites = MartusSecureWebServer.getAcceptableCipherSuites(supportedCipherSuites);
 		String goodCipherSuitesAsString = "";
@@ -337,8 +341,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			}
 			//TODO throw IOExceptions so caller can decide what to do.
 			//This was added for connection refused: connect (no server connected)
-			//System.out.println("ServerInterfaceXmlRpcHandler:callServer Exception=" + e);
-			//e.printStackTrace();
+			MartusLogger.logException(e);		
 		}
 		catch (XmlRpcException e)
 		{
