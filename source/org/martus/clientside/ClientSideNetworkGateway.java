@@ -27,19 +27,14 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Vector;
 
-import org.martus.common.MartusUtilities.BulletinNotFoundException;
-import org.martus.common.MartusUtilities.NotYourBulletinErrorException;
 import org.martus.common.MartusUtilities.ServerErrorException;
 import org.martus.common.ProgressMeterInterface;
 import org.martus.common.VersionBuildDate;
 import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.crypto.MartusCrypto;
-import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.network.BulletinRetrieverGatewayInterface;
 import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.NetworkInterface;
@@ -47,7 +42,6 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.packet.UniversalId;
-import org.martus.util.StreamableBase64.InvalidBase64Exception;
 
 public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterface
 {
@@ -229,10 +223,7 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 
 	public File retrieveBulletin(UniversalId uid, MartusCrypto security,
 			int chunkSize, ProgressMeterInterface progressMeter)
-			throws IOException, FileNotFoundException,
-			MartusSignatureException, ServerErrorException,
-			InvalidBase64Exception, NotYourBulletinErrorException,
-			BulletinNotFoundException
+			throws Exception
 	{
 		File tempFile = File.createTempFile("$$$MartusRetrievedBulletin", null);
 		tempFile.deleteOnExit();
