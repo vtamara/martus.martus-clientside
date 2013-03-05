@@ -34,9 +34,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
 
-import javax.net.SocketFactory;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 
 import org.apache.xmlrpc.XmlRpcException;
