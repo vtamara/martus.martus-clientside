@@ -29,11 +29,15 @@ package org.martus.clientside;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.net.SocketFactory;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -41,6 +45,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.network.ClientSideNetworkInterface;
+import org.martus.common.network.MartusSecureWebServer;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.SimpleHostnameVerifier;
@@ -65,14 +70,35 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		
 		try
 		{
+			restrictCipherSuites();
+
 			tm = new SimpleX509TrustManager();
 			HttpsURLConnection.setDefaultSSLSocketFactory(MartusUtilities.createSocketFactory(tm));
 			HttpsURLConnection.setDefaultHostnameVerifier(new SimpleHostnameVerifier());
 		}
 		catch (Exception e)
 		{
+			MartusLogger.logException(e);
 			throw new SSLSocketSetupException();
 		}
+	}
+
+	private void restrictCipherSuites() throws NoSuchAlgorithmException 
+	{
+		SSLSocketFactory socketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
+		String[] rawCipherSuites = socketFactory.getDefaultCipherSuites();
+		Vector<String> supportedCipherSuites = new Vector<String>(Arrays.asList(rawCipherSuites));
+		Vector<String> goodCipherSuites = MartusSecureWebServer.getAcceptableCipherSuites(supportedCipherSuites);
+		String goodCipherSuitesAsString = "";
+		for (String cipher : goodCipherSuites) 
+		{
+			if(goodCipherSuitesAsString.length() > 0)
+				goodCipherSuitesAsString += ",";
+			goodCipherSuitesAsString += cipher;
+		}
+		MartusLogger.log("Limiting SSL cipher suites to: " + goodCipherSuitesAsString);
+		// NOTE: This seems ugly, but there doesn't seem to be any cleaner way
+		System.setProperty("https.cipherSuites", goodCipherSuitesAsString);
 	}
 
 	// begin ServerInterface
@@ -315,8 +341,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			}
 			//TODO throw IOExceptions so caller can decide what to do.
 			//This was added for connection refused: connect (no server connected)
-			//System.out.println("ServerInterfaceXmlRpcHandler:callServer Exception=" + e);
-			//e.printStackTrace();
+			MartusLogger.logException(e);		
 		}
 		catch (XmlRpcException e)
 		{
