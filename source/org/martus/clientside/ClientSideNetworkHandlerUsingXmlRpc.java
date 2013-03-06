@@ -43,9 +43,9 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.network.ClientSideNetworkInterface;
-import org.martus.common.network.MartusSecureWebServer;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
+import org.martus.common.network.SSLUtilities;
 import org.martus.common.network.SimpleHostnameVerifier;
 import org.martus.common.network.SimpleX509TrustManager;
 import org.martus.util.Stopwatch;
@@ -86,7 +86,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		SSLSocketFactory socketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
 		String[] rawCipherSuites = socketFactory.getDefaultCipherSuites();
 		Vector<String> supportedCipherSuites = new Vector<String>(Arrays.asList(rawCipherSuites));
-		Vector<String> goodCipherSuites = MartusSecureWebServer.getAcceptableCipherSuites(supportedCipherSuites);
+		Vector<String> goodCipherSuites = SSLUtilities.getAcceptableCipherSuites(supportedCipherSuites);
 		String goodCipherSuitesAsString = "";
 		for (String cipher : goodCipherSuites) 
 		{
