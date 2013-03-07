@@ -111,6 +111,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		
 		boolean sampleAdjustThai = true;
 		boolean sampleAdjustPersian = true;
+        boolean sampleUseZawgyi = true;
 		boolean sampleSearchFinalBulletinsOnly = true;
 		String sampleSearchString = "(a = b)";
 		boolean sampleSearchSameRowsOnly = true;
@@ -140,7 +141,8 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		
 		state.setCurrentAdjustThaiLegacyDates(sampleAdjustThai);
 		state.setCurrentAdjustPersianLegacyDates(sampleAdjustPersian);
-		
+		state.setCurrentUseZawgyi(sampleUseZawgyi);
+
 		state.setSearchFinalBulletinsOnly(sampleSearchFinalBulletinsOnly);
 		state.setSearchString(sampleSearchString);
 		
