@@ -203,6 +203,11 @@ public class CurrentUiState
 	{
 		return currentAdjustPersianLegacyDates;
 	}
+
+    public boolean getUseZawgyi()
+    {
+        return currentUseZawgyi;
+    }
 	
 	public boolean searchFinalBulletinsOnly()
 	{
@@ -278,6 +283,11 @@ public class CurrentUiState
 	{
 		currentAdjustPersianLegacyDates = newPersianAdjust;
 	}
+
+    public void setCurrentUseZawgyi(boolean newUseZawgyi)
+    {
+        currentUseZawgyi = newUseZawgyi;
+    }
 	
 	public void save()
 	{
@@ -322,7 +332,8 @@ public class CurrentUiState
 			
 			out.writeBoolean(currentAdjustThaiLegacyDates);
 			out.writeBoolean(currentAdjustPersianLegacyDates);
-			
+			out.writeBoolean(currentUseZawgyi);
+
 			out.writeBoolean(searchFinalBulletinsOnly);
 			
 			out.writeUTF(searchString);
@@ -500,5 +511,6 @@ public class CurrentUiState
 	//Version 10
 	private boolean searchSameRowsOnly;
 
-
+    //Version 11
+    private boolean currentUseZawgyi;
 }
