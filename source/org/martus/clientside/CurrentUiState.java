@@ -332,13 +332,13 @@ public class CurrentUiState
 			
 			out.writeBoolean(currentAdjustThaiLegacyDates);
 			out.writeBoolean(currentAdjustPersianLegacyDates);
-			out.writeBoolean(currentUseZawgyi);
 
 			out.writeBoolean(searchFinalBulletinsOnly);
 			
 			out.writeUTF(searchString);
 			
 			out.writeBoolean(searchSameRowsOnly);
+            out.writeBoolean(currentUseZawgyi);
 
 			out.flush();
 			out.close();
@@ -436,6 +436,11 @@ public class CurrentUiState
 			return;
 		
 		searchSameRowsOnly = in.readBoolean();
+
+        if(version < 11)
+            return;
+
+        currentUseZawgyi = in.readBoolean();
 		
 	}
 
@@ -461,7 +466,7 @@ public class CurrentUiState
 	boolean modifyingBulletin;
 	
 	
-	public static final short VERSION = 10;
+	public static final short VERSION = 11;
 	
 	//Version 1
 	protected static int uiStateFirstIntegerInFile = 2002;
