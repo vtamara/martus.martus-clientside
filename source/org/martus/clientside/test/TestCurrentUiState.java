@@ -50,7 +50,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 	public void testDefaultValues() throws Exception
 	{
 		CurrentUiState state = new CurrentUiState();
-		assertEquals("Current Version not correct - more tests needed?", 10, CurrentUiState.VERSION);
+		assertEquals("Current Version not correct - more tests needed?", 11, CurrentUiState.VERSION);
 
 		assertEquals("Default Keyboard not Virtual?", true, state.isCurrentDefaultKeyboardVirtual());
 		assertEquals("Default PreviewSplitterPosition not 100?", 100, state.getCurrentPreviewSplitterPosition());
