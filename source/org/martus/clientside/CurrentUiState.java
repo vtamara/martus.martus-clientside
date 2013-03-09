@@ -204,11 +204,6 @@ public class CurrentUiState
 		return currentAdjustPersianLegacyDates;
 	}
 
-    public boolean getUseZawgyi()
-    {
-        return currentUseZawgyi;
-    }
-	
 	public boolean searchFinalBulletinsOnly()
 	{
 		return searchFinalBulletinsOnly;
@@ -284,11 +279,6 @@ public class CurrentUiState
 		currentAdjustPersianLegacyDates = newPersianAdjust;
 	}
 
-    public void setCurrentUseZawgyi(boolean newUseZawgyi)
-    {
-        currentUseZawgyi = newUseZawgyi;
-    }
-	
 	public void save()
 	{
 		save(currentUiStateFile);
@@ -338,7 +328,6 @@ public class CurrentUiState
 			out.writeUTF(searchString);
 			
 			out.writeBoolean(searchSameRowsOnly);
-            out.writeBoolean(currentUseZawgyi);
 
 			out.flush();
 			out.close();
@@ -437,11 +426,6 @@ public class CurrentUiState
 		
 		searchSameRowsOnly = in.readBoolean();
 
-        if(version < 11)
-            return;
-
-        currentUseZawgyi = in.readBoolean();
-		
 	}
 
 	private boolean isCorrectFileFormat(DataInputStream in) throws IOException
@@ -466,7 +450,7 @@ public class CurrentUiState
 	boolean modifyingBulletin;
 	
 	
-	public static final short VERSION = 11;
+	public static final short VERSION = 10;
 	
 	//Version 1
 	protected static int uiStateFirstIntegerInFile = 2002;
@@ -516,6 +500,5 @@ public class CurrentUiState
 	//Version 10
 	private boolean searchSameRowsOnly;
 
-    //Version 11
-    private boolean currentUseZawgyi;
+
 }
