@@ -305,17 +305,5 @@ abstract public class UiLocalization extends MtfAwareLocalization
 			return isLanguageFile(name);
 		}
 	}
-
-    public boolean getUseZawgyi()
-    {
-        return useZawgyi;
-    }
-
-    public void setUseZawgyi(boolean newUseZawgyi)
-    {
-        useZawgyi = newUseZawgyi;
-    }
-
-    private boolean useZawgyi;
 	
 }

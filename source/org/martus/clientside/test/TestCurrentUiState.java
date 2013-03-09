@@ -50,7 +50,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 	public void testDefaultValues() throws Exception
 	{
 		CurrentUiState state = new CurrentUiState();
-		assertEquals("Current Version not correct - more tests needed?", 11, CurrentUiState.VERSION);
+		assertEquals("Current Version not correct - more tests needed?", 10, CurrentUiState.VERSION);
 
 		assertEquals("Default Keyboard not Virtual?", true, state.isCurrentDefaultKeyboardVirtual());
 		assertEquals("Default PreviewSplitterPosition not 100?", 100, state.getCurrentPreviewSplitterPosition());
@@ -111,7 +111,6 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		
 		boolean sampleAdjustThai = true;
 		boolean sampleAdjustPersian = true;
-        boolean sampleUseZawgyi = true;
 		boolean sampleSearchFinalBulletinsOnly = true;
 		String sampleSearchString = "(a = b)";
 		boolean sampleSearchSameRowsOnly = true;
@@ -141,7 +140,6 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		
 		state.setCurrentAdjustThaiLegacyDates(sampleAdjustThai);
 		state.setCurrentAdjustPersianLegacyDates(sampleAdjustPersian);
-		state.setCurrentUseZawgyi(sampleUseZawgyi);
 
 		state.setSearchFinalBulletinsOnly(sampleSearchFinalBulletinsOnly);
 		state.setSearchString(sampleSearchString);
