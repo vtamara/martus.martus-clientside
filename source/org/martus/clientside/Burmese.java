@@ -1,12 +1,14 @@
 package org.martus.clientside;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Enumeration;
 
 public class Burmese
 {
@@ -14,6 +16,7 @@ public class Burmese
 
 	public static void main(String[] args) throws Exception
 	{
+		MainFrame.setUIFont("Zawgyi-One");
 		MainFrame frame = new MainFrame();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -36,7 +39,7 @@ class MainFrame extends JFrame
 	{
 		super();
 		load();
-		
+
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		label = new JLabel(text);
 		mainPanel.add(label, BorderLayout.BEFORE_FIRST_LINE);
@@ -88,12 +91,27 @@ class MainFrame extends JFrame
 
 	void update()
 	{
-		//String displayable = Burmese.getDisplayable(text);
-        String displayable = text;
+		String displayable = Burmese.getDisplayable(text);
+        //String displayable = text;
 		setTitle(displayable);
 		label.setText(displayable);
 		editor.setText(displayable);
 	}
+
+	public static void setUIFont(String fontName)
+	{
+		   Enumeration keys = UIManager.getDefaults().keys();
+		   while (keys.hasMoreElements()) {
+		       Object key = keys.nextElement();
+		       Object value = UIManager.get(key);
+		       if (value instanceof FontUIResource)
+		       {
+		           FontUIResource orig = (FontUIResource) value;
+		           Font font = new Font(fontName, orig.getStyle(), orig.getSize());
+		           UIManager.put(key, new FontUIResource(font));
+		       }
+		   }
+	 }
 	
 	class UpdateHandler implements ActionListener
 	{
