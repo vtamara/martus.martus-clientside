@@ -31,6 +31,30 @@ public class Burmese
 	{
 		return MString.getZ2Uni(displayed);
 	}
+
+	public static char[] getDisplayable(char[] charArray)
+	{
+		int len = charArray.length;
+		char[] result = new char[len];
+		for (int i = 0; i < len; i++)
+		{
+			char convertedChar = MString.getUni2Z(Character.toString(charArray[i])).charAt(0);
+			result[i] = convertedChar;
+		}
+		return result;
+	}
+
+	public static char[] getStorable(char[] charArray)
+	{
+		int len = charArray.length;
+		char[] result = new char[len];
+		for (int i = 0; i < len; i++)
+		{
+			char convertedChar = MString.getZ2Uni(Character.toString(charArray[i])).charAt(0);
+			result[i] = convertedChar;
+		}
+		return result;
+	}
 }
 
 class MainFrame extends JFrame
