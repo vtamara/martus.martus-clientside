@@ -13,10 +13,11 @@ import java.util.Enumeration;
 public class Burmese
 {
 	public static final String SAMPLE_STORED_TEXT = "သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေးဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ ၁၂၃၄၅၆၇၈၉၀";
+	public static final String ZAWGYI_FONT = "Zawgyi-One";
 
 	public static void main(String[] args) throws Exception
 	{
-		MainFrame.setUIFont("Zawgyi-One");
+		MainFrame.setUIFont(ZAWGYI_FONT);
 		MainFrame frame = new MainFrame();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
