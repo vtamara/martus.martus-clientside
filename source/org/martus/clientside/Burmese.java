@@ -10,14 +10,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Enumeration;
 
+import org.martus.swing.FontHandler;
+
 public class Burmese
 {
 	public static final String SAMPLE_STORED_TEXT = "သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေးဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ ၁၂၃၄၅၆၇၈၉၀";
-	public static final String ZAWGYI_FONT = "Zawgyi-One";
 
 	public static void main(String[] args) throws Exception
 	{
-		MainFrame.setUIFont(ZAWGYI_FONT);
+		MainFrame.setUIFont(FontHandler.BURMESE_FONT);
 		MainFrame frame = new MainFrame();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
