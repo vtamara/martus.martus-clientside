@@ -27,7 +27,6 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -40,6 +39,7 @@ import javax.net.ssl.SSLSocketFactory;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities;
 import org.martus.common.network.ClientSideNetworkInterface;
@@ -48,6 +48,7 @@ import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.SSLUtilities;
 import org.martus.common.network.SimpleHostnameVerifier;
 import org.martus.common.network.SimpleX509TrustManager;
+import org.martus.common.network.TorTransportWrapper;
 import org.martus.util.Stopwatch;
 
 public class ClientSideNetworkHandlerUsingXmlRpc
@@ -60,8 +61,14 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 
 	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse) throws SSLSocketSetupException
 	{
+		this(serverName, portsToUse, null);
+	}
+	
+	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse, TorTransportWrapper transportToUse) throws SSLSocketSetupException
+	{
 		server = serverName;
 		ports = portsToUse;
+		transport = transportToUse;
 
 		RESULT_NO_SERVER = new Vector();
 		RESULT_NO_SERVER.add(NetworkInterfaceConstants.NO_SERVER);
@@ -357,9 +364,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return null;
 	}
 	
-	public Object executeXmlRpc(String serverName, String method,
-									Vector params, int port)
-		throws MalformedURLException, XmlRpcException, IOException 
+	public Object executeXmlRpc(String serverName, String method, Vector params, int port) throws Exception 
 	{
 		final String serverUrl = "https://" + serverName + ":" + port + "/RPC2";
 		MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer serverUrl=" + serverUrl);
@@ -368,6 +373,9 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
 		// memory exceptions if we reuse an XmlRpcClient object
 		XmlRpcClient client = new XmlRpcClient();
+		XmlRpcTransportFactory transportFactory = transport.createTransport(client, tm);
+		if(transportFactory != null)
+			client.setTransportFactory(transportFactory);
 		
 		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL(serverUrl));
@@ -391,8 +399,9 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	SimpleX509TrustManager tm;
 	String server;
 	int[] ports;
+	private TorTransportWrapper transport;
 	
 	static Vector RESULT_NO_SERVER;
 
-	private static final int secondsToTimeoutGetServerInfo = 15;
+	private static final int secondsToTimeoutGetServerInfo = 150;
 }

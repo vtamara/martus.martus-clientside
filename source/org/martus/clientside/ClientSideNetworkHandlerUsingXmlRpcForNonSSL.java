@@ -37,6 +37,7 @@ import java.util.Vector;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.martus.common.network.TorTransportWrapper;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NonSSLNetworkAPI;
@@ -47,13 +48,24 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 {
 	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName)
 	{
-		this(serverName, NetworkInterfaceXmlRpcConstants.defaultNonSSLPorts);
+		this(serverName, (TorTransportWrapper)null);
+	}
+	
+	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, TorTransportWrapper transportToUse)
+	{
+		this(serverName, NetworkInterfaceXmlRpcConstants.defaultNonSSLPorts, transportToUse);
+	}
+	
+	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse)
+	{
+		this(serverName, portsToUse, null);
 	}
 
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse)
+	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse, TorTransportWrapper transportToUse)
 	{
 		server = serverName;
 		ports = portsToUse;
+		transport = transportToUse;
 	}
 
 	// begin MartusXmlRpc interface
@@ -141,6 +153,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 
 	String server;
 	int[] ports;
+	private TorTransportWrapper transport;
 	static int indexOfPortThatWorkedLast = 0;
 	boolean debugMode;
 }

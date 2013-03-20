@@ -359,7 +359,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 	
 	public void testGetListOfAllFieldOfficeBulletinIdsOnServer() throws Exception
 	{
-		NetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString());
+		NetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
 		MockClientSideNetworkGateway mockGateway = new MockClientSideNetworkGateway(networkInterface);
 		
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
@@ -433,7 +433,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 
 	public void testGetBulletin() throws Exception
 	{
-		NetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString());
+		NetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
 		MockClientSideNetworkGateway mockGateway = new MockClientSideNetworkGateway(networkInterface);
 		
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());

@@ -37,6 +37,7 @@ import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.network.BulletinRetrieverGatewayInterface;
 import org.martus.common.network.ClientSideNetworkInterface;
+import org.martus.common.network.TorTransportWrapper;
 import org.martus.common.network.NetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
@@ -175,16 +176,16 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		return new NetworkResponse(server.getServerCompliance(signer.getPublicKeyString(), parameters, signature));
 	}
 	
-	static public ClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey)
+	static public ClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, TorTransportWrapper transportToUse)
 	{
-		NetworkInterface server = buildNetworkInterface(serverName, serverPublicKey);
+		NetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
 		if(server == null)
 			return null;
 		
 		return new ClientSideNetworkGateway(server);
 	}
 
-	public static ClientSideNetworkInterface buildNetworkInterface(String serverName, String serverPublicKey)
+	public static ClientSideNetworkInterface buildNetworkInterface(String serverName, String serverPublicKey, TorTransportWrapper transport)
 	{
 		if(serverName.length() == 0)
 			return null;
@@ -192,7 +193,7 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		try
 		{
 			int[] ports = NetworkInterfaceXmlRpcConstants.defaultSSLPorts;
-			ClientSideNetworkHandlerUsingXmlRpc handler = new ClientSideNetworkHandlerUsingXmlRpc(serverName, ports);
+			ClientSideNetworkHandlerUsingXmlRpc handler = new ClientSideNetworkHandlerUsingXmlRpc(serverName, ports, transport);
 			handler.getSimpleX509TrustManager().setExpectedPublicKey(serverPublicKey);
 			return handler;
 		}
