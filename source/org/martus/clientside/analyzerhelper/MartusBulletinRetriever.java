@@ -34,16 +34,17 @@ import java.util.Vector;
 
 import org.martus.clientside.ClientSideNetworkGateway;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcForNonSSL;
-import org.martus.common.ProgressMeterInterface;
 import org.martus.common.Exceptions.ServerNotAvailableException;
 import org.martus.common.MartusUtilities.PublicInformationInvalidException;
 import org.martus.common.MartusUtilities.ServerErrorException;
+import org.martus.common.ProgressMeterInterface;
 import org.martus.common.crypto.MartusCrypto;
-import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.crypto.MartusCrypto.AuthorizationFailedException;
 import org.martus.common.crypto.MartusCrypto.CryptoInitializationException;
 import org.martus.common.crypto.MartusCrypto.InvalidKeyPairFileVersionException;
 import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
+import org.martus.common.crypto.MartusSecurity;
+import org.martus.common.network.TorTransportWrapper;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
@@ -64,15 +65,21 @@ public class MartusBulletinRetriever
 	
 	public MartusBulletinRetriever(InputStream keyPair, char[] password) throws CryptoInitializationException, InvalidKeyPairFileVersionException, AuthorizationFailedException, IOException
 	{
+		this(keyPair, password, null);
+	}
+	
+	public MartusBulletinRetriever(InputStream keyPair, char[] password, TorTransportWrapper transportToUse) throws CryptoInitializationException, InvalidKeyPairFileVersionException, AuthorizationFailedException, IOException
+	{
 		security = new MartusSecurity();
 		security.readKeyPair(keyPair, password);
+		transport = transportToUse;
 	}
 	
 	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse)
 	{
 		serverPublicKey = serverPublicKeyToUse;
 		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
-		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse);
+		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse, transport);
 	}
 
 	public boolean isServerAvailable()  
@@ -180,4 +187,5 @@ public class MartusBulletinRetriever
 	private ClientSideNetworkGateway serverSLL;
 	private MartusSecurity security;
 	private String serverPublicKey;
+	private TorTransportWrapper transport;
 }
