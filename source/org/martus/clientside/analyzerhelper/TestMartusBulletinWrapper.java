@@ -27,8 +27,8 @@ package org.martus.clientside.analyzerhelper;
 
 import java.io.File;
 
-import org.martus.common.HQKey;
-import org.martus.common.HQKeys;
+import org.martus.common.HeadquartersKey;
+import org.martus.common.HeadquartersKeys;
 import org.martus.common.MiniLocalization;
 import org.martus.common.bulletin.AttachmentProxy;
 import org.martus.common.bulletin.Bulletin;
@@ -108,8 +108,8 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		bulletin.set(BulletinConstants.TAGEVENTDATE, "2003-08-20,20030820+3");
 		bulletin.setSealed();
 		
-		HQKey key = new HQKey(security.getPublicKeyString());
-		HQKeys keys = new HQKeys(key);
+		HeadquartersKey key = new HeadquartersKey(security.getPublicKeyString());
+		HeadquartersKeys keys = new HeadquartersKeys(key);
 		bulletin.setAuthorizedToReadKeys(keys);
 		
 		
@@ -204,8 +204,8 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		
 		bulletin.setSealed();
 		
-		HQKey key = new HQKey(security.getPublicKeyString(), "My HQ");
-		HQKeys keys = new HQKeys(key);
+		HeadquartersKey key = new HeadquartersKey(security.getPublicKeyString(), "My HQ");
+		HeadquartersKeys keys = new HeadquartersKeys(key);
 		bulletin.setAuthorizedToReadKeys(keys);
 		
 		
