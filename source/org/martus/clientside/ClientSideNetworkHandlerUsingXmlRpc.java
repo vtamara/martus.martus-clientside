@@ -366,6 +366,12 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	
 	public Object executeXmlRpc(String serverName, String method, Vector params, int port) throws Exception 
 	{
+		if(!transport.isReady())
+		{
+			MartusLogger.log("Warning: JTor transport not ready for " + method);
+			return new String[] { NetworkInterfaceConstants.TRANSPORT_NOT_READY };
+		}
+		
 		final String serverUrl = "https://" + serverName + ":" + port + "/RPC2";
 		MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer serverUrl=" + serverUrl);
 		
