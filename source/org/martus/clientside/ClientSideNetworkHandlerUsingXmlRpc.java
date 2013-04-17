@@ -350,7 +350,12 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		}
 		catch (XmlRpcException e)
 		{
-			if(e.getMessage().indexOf("NoSuchMethodException") < 0)
+			String message = e.getMessage();
+			if(message == null)
+				message = "";
+			boolean wasNoSuchMethodException = message.indexOf("NoSuchMethodException") >= 0;
+			boolean wasTimeoutException = message.indexOf("Connection timed out") >= 0;
+			if(!wasNoSuchMethodException && !wasTimeoutException)
 			{
 				MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer XmlRpcException=" + e);
 				MartusLogger.logException(e);
