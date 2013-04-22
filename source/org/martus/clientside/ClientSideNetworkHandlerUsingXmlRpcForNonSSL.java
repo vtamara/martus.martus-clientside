@@ -37,11 +37,12 @@ import java.util.Vector;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.MartusLogger;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
+import org.martus.common.network.TorTransportWrapper;
 
 public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkAPIWithHelpers implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
 	
@@ -117,7 +118,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 			port += 9000;
 		
 		final String serverUrl = "http://" + serverName + ":" + port + "/RPC2";
-		logging("MartusServerProxyViaXmlRpc:callServer serverUrl=" + serverUrl);
+		MartusLogger.logVerbose("MartusServerProxyViaXmlRpc:callServer serverUrl=" + serverUrl);
 
 		// NOTE: We **MUST** create a new XmlRpcClient for each call, because
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
