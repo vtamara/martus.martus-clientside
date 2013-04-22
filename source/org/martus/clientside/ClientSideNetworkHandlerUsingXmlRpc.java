@@ -378,7 +378,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		}
 		
 		final String serverUrl = "https://" + serverName + ":" + port + "/RPC2";
-		MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer serverUrl=" + serverUrl);
+		MartusLogger.logVerbose("ServerInterfaceXmlRpcHandler:callServer serverUrl=" + serverUrl);
 		
 		// NOTE: We **MUST** create a new XmlRpcClient for each call, because
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
