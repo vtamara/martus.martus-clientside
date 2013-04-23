@@ -75,9 +75,15 @@ public class UiUtilities
 		String title = localization.getWindowTitle("confirm" + baseTag);
 		String cause = localization.getFieldLabel("confirm" + baseTag + "cause");
 		String effect = localization.getFieldLabel("confirm" + baseTag + "effect");
-		String question = localization.getFieldLabel("confirmquestion");
+		String question = getConfirmQuestionText(localization);
 		String[] contents = {cause, "", effect, "", question};
 		return confirmDlg(localization, parent, title, contents, tokenReplacement);
+	}
+
+	public static String getConfirmQuestionText(UiLocalization localization) 
+	{
+		String question = localization.getFieldLabel("confirmquestion");
+		return question;
 	}
 
 	public static boolean confirmDlg(MiniLocalization localization, JFrame parent, String title, String[] contents)
