@@ -93,7 +93,7 @@ public class UiUtilities
 		return confirmDlg(parent, title, contents, buttons, tokenReplacement);
 	}
 
-	private static String[] getConfirmDialogButtons(MiniLocalization localization) 
+	public static String[] getConfirmDialogButtons(MiniLocalization localization) 
 	{
 		String yes = localization.getButtonLabel("yes");
 		String no = localization.getButtonLabel("no");
