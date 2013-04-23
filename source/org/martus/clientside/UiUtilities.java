@@ -88,11 +88,17 @@ public class UiUtilities
 
 	public static boolean confirmDlg(MiniLocalization localization, JFrame parent, String title, String[] contents, Map tokenReplacement)
 	{
+		String[] buttons = getConfirmDialogButtons(localization);
+
+		return confirmDlg(parent, title, contents, buttons, tokenReplacement);
+	}
+
+	private static String[] getConfirmDialogButtons(MiniLocalization localization) 
+	{
 		String yes = localization.getButtonLabel("yes");
 		String no = localization.getButtonLabel("no");
 		String[] buttons = {yes, no};
-
-		return confirmDlg(parent, title, contents, buttons, tokenReplacement);
+		return buttons;
 	}
 
 	public static boolean confirmDlg(JFrame parent, String title, String[] contents, String[] buttons) 
