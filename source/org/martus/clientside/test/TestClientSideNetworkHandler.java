@@ -54,7 +54,7 @@ public class TestClientSideNetworkHandler extends TestCaseEnhanced
 		{
 			triedPorts.add(new Integer(port));
 			if(failAll || port != goodPort)
-				throw new IOException("Connection blah blah");
+				throw new IOException("Blah blah Connection refused yada yada");
 			return null;
 		}
 

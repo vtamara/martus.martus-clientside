@@ -335,7 +335,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		}
 		catch (IOException e)
 		{
-			if(e.getMessage().startsWith("Connection"))
+			if(e.getMessage().contains("Connection refused"))
 				return RESULT_NO_SERVER;
 
 			if(e.getMessage().contains("RSA premaster"))
@@ -355,7 +355,8 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 				message = "";
 			boolean wasNoSuchMethodException = message.indexOf("NoSuchMethodException") >= 0;
 			boolean wasTimeoutException = message.indexOf("Connection timed out") >= 0;
-			if(!wasNoSuchMethodException && !wasTimeoutException)
+			boolean wasConnectionRefusedException = message.indexOf("Connection refused") >= 0;
+			if(!wasNoSuchMethodException && !wasTimeoutException && !wasConnectionRefusedException)
 			{
 				MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer XmlRpcException=" + e);
 				MartusLogger.logException(e);
