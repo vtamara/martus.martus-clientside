@@ -101,9 +101,38 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 				indexOfPortThatWorkedLast = (indexOfPortThatWorkedLast+1)%numPorts;
 				continue;
 			}
+			catch (IOException e)
+			{
+				if(e.getMessage().contains("Connection refused"))
+					return null;
+
+				if(e.getMessage().contains("RSA premaster"))
+				{
+					MartusLogger.log("Possible problem with RSA key size limitations");
+					MartusLogger.logException(e);
+					return null;
+				}
+				//TODO throw IOExceptions so caller can decide what to do.
+				//This was added for connection refused: connect (no server connected)
+				MartusLogger.logException(e);		
+			}
+			catch (XmlRpcException e)
+			{
+				String message = e.getMessage();
+				if(message == null)
+					message = "";
+				boolean wasNoSuchMethodException = message.indexOf("NoSuchMethodException") >= 0;
+				boolean wasTimeoutException = message.indexOf("Connection timed out") >= 0;
+				boolean wasConnectionRefusedException = message.indexOf("Connection refused") >= 0;
+				if(!wasNoSuchMethodException && !wasTimeoutException && !wasConnectionRefusedException)
+				{
+					MartusLogger.log("ClientSideNetworkHandlerUsingXmlRpcForNonSSL:callServer XmlRpcException=" + e);
+					MartusLogger.logException(e);
+				}
+			}
 			catch(Exception e)
 			{
-				logging("MartusServerProxyViaXmlRpc:callServer Exception=" + e);
+				logging("ClientSideNetworkHandlerUsingXmlRpcForNonSSL:callServer Exception=" + e);
 				e.printStackTrace();
 				return null;
 			}
