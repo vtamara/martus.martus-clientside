@@ -358,13 +358,13 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			boolean wasConnectionRefusedException = message.indexOf("Connection refused") >= 0;
 			if(!wasNoSuchMethodException && !wasTimeoutException && !wasConnectionRefusedException)
 			{
-				MartusLogger.log("ServerInterfaceXmlRpcHandler:callServer XmlRpcException=" + e);
+				MartusLogger.log("ClientSideNetworkHandlerUsingXmlRpc:callServer XmlRpcException=" + e);
 				MartusLogger.logException(e);
 			}
 		}
 		catch (Exception e)
 		{
-			System.out.println("ServerInterfaceXmlRpcHandler:callServer Exception=" + e);
+			System.out.println("ClientSideNetworkHandlerUsingXmlRpc:callServer Exception=" + e);
 			e.printStackTrace();
 		}
 		return null;
