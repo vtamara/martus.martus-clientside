@@ -123,4 +123,8 @@ public class NoServerNetworkInterfaceHandler implements ClientSideNetworkInterfa
 		return null;
 	}
 
+	public void setTimeoutGetServerInfo(int torGetServerInfoTimeoutSeconds) 
+	{
+	}
+
 }
