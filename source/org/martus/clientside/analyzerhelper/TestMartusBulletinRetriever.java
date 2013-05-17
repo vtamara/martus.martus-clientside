@@ -429,6 +429,11 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		{
 			return true;
 		}
+
+		public void hideProgressMeter()
+		{
+		}
+
 	}
 
 	public void testGetBulletin() throws Exception
