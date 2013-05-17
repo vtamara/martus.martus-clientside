@@ -110,5 +110,9 @@ public class ServerSideNetworkHandlerNotAvailable implements ClientSideNetworkIn
 	{
 		return null;
 	}
+
+	public void setTimeoutGetServerInfo(int torGetServerInfoTimeoutSeconds) 
+	{
+	}
 	
 }
