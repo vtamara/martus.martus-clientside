@@ -424,6 +424,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	
 	static Vector RESULT_NO_SERVER;
 
-	public static final int DEFAULT_GET_SERVER_INFO_TIMEOUT_SECONDS = 15;
+	public static final int DEFAULT_GET_SERVER_INFO_TIMEOUT_SECONDS = 60;
+	public static final int WITHOUT_TOR_GET_SERVER_INFO_TIMEOUT_SECONDS = 15;
 	public static final int TOR_GET_SERVER_INFO_TIMEOUT_SECONDS = 60;
 }
