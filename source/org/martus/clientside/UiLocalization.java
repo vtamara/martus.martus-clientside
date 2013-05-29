@@ -286,6 +286,11 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		return getLabel(getCurrentLanguageCode(), "keyword", code);
 	}
 
+	public String getStorable(String text)
+	{
+		return BurmeseUtilities.getStorable(text);
+	}
+
 	public Vector getAllTranslationStrings(String languageCode)
 	{
 		SortedSet sorted = getAllKeysSorted();
