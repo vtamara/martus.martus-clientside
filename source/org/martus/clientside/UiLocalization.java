@@ -37,6 +37,7 @@ import java.util.Vector;
 
 import org.martus.common.VersionBuildDate;
 import org.martus.common.fieldspec.ChoiceItem;
+import org.martus.common.utilities.BurmeseUtilities;
 import org.martus.util.UnicodeWriter;
 
 
@@ -209,6 +210,7 @@ abstract public class UiLocalization extends MtfAwareLocalization
 	{
 		String code = getLanguageCodeFromFilename(filename);
 		String name = getLabel(ENGLISH, "language", code);
+		name = BurmeseUtilities.getStorable(name);
 		return new ChoiceItem(code, name);
 	}
 
