@@ -28,60 +28,132 @@ package org.martus.clientside;
 
 import java.io.IOException;
 import java.net.ConnectException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.PublicKey;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Vector;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.X509TrustManager;
+
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcTransportFactory;
+import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpc.SSLSocketSetupException;
 import org.martus.common.MartusLogger;
+import org.martus.common.MartusUtilities;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
+import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
+import org.martus.common.network.SimpleHostnameVerifier;
+import org.martus.common.network.SimpleX509TrustManager;
 import org.martus.common.network.TorTransportWrapper;
 
 public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkAPIWithHelpers implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
 	
 {
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName)
+	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName) throws Exception
 	{
 		this(serverName, (TorTransportWrapper)null);
 	}
 	
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, TorTransportWrapper transportToUse)
+	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, TorTransportWrapper transportToUse) throws Exception
 	{
-		this(serverName, NetworkInterfaceXmlRpcConstants.defaultNonSSLPorts, transportToUse);
+		this(serverName, NetworkInterfaceXmlRpcConstants.defaultSSLPorts, transportToUse);
 	}
 	
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse)
+	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse) throws Exception
 	{
 		this(serverName, portsToUse, null);
 	}
 
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse, TorTransportWrapper transportToUse)
+	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse, TorTransportWrapper transportToUse) throws Exception
 	{
 		server = serverName;
 		ports = portsToUse;
 		transport = transportToUse;
+
+		try
+		{
+			ClientSideNetworkHandlerUsingXmlRpc.restrictCipherSuites();
+
+			tm = new KeyCollectingX509TrustManager();
+			HttpsURLConnection.setDefaultSSLSocketFactory(MartusUtilities.createSocketFactory(tm));
+			HttpsURLConnection.setDefaultHostnameVerifier(new SimpleHostnameVerifier());
+		}
+		catch (Exception e)
+		{
+			MartusLogger.logException(e);
+			throw new SSLSocketSetupException();
+		}
+	}
+	
+	class KeyCollectingX509TrustManager implements X509TrustManager
+	{
+		public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException 
+		{
+			// WORKAROUND for a bug in Sun JSSE that shipped with 1.4.1_01 and earlier
+			// where it would invoke this method instead of checkServerTrusted!
+			checkServerTrusted(chain, authType);
+		}
+
+		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException 
+		{
+			if(chain.length != 3)
+				throw new CertificateException("Need three certificates");
+			
+			// NOTE: cert2 is self-signed of and by the server Martus key
+			X509Certificate cert2 = chain[2];
+			serverPublicKey = cert2.getPublicKey();
+		}
+
+		public X509Certificate[] getAcceptedIssuers() 
+		{
+			return null;
+		}
+		
+		public String getServerPublicKeyString() 
+		{
+			return SimpleX509TrustManager.getKeyString(serverPublicKey);
+		}
+
+		private PublicKey serverPublicKey;
 	}
 
 	// begin MartusXmlRpc interface
 	public String ping()
 	{
-		Vector params = new Vector();
-		return (String)callServer(server, CMD_PING, params);
+		Vector result = getServerInformation();
+		if(result == null)
+			return null;
+		
+		return (String)result.get(0);
 	}
 
 	public Vector getServerInformation()
 	{
 		logging("MartusServerProxyViaXmlRpc:getServerInformation");
 		Vector params = new Vector();
-		Object[] result = (Object[]) callServer(server, CMD_SERVER_INFO, params);
-		return new Vector(Arrays.asList(result));
+		params.add(new Vector());
+		Object[] resultArray = (Object[]) callServer(server, cmdGetServerInfo, params);
+		Vector response = new Vector(Arrays.asList(resultArray));
+		NetworkResponse networkResponse = new NetworkResponse(response);
+		if(!networkResponse.getResultCode().equals(OK))
+			return null;
+		
+		Vector result = new Vector();
+		String serverVersion = (String) networkResponse.getResultVector().get(0);
+		result.add(serverVersion);
+		String publicKey = tm.getServerPublicKeyString();
+		result.add(publicKey);
+		
+		return result;
 	}
 
 	// end MartusXmlRpc interface
@@ -140,19 +212,27 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 		return null;
 	}
 	
-	public Object callServerAtPort(String serverName, String method, Vector params, int port)
-		throws MalformedURLException, XmlRpcException, IOException
+	public Object callServerAtPort(String serverName, String method, Vector params, int port) throws Exception
 	{
+		if(!transport.isReady())
+		{
+			MartusLogger.log("Warning: JTor transport not ready for " + method);
+			return new String[] { NetworkInterfaceConstants.TRANSPORT_NOT_READY };
+		}
+
 		if(ClientPortOverride.useInsecurePorts)
 			port += 9000;
 		
-		final String serverUrl = "http://" + serverName + ":" + port + "/RPC2";
+		final String serverUrl = "https://" + serverName + ":" + port + "/RPC2";
 		MartusLogger.logVerbose("MartusServerProxyViaXmlRpc:callServer serverUrl=" + serverUrl);
 
 		// NOTE: We **MUST** create a new XmlRpcClient for each call, because
 		// there is a memory leak in apache xmlrpc 1.1 that will cause out of 
 		// memory exceptions if we reuse an XmlRpcClient object
 		XmlRpcClient client = new XmlRpcClient();
+		XmlRpcTransportFactory transportFactory = transport.createTransport(client, tm);
+		if(transportFactory != null)
+			client.setTransportFactory(transportFactory);
 		
 		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		config.setServerURL(new URL(serverUrl));
@@ -186,4 +266,5 @@ public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkA
 	private TorTransportWrapper transport;
 	static int indexOfPortThatWorkedLast = 0;
 	boolean debugMode;
+	private KeyCollectingX509TrustManager tm;
 }
