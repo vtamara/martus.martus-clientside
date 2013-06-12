@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.martus.clientside.ClientSideNetworkGateway;
-import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcForNonSSL;
+import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer;
 import org.martus.common.Exceptions.ServerNotAvailableException;
 import org.martus.common.MartusUtilities.PublicInformationInvalidException;
 import org.martus.common.MartusUtilities.ServerErrorException;
@@ -78,7 +78,7 @@ public class MartusBulletinRetriever
 	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse) throws Exception
 	{
 		serverPublicKey = serverPublicKeyToUse;
-		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
+		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress);
 		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse, transport);
 	}
 
@@ -86,12 +86,12 @@ public class MartusBulletinRetriever
 	{
 		if(serverPublicKey==null)
 			return false;
-		return ClientSideNetworkHandlerUsingXmlRpcForNonSSL.isNonSSLServerAvailable(serverNonSSL);
+		return ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer.isNonSSLServerAvailable(serverNonSSL);
 	}
 
 	public String getServerPublicKey(String serverIPAddress, String serverPublicCode) throws Exception
 	{
-		ClientSideNetworkHandlerUsingXmlRpcForNonSSL newServerNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
+		ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer newServerNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress);
 		return getServerPublicKey(serverPublicCode, newServerNonSSL);
 	}
 	

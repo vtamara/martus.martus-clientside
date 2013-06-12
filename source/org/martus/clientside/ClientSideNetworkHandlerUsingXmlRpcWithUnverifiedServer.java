@@ -55,25 +55,25 @@ import org.martus.common.network.SimpleHostnameVerifier;
 import org.martus.common.network.SimpleX509TrustManager;
 import org.martus.common.network.TorTransportWrapper;
 
-public class ClientSideNetworkHandlerUsingXmlRpcForNonSSL extends NonSSLNetworkAPIWithHelpers implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
+public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends NonSSLNetworkAPIWithHelpers implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
 	
 {
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName) throws Exception
+	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName) throws Exception
 	{
 		this(serverName, (TorTransportWrapper)null);
 	}
 	
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, TorTransportWrapper transportToUse) throws Exception
+	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, TorTransportWrapper transportToUse) throws Exception
 	{
 		this(serverName, NetworkInterfaceXmlRpcConstants.defaultSSLPorts, transportToUse);
 	}
 	
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse) throws Exception
+	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, int[] portsToUse) throws Exception
 	{
 		this(serverName, portsToUse, null);
 	}
 
-	public ClientSideNetworkHandlerUsingXmlRpcForNonSSL(String serverName, int[] portsToUse, TorTransportWrapper transportToUse) throws Exception
+	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, int[] portsToUse, TorTransportWrapper transportToUse) throws Exception
 	{
 		server = serverName;
 		ports = portsToUse;
