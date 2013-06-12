@@ -55,7 +55,7 @@ public class TestClientside
 
 		// clientside
 		suite.addTest(new TestSuite(TestClientSideNetworkHandler.class));
-		suite.addTest(new TestSuite(TestClientSideNetworkHandlerForNonSSL.class));
+		suite.addTest(new TestSuite(TestClientSideNetworkHandlerWithUnverifiedServer.class));
 		suite.addTest(new TestSuite(TestCurrentUiState.class));
 
 		return suite;
