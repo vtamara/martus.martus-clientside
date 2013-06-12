@@ -44,7 +44,7 @@ public class TestClientSideNetworkHandlerForNonSSL extends TestCaseEnhanced
 	
 	static class MockHandlerForNonSSL extends ClientSideNetworkHandlerUsingXmlRpcForNonSSL
 	{
-		MockHandlerForNonSSL()
+		MockHandlerForNonSSL() throws Exception
 		{
 			super("", testPorts);
 		}

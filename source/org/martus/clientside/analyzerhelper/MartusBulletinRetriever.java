@@ -75,7 +75,7 @@ public class MartusBulletinRetriever
 		transport = transportToUse;
 	}
 	
-	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse)
+	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse) throws Exception
 	{
 		serverPublicKey = serverPublicKeyToUse;
 		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
@@ -89,7 +89,7 @@ public class MartusBulletinRetriever
 		return ClientSideNetworkHandlerUsingXmlRpcForNonSSL.isNonSSLServerAvailable(serverNonSSL);
 	}
 
-	public String getServerPublicKey(String serverIPAddress, String serverPublicCode) throws ServerPublicCodeDoesNotMatchException, ServerNotAvailableException, ServerErrorException
+	public String getServerPublicKey(String serverIPAddress, String serverPublicCode) throws Exception
 	{
 		ClientSideNetworkHandlerUsingXmlRpcForNonSSL newServerNonSSL = new ClientSideNetworkHandlerUsingXmlRpcForNonSSL(serverIPAddress);
 		return getServerPublicKey(serverPublicCode, newServerNonSSL);
