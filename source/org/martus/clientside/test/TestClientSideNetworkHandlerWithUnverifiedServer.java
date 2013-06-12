@@ -34,10 +34,10 @@ import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedSe
 import org.martus.util.TestCaseEnhanced;
 
 
-public class TestClientSideNetworkHandlerForNonSSL extends TestCaseEnhanced
+public class TestClientSideNetworkHandlerWithUnverifiedServer extends TestCaseEnhanced
 {
 
-	public TestClientSideNetworkHandlerForNonSSL(String name) 
+	public TestClientSideNetworkHandlerWithUnverifiedServer(String name) 
 	{
 		super(name);
 	}
