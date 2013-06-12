@@ -96,7 +96,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		timeoutSecondsForGetServerInfo = newTimeoutSeconds;
 	}
 
-	private void restrictCipherSuites() throws NoSuchAlgorithmException 
+	public static void restrictCipherSuites() throws NoSuchAlgorithmException 
 	{
 		SSLSocketFactory socketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
 		String[] rawCipherSuites = socketFactory.getDefaultCipherSuites();
