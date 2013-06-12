@@ -30,7 +30,7 @@ import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.util.Vector;
 import org.apache.xmlrpc.XmlRpcException;
-import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcForNonSSL;
+import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer;
 import org.martus.util.TestCaseEnhanced;
 
 
@@ -42,7 +42,7 @@ public class TestClientSideNetworkHandlerForNonSSL extends TestCaseEnhanced
 		super(name);
 	}
 	
-	static class MockHandlerForNonSSL extends ClientSideNetworkHandlerUsingXmlRpcForNonSSL
+	static class MockHandlerForNonSSL extends ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer
 	{
 		MockHandlerForNonSSL() throws Exception
 		{

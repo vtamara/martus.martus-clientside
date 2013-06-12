@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.martus.clientside.ClientSideNetworkGateway;
-import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcForNonSSL;
+import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer;
 import org.martus.clientside.analyzerhelper.MartusBulletinRetriever.ServerPublicCodeDoesNotMatchException;
 import org.martus.clientside.test.NoServerNetworkInterfaceForNonSSLHandler;
 import org.martus.common.Exceptions.ServerNotAvailableException;
@@ -125,7 +125,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 
 		public String ping()
 		{
-			return ClientSideNetworkHandlerUsingXmlRpcForNonSSL.MARTUS_SERVER_PING_RESPONSE;
+			return ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer.MARTUS_SERVER_PING_RESPONSE;
 		}
 
 		public Vector getServerInformation()
