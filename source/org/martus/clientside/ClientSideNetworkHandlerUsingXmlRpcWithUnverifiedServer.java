@@ -263,7 +263,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 
 	String server;
 	int[] ports;
-	private TorTransportWrapper transport;
+	protected TorTransportWrapper transport;
 	static int indexOfPortThatWorkedLast = 0;
 	boolean debugMode;
 	private KeyCollectingX509TrustManager tm;
