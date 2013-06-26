@@ -35,15 +35,14 @@ import org.martus.util.TestCaseEnhanced;
 public class MockUiLocalization extends UiLocalization
 {
 
-	public MockUiLocalization() throws IOException
+	public MockUiLocalization(String name) throws IOException
 	{
-		super(createTempDirectory(), new String[0]);
-		// TODO Auto-generated constructor stub
+		super(createTempDirectory(name), new String[0]);
 	}
 
-	static File createTempDirectory() throws IOException
+	static File createTempDirectory(String name) throws IOException
 	{
-		File directoryToUse = File.createTempFile("$$$MartusLoc"+TestCaseEnhanced.getCallingTestClass(), null);
+		File directoryToUse = File.createTempFile("$$$MartusLoc"+name, null);
 		directoryToUse.deleteOnExit();
 		directoryToUse.delete();
 		directoryToUse.mkdir();
