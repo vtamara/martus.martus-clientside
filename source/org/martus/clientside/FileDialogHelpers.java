@@ -80,4 +80,6 @@ public class FileDialogHelpers
 		return file;
 	}
 
+	public static final FileFilter NO_FILTER = null;
+
 }
