@@ -33,10 +33,22 @@ abstract public class FormatFilter extends FileFilter
 {
 	abstract public String getExtension();
 
+	public String[] getExtensions()
+	{
+		return new String[] {getExtension()};
+	}
+	
 	public boolean accept(File f)
 	{
 		if(f.isDirectory())
 			return true;
-		return (f.getName().toLowerCase().endsWith(getExtension()));
+		
+		for (String extension : getExtensions()) 
+		{
+			if (f.getName().toLowerCase().endsWith(extension))
+				return true;
+		}
+		
+		return false;
 	}
 }
