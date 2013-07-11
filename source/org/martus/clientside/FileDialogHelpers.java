@@ -59,13 +59,13 @@ public class FileDialogHelpers
 		return chosenFile;
 	}
 
-	static public File doFileSaveDialog(JFrame owner, String title, File directory, String defaultFilename, String okButtonLabel, FormatFilter filter, UiLocalization localization)
+	static public File doFileSaveDialog(JFrame owner, String title, File directory, String defaultFilename, FormatFilter filter, UiLocalization localization)
 	{
 		File file = null;
 		while(true)
 		{
 			FileDialogResults results = UiFileChooser.displayFileSaveDialog(owner, 
-					title, directory, defaultFilename, okButtonLabel, filter);
+					title, directory, defaultFilename, filter);
 			if(results.wasCancelChoosen())
 				return null;
 			file = results.getChosenFile();
