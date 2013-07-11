@@ -69,8 +69,12 @@ public class FileDialogHelpers
 			if(results.wasCancelChoosen())
 				return null;
 			file = results.getChosenFile();
-			if(!file.getName().toLowerCase().endsWith(filter.getExtension()))
+			
+			boolean filterExists = filter != null;
+			String lowerCaseFilename = file.getName().toLowerCase();
+			if(filterExists && !lowerCaseFilename.endsWith(filter.getExtension()))
 				file = new File(file.getAbsolutePath() + filter.getExtension());
+			
 			if(!file.exists())
 				break;
 			if(UiUtilities.confirmDlg(localization, owner, "OverWriteExistingFile"))
