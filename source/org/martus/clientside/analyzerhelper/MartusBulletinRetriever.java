@@ -77,8 +77,10 @@ public class MartusBulletinRetriever
 	
 	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse) throws Exception
 	{
+		if (transport == null)
+			transport = TorTransportWrapper.create();
 		serverPublicKey = serverPublicKeyToUse;
-		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress);
+		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress, transport);
 		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse, transport);
 	}
 
@@ -91,7 +93,7 @@ public class MartusBulletinRetriever
 
 	public String getServerPublicKey(String serverIPAddress, String serverPublicCode) throws Exception
 	{
-		ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer newServerNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress);
+		ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer newServerNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress, transport);
 		return getServerPublicKey(serverPublicCode, newServerNonSSL);
 	}
 	
