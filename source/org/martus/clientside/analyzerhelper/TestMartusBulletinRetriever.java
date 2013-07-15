@@ -60,6 +60,7 @@ import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
 import org.martus.common.packet.UniversalId;
 import org.martus.common.test.MockBulletinStore;
+import org.martus.common.test.UniversalIdForTesting;
 import org.martus.util.StreamableBase64;
 import org.martus.util.StreamableBase64.InvalidBase64Exception;
 import org.martus.util.TestCaseEnhanced;
@@ -450,7 +451,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		
 		try
 		{
-			retriever.getBulletin(UniversalId.createDummyUniversalId(), null);
+			retriever.getBulletin(UniversalIdForTesting.createDummyUniversalId(), null);
 			fail("should have thrown for invalid UId");
 		}
 		catch(ServerErrorException expected)
