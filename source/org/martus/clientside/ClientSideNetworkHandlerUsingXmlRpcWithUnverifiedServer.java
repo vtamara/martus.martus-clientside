@@ -58,11 +58,6 @@ import org.martus.common.network.TorTransportWrapper;
 public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends NonSSLNetworkAPIWithHelpers implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
 	
 {
-	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName) throws Exception
-	{
-		this(serverName, (TorTransportWrapper)null);
-	}
-	
 	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, TorTransportWrapper transportToUse) throws Exception
 	{
 		this(serverName, NetworkInterfaceXmlRpcConstants.defaultSSLPorts, transportToUse);
