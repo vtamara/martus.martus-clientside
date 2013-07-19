@@ -27,7 +27,9 @@ Boston, MA 02111-1307, USA.
 package org.martus.clientside;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
@@ -230,6 +232,21 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	
 	private Object callServer(String serverName, Caller caller)
 	{
+		try 
+		{
+			InetAddress address = InetAddress.getByName(serverName);
+			if(address != null && address.isSiteLocalAddress() && getTransport().isEnabled())
+			{
+				MartusLogger.log("Orchid cannot reach local address: " + serverName);
+				return null;
+			}
+		} 
+		catch (UnknownHostException e) 
+		{
+			MartusLogger.logException(e);
+			return null;
+		}
+
 		int numPorts = ports.length;
 		int portIndexToTryNext = indexOfPortThatWorkedLast;
 		for(int i=0; i < numPorts; ++i)
