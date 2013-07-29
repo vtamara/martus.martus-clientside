@@ -211,7 +211,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 	{
 		if(!transport.isReady())
 		{
-			MartusLogger.log("Warning: JTor transport not ready for " + method);
+			MartusLogger.log("Warning: Orchid transport not ready for " + method);
 			return new String[] { NetworkInterfaceConstants.TRANSPORT_NOT_READY };
 		}
 
