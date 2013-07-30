@@ -97,7 +97,7 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("#      (e.g.  \"acctmap.txt\" and \"packets\"");
 		writer.writeln("#      in field:confirmWarnMissingAccountMapFilecause=Warning: acctmap.txt");
 		writer.writeln("#      file in your account's packets directory...)");
-		writer.writeln("#  6.  do not translate the words \"Martus\" or \"Benetech\"");
+		writer.writeln("#  6.  do not translate the words \"Martus\" or \"Benetech\" or \"Tor\"");
 		writer.writeln("#  7.  Leave standard field tags in English in CreateCustomFieldsHelp1 and");
 		writer.writeln("#      CreateCustomFieldsHelp2, but put translation in parentheses after");
 		writer.writeln("#      english : e.g.  'author' (translation-of-author from mtf, e.g. autor in spanish), so users know what they refer to");
@@ -144,7 +144,7 @@ abstract public class UiLocalization extends MtfAwareLocalization
 		writer.writeln("# 15       - We have file filters like 'Martus Report Format (.mrf)'");
 		writer.writeln("#            and 'Martus Search Specification (.mss)'.");
 		writer.writeln("#            The descriptive names should be translated, but the (.mrf) and (.mss)");
-		writer.writeln("#            must not be translated.");
+		writer.writeln("#            must not be translated. Similarly for .html, .htm, .mba, .mpi, .xml, .mct, .jpeg, .jpg, and .dat file extensions.");
 		if(rightToLeftLanguages.contains(languageCode))
 		{
 			writer.writeln("# 16.  If you want your language to appear left to right,");
