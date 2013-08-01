@@ -28,7 +28,9 @@ package org.martus.clientside;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.PublicKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -137,7 +139,9 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 		Vector params = new Vector();
 		params.add(new Vector());
 		Object[] resultArray = (Object[]) callServer(server, cmdGetServerInfo, params);
-		Vector response = new Vector(Arrays.asList(resultArray));
+		Vector response = null;
+		if(resultArray != null)
+			response = new Vector(Arrays.asList(resultArray));
 		NetworkResponse networkResponse = new NetworkResponse(response);
 		if(!networkResponse.getResultCode().equals(OK))
 			return null;
@@ -209,6 +213,21 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 	
 	public Object callServerAtPort(String serverName, String method, Vector params, int port) throws Exception
 	{
+		try 
+		{
+			InetAddress address = InetAddress.getByName(serverName);
+			if(address != null && address.isSiteLocalAddress() && getTransport().isEnabled())
+			{
+				MartusLogger.log("Orchid cannot reach local address: " + serverName);
+				return null;
+			}
+		} 
+		catch (UnknownHostException e) 
+		{
+			MartusLogger.logException(e);
+			return null;
+		}
+
 		if(!transport.isReady())
 		{
 			MartusLogger.log("Warning: Orchid transport not ready for " + method);
