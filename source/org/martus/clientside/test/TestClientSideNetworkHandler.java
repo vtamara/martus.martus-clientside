@@ -70,16 +70,16 @@ public class TestClientSideNetworkHandler extends TestCaseEnhanced
 		
 		MockHandlerForSSL handler = new MockHandlerForSSL();
 		handler.getSimpleX509TrustManager().setExpectedPublicKey(mockSecurity.getPublicKeyString());
-		handler.callServer("server", "method", null);
+		handler.callServer("10.10.10.10", "method", null);
 		assertContains("didn't try good port?", new Integer(MockHandlerForSSL.goodPort), handler.triedPorts);
 		
 		handler.triedPorts.clear();
-		handler.callServer("server", "method", null);
+		handler.callServer("10.10.10.10", "method", null);
 		assertEquals("tried more than just the good port?", 1, handler.triedPorts.size());
 		
 		handler.triedPorts.clear();
 		handler.failAll = true;
-		handler.callServer("server", "method", null);
+		handler.callServer("10.10.10.10", "method", null);
 		assertEquals("didn't try all ports?", MockHandlerForSSL.testPorts.length, handler.triedPorts.size());
 		handler.failAll = false;
 		
