@@ -123,6 +123,11 @@ public class NoServerNetworkInterfaceHandler implements ClientSideNetworkInterfa
 		return null;
 	}
 
+	public Vector getPartialUploadStatus(String publicKeyString, Vector parameters, String signature) 
+	{
+		return null;
+	}
+
 	public void setTimeoutGetServerInfo(int torGetServerInfoTimeoutSeconds) 
 	{
 	}
