@@ -224,6 +224,15 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return (Vector)callServer(server, cmdGetServerCompliance, params);
 	}
 
+	public Vector getPartialUploadStatus(String myAccountId, Vector parameters, String signature)
+	{
+		Vector params = new Vector();
+		params.add(myAccountId);
+		params.add(parameters);
+		params.add(signature);
+		return (Vector)callServer(server, cmdGetPartialUploadStatus, params);
+	}
+
 	public Object callServer(String serverName, String method, Vector params)
 	{
 		Caller caller = new Caller(method, params);

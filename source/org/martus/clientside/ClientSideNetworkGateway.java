@@ -35,13 +35,15 @@ import org.martus.common.ProgressMeterInterface;
 import org.martus.common.VersionBuildDate;
 import org.martus.common.bulletin.BulletinZipUtilities;
 import org.martus.common.crypto.MartusCrypto;
+import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.network.BulletinRetrieverGatewayInterface;
 import org.martus.common.network.ClientSideNetworkInterface;
-import org.martus.common.network.TorTransportWrapper;
 import org.martus.common.network.NetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
+import org.martus.common.network.PartialUploadStatus;
+import org.martus.common.network.TorTransportWrapper;
 import org.martus.common.packet.UniversalId;
 
 public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterface
@@ -176,6 +178,19 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		return new NetworkResponse(server.getServerCompliance(signer.getPublicKeyString(), parameters, signature));
 	}
 	
+	private NetworkResponse getPartialUploadStatus(MartusCrypto signer, String uploaderId, String bulletinLocalId, Vector extraParameters) throws MartusSignatureException 
+	{
+		Vector parameters = new Vector();
+		parameters.add(uploaderId);
+		parameters.add(bulletinLocalId);
+		parameters.add(extraParameters);
+		String signature = signer.createSignatureOfVectorOfStrings(parameters);
+		return new NetworkResponse(server.getPartialUploadStatus(signer.getPublicKeyString(), parameters, signature));
+	}
+
+
+	
+	
 	static public ClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, TorTransportWrapper transportToUse)
 	{
 		NetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
@@ -237,6 +252,27 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 			throw new ServerErrorException(
 					"bulletin totalSize didn't match data length");
 		return tempFile;
+	}
+
+	public PartialUploadStatus getPartialUploadStatus(MartusCrypto security, String uploaderId, String bulletinLocalId) throws ServerErrorException 
+	{
+		try
+		{
+			NetworkResponse response = getPartialUploadStatus(security, uploaderId, bulletinLocalId, new Vector());
+			String resultCode = response.getResultCode();
+			if(!resultCode.equals(NetworkInterfaceConstants.OK))
+				throw new ServerErrorException(resultCode);
+			Vector result = response.getResultVector();
+			long length = new Long((String)result.get(0));
+			String sha256 = (String) result.get(1);
+			PartialUploadStatus status = new PartialUploadStatus(length, sha256);
+			return status;
+		}
+		catch(MartusCrypto.MartusSignatureException e)
+		{
+			System.out.println("ServerUtilities.getFieldOfficeAccounts: " + e);
+			throw new ServerErrorException();
+		}
 	}
 
 	final static String defaultReservedString = "";
