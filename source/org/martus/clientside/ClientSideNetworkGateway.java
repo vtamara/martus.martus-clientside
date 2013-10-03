@@ -276,13 +276,13 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		}
 	}
 
-	static public int getOffsetToStartUploading(ClientSideNetworkGateway gateway, UniversalId uid,	File tempFile, MartusCrypto security)
+	public int getOffsetToStartUploading(UniversalId uid,	File tempFile, MartusCrypto security)
 	{
 		String authorId = uid.getAccountId();
 		String bulletinLocalId = uid.getLocalId();
 		try
 		{
-			PartialUploadStatus status = gateway.getPartialUploadStatus(security, authorId, bulletinLocalId);
+			PartialUploadStatus status = getPartialUploadStatus(security, authorId, bulletinLocalId);
 			if(!status.hasPartialUpload())
 				return 0;
 			
