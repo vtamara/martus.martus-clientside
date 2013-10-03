@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Vector;
 
+import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities.ServerErrorException;
 import org.martus.common.ProgressMeterInterface;
 import org.martus.common.VersionBuildDate;
@@ -272,6 +273,36 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		{
 			System.out.println("ServerUtilities.getFieldOfficeAccounts: " + e);
 			throw new ServerErrorException();
+		}
+	}
+
+	static public int getOffsetToStartUploading(ClientSideNetworkGateway gateway, UniversalId uid,	File tempFile, MartusCrypto security)
+	{
+		String authorId = uid.getAccountId();
+		String bulletinLocalId = uid.getLocalId();
+		try
+		{
+			PartialUploadStatus status = gateway.getPartialUploadStatus(security, authorId, bulletinLocalId);
+			if(!status.hasPartialUpload())
+				return 0;
+			
+			if(status.lengthOfPartialUpload() > Integer.MAX_VALUE)
+				return 0;
+			
+			int partialLength = (int)status.lengthOfPartialUpload();
+			MartusLogger.log("Partial upload found, length=" + partialLength);
+			String sha1Base64OnServer = status.sha1OfPartialUpload();
+			String sha1Base64Here = MartusCrypto.getPartialDigest(tempFile, partialLength);
+			if(sha1Base64Here.equals(sha1Base64OnServer))
+				return partialLength;
+			
+			MartusLogger.log("Partial upload mismatch; will upload from scratch");
+			return 0;
+		} 
+		catch (Exception e)
+		{
+			MartusLogger.logException(e);
+			return 0;
 		}
 	}
 
