@@ -412,6 +412,17 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 		return (JarVerifier.verify(translationFile, false) == JarVerifier.JAR_VERIFIED_TRUE);
 	}
 	
+	public void setSpecialZawgyiFlagForReportRunner(boolean doZawgyiConversion)
+	{
+		reportRunnerNeedsZawgyiConversion = doZawgyiConversion;
+	}
+
+	@Override
+	public boolean getSpecialZawgyiFlagForReportRunner() 
+	{
+		return reportRunnerNeedsZawgyiConversion;
+	}
+	
 	public File directory;
 
 	public static final String TRANSLATEDBY_PREFIX = "# Translated by:";
@@ -428,4 +439,5 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 	public boolean includeOfficialLanguagesOnly;
 	private Date mlpDate;
 	private String translatedBy;
+	private boolean reportRunnerNeedsZawgyiConversion;
 }
