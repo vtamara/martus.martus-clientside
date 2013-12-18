@@ -36,6 +36,7 @@ import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.martus.common.MartusLogger;
 import org.martus.common.MiniLocalization;
 import org.martus.common.crypto.MartusCrypto;
 import org.martus.jarverifier.JarVerifier;
@@ -198,6 +199,7 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 			else
 			{
 				transStream = new FileInputStream(translationFile);
+				MartusLogger.log("Loading unofficial MTF: " + translationFile.getAbsolutePath());
 			}
 			
 			if(transStream == null)
