@@ -214,6 +214,13 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(signature);
 		return (Vector)callServer(server, cmdGetNews, params);
 	}
+
+	public Vector getMartusAccountAccessToken(String myAccountId)
+	{
+		Vector params = new Vector();
+		params.add(myAccountId);
+		return (Vector)callServer(server, cmdGetMartusAccountAccessToken, params);
+	}
 	
 	public Vector getServerCompliance(String myAccountId, Vector parameters, String signature)
 	{
