@@ -215,10 +215,12 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return (Vector)callServer(server, cmdGetNews, params);
 	}
 
-	public Vector getMartusAccountAccessToken(String myAccountId)
+	public Vector getMartusAccountAccessToken(String myAccountId, Vector parameters, String signature)
 	{
 		Vector params = new Vector();
 		params.add(myAccountId);
+		params.add(parameters);
+		params.add(signature);
 		return (Vector)callServer(server, cmdGetMartusAccountAccessToken, params);
 	}
 	

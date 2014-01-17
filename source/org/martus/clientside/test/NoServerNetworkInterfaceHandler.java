@@ -119,7 +119,10 @@ public class NoServerNetworkInterfaceHandler implements ClientSideNetworkInterfa
 	}
 
 	
-	public Vector getMartusAccountAccessToken(String myAccountId)
+	public Vector getMartusAccountAccessToken(
+		String myAccountId,
+		Vector parameters,
+		String signature)
 	{
 		return null;
 	}
