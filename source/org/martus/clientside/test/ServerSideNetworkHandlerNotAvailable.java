@@ -106,15 +106,15 @@ public class ServerSideNetworkHandlerNotAvailable implements ClientSideNetworkIn
 		return null;
 	}
 
-	public Vector getMartusAccountAccessToken(
-		String myAccountId,
-		Vector parameters,
-		String signature)
+	public Vector getMartusAccountAccessToken(String myAccountId, Vector parameters, String signature)
 	{
 		return null;
 	}
-
 	
+	public Vector getMartusAccountIdFromAccessToken(String myAccountId, Vector parameters, String signature)
+	{
+		return null;
+	}
 
 	public Vector getServerCompliance(String myAccountId, Vector parameters, String signature)
 	{

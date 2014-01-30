@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Vector;
 
+import org.martus.common.MartusAccountAccessToken;
 import org.martus.common.MartusLogger;
 import org.martus.common.MartusUtilities.ServerErrorException;
 import org.martus.common.ProgressMeterInterface;
@@ -180,6 +181,17 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		return new NetworkResponse(server.getMartusAccountAccessToken(signer.getPublicKeyString(), parameters, signature));
 	}
 
+		
+	public NetworkResponse getMartusAccountIdFromAccessToken(MartusCrypto signer, MartusAccountAccessToken tokenToUse) throws
+	MartusCrypto.MartusSignatureException
+	{
+		Vector parameters = new Vector();
+		parameters.add(tokenToUse.getToken());
+		String signature = signer.createSignatureOfVectorOfStrings(parameters);
+		
+		return new NetworkResponse(server.getMartusAccountIdFromAccessToken(signer.getPublicKeyString(), parameters, signature));
+	}
+	
 	public NetworkResponse	getServerCompliance(MartusCrypto signer) throws
 			MartusCrypto.MartusSignatureException
 	{
