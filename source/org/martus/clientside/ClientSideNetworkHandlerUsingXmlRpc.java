@@ -251,6 +251,24 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return (Vector)callServer(server, cmdGetPartialUploadStatus, params);
 	}
 
+	public Vector getListOfFormTemplates(String myAccountId, Vector parameters, String signature) 
+	{
+		Vector params = new Vector();
+		params.add(myAccountId);
+		params.add(parameters);
+		params.add(signature);
+		return (Vector)callServer(server, cmdGetListOfFormTemplates, params);
+	}
+
+	public Vector putFormTemplate(String myAccountId, Vector parameters, String signature) 
+	{
+		Vector params = new Vector();
+		params.add(myAccountId);
+		params.add(parameters);
+		params.add(signature);
+		return (Vector)callServer(server, cmdPutFormTemplate, params);
+	}
+
 	public Object callServer(String serverName, String method, Vector params)
 	{
 		Caller caller = new Caller(method, params);
