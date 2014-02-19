@@ -207,6 +207,16 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		return new NetworkResponse(server.putFormTemplate(signer.getPublicKeyString(), parameters, signature));
 	}
 	
+	public NetworkResponse getFormTemplate(MartusCrypto signer, String accountToGetFormTemplateFrom, String formTitle) throws
+	MartusCrypto.MartusSignatureException
+	{
+		Vector parameters = new Vector();
+		parameters.add(accountToGetFormTemplateFrom);
+		parameters.add(formTitle);
+		String signature = signer.createSignatureOfVectorOfStrings(parameters);
+		return new NetworkResponse(server.getFormTemplate(signer.getPublicKeyString(), parameters, signature));
+	}
+
 	public NetworkResponse	getServerCompliance(MartusCrypto signer) throws
 			MartusCrypto.MartusSignatureException
 	{
