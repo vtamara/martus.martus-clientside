@@ -269,6 +269,15 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return (Vector)callServer(server, cmdPutFormTemplate, params);
 	}
 
+	public Vector getFormTemplate(String myAccountId, Vector parameters, String signature) 
+	{
+		Vector params = new Vector();
+		params.add(myAccountId);
+		params.add(parameters);
+		params.add(signature);
+		return (Vector)callServer(server, cmdGetFormTemplate, params);
+	}
+
 	public Object callServer(String serverName, String method, Vector params)
 	{
 		Caller caller = new Caller(method, params);
