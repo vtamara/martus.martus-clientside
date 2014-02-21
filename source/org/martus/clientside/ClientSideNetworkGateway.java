@@ -177,21 +177,46 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 	{
 		Vector parameters = new Vector();
 		String signature = signer.createSignatureOfVectorOfStrings(parameters);
-		
 		return new NetworkResponse(server.getMartusAccountAccessToken(signer.getPublicKeyString(), parameters, signature));
 	}
 
-		
 	public NetworkResponse getMartusAccountIdFromAccessToken(MartusCrypto signer, MartusAccountAccessToken tokenToUse) throws
 	MartusCrypto.MartusSignatureException
 	{
 		Vector parameters = new Vector();
 		parameters.add(tokenToUse.getToken());
 		String signature = signer.createSignatureOfVectorOfStrings(parameters);
-		
 		return new NetworkResponse(server.getMartusAccountIdFromAccessToken(signer.getPublicKeyString(), parameters, signature));
 	}
 	
+	public NetworkResponse getListOfFormTemplates(MartusCrypto signer, String accountToGetListOfFormTemplatesFrom) throws
+	MartusCrypto.MartusSignatureException
+	{
+		Vector parameters = new Vector();
+		parameters.add(accountToGetListOfFormTemplatesFrom);
+		String signature = signer.createSignatureOfVectorOfStrings(parameters);
+		return new NetworkResponse(server.getListOfFormTemplates(signer.getPublicKeyString(), parameters, signature));
+	}
+
+	public NetworkResponse putFormTemplate(MartusCrypto signer, String formTemplate) throws
+	MartusCrypto.MartusSignatureException
+	{
+		Vector parameters = new Vector();
+		parameters.add(formTemplate);
+		String signature = signer.createSignatureOfVectorOfStrings(parameters);
+		return new NetworkResponse(server.putFormTemplate(signer.getPublicKeyString(), parameters, signature));
+	}
+	
+	public NetworkResponse getFormTemplate(MartusCrypto signer, String accountToGetFormTemplateFrom, String formTitle) throws
+	MartusCrypto.MartusSignatureException
+	{
+		Vector parameters = new Vector();
+		parameters.add(accountToGetFormTemplateFrom);
+		parameters.add(formTitle);
+		String signature = signer.createSignatureOfVectorOfStrings(parameters);
+		return new NetworkResponse(server.getFormTemplate(signer.getPublicKeyString(), parameters, signature));
+	}
+
 	public NetworkResponse	getServerCompliance(MartusCrypto signer) throws
 			MartusCrypto.MartusSignatureException
 	{

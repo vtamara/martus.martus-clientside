@@ -135,6 +135,21 @@ public class NoServerNetworkInterfaceHandler implements ClientSideNetworkInterfa
 		return null;
 	}
 
+	public Vector getListOfFormTemplates(String myAccountId, Vector parameters, String signature) 
+	{
+		return null;
+	}
+
+	public Vector putFormTemplate(String myAccountId, Vector parameters, String signature) 
+	{
+		return null;
+	}
+
+	public Vector getFormTemplate(String myAccountId, Vector parameters, String signature) 
+	{
+		return null;
+	}
+
 	public Vector getPartialUploadStatus(String publicKeyString, Vector parameters, String signature) 
 	{
 		return null;
