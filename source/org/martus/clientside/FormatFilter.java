@@ -29,7 +29,7 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-abstract public class FormatFilter extends FileFilter
+abstract public class FormatFilter extends FileFilter implements java.io.FileFilter
 {
 	abstract public String getExtension();
 
