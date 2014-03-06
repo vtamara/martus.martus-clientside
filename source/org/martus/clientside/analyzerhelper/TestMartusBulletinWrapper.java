@@ -248,7 +248,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 				"<tr><td align='right' valign='top'>Attachments</td><td align='left' valign='top'><p>"+tempFile3.getName()+"    ( 1 Kb )</p></td></tr>\n"+
 				"<tr></tr>\n" + 
 				"<tr><td colspan='2' align='left'><u><b>Headquarters</b></u></td></tr>\n"+
-				"<tr><td align='right' valign='top'></td><td align='left' valign='top'>"+key.getPublicCode()+"</td></tr>\n"+
+				"<tr><td align='right' valign='top'></td><td align='left' valign='top'>"+key.getFormattedPublicCode()+"</td></tr>\n"+
 				"<p></p>" +
 				"<tr></tr>\n" + 
 				"<tr><td align='right' valign='top'>Bulletin Id:</td><td align='left' valign='top'>"+bulletin.getLocalId()+"</td></tr>\n"+
