@@ -54,6 +54,11 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 	{
 		server = serverToUse;
 	}
+	
+	public NetworkInterface getInterface()
+	{
+		return server;
+	}
 
 	public NetworkResponse getServerInfo()
 	{
