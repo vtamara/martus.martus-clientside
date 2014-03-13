@@ -144,4 +144,17 @@ public class ServerSideNetworkHandlerNotAvailable implements ClientSideNetworkIn
 	public void setTimeoutGetServerInfo(int torGetServerInfoTimeoutSeconds) 
 	{
 	}
+
+	@Override
+	public int getTimeoutSecondsForGetServerInfo() 
+	{
+		return 1;
+	}
+
+	@Override
+	public int getTimeoutSecondsForOtherCalls() 
+	{
+		return 1;
+	}
+	
 }
