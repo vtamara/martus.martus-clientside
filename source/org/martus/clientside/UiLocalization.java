@@ -31,14 +31,18 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.Vector;
 
+import org.martus.common.MartusLogger;
 import org.martus.common.VersionBuildDate;
 import org.martus.common.fieldspec.ChoiceItem;
 import org.martus.common.utilities.BurmeseUtilities;
+import org.martus.util.TokenReplacement;
 import org.martus.util.UnicodeWriter;
+import org.martus.util.TokenReplacement.TokenInvalidException;
 
 
 abstract public class UiLocalization extends MtfAwareLocalization
@@ -280,6 +284,21 @@ abstract public class UiLocalization extends MtfAwareLocalization
 	{
 		return getLabel(getCurrentLanguageCode(), "menu", code);
 	}
+	
+	public static String replaceTokenInString(String stringWithToken, String tokenToReplace, String replacementString)
+	{
+		HashMap tokenReplacement = new HashMap();
+		tokenReplacement.put(tokenToReplace, replacementString);
+		try
+		{
+			return TokenReplacement.replaceTokens(stringWithToken, tokenReplacement);
+		} 
+		catch (TokenInvalidException e)
+		{
+			MartusLogger.logException(e);
+		}
+		return stringWithToken;
+	}	
 
 	public String getKeyword(String code)
 	{
