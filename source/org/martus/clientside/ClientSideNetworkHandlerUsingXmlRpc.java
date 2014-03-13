@@ -98,6 +98,20 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		timeoutSecondsForGetServerInfo = newTimeoutSeconds;
 	}
 
+	@Override
+	public int getTimeoutSecondsForGetServerInfo() 
+	{
+		return timeoutSecondsForGetServerInfo * ports.length;
+	}
+
+	@Override
+	public int getTimeoutSecondsForOtherCalls() 
+	{
+		// NOTE: Currently, we rely on default timeouts. We should probably 
+		// use CallerWithTimeout for all calls, with timeouts that we set.
+		return 30 * ports.length;
+	}
+	
 	public static void restrictCipherSuites() throws NoSuchAlgorithmException 
 	{
 		SSLSocketFactory socketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
@@ -354,7 +368,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		
 		public Vector call(ClientSideNetworkHandlerUsingXmlRpc handler, String serverName, int port)
 		{
-			
+			System.out.println("Calling with timeout of " + timeoutMillis/1000 + " seconds");
 			BackgroundCallerTask task = new BackgroundCallerTask(this, handler, serverName, port);
 			Thread background = new Thread(task);
 			try
@@ -364,7 +378,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			}
 			catch (InterruptedException e)
 			{
-				System.out.println("ERROR: Server timeout");
+				System.out.println("ERROR: Server timeout after " + timeoutMillis/1000 + " seconds");
 			}
 			background.interrupt();
 			return task.response;
@@ -500,7 +514,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	
 	static Vector RESULT_NO_SERVER;
 
-	public static final int DEFAULT_GET_SERVER_INFO_TIMEOUT_SECONDS = 60;
+	public static final int DEFAULT_GET_SERVER_INFO_TIMEOUT_SECONDS = 15;
 	public static final int WITHOUT_TOR_GET_SERVER_INFO_TIMEOUT_SECONDS = 15;
 	public static final int TOR_GET_SERVER_INFO_TIMEOUT_SECONDS = 60;
 }

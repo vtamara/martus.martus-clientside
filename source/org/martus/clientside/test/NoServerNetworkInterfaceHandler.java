@@ -159,4 +159,16 @@ public class NoServerNetworkInterfaceHandler implements ClientSideNetworkInterfa
 	{
 	}
 
+	@Override
+	public int getTimeoutSecondsForGetServerInfo() 
+	{
+		return 1;
+	}
+
+	@Override
+	public int getTimeoutSecondsForOtherCalls() 
+	{
+		return 1;
+	}
+	
 }
