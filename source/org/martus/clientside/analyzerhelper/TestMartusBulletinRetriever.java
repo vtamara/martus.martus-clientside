@@ -54,7 +54,7 @@ import org.martus.common.crypto.MartusCrypto.AuthorizationFailedException;
 import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.crypto.MartusSecurity;
 import org.martus.common.database.DatabaseKey;
-import org.martus.common.network.NetworkInterface;
+import org.martus.common.network.ClientSideNetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
@@ -252,7 +252,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 	
 	private class MockClientSideNetworkGateway extends ClientSideNetworkGateway
 	{
-		public MockClientSideNetworkGateway(NetworkInterface serverToUse)
+		public MockClientSideNetworkGateway(ClientSideNetworkInterface serverToUse)
 		{
 			super(serverToUse);
 			fieldOfficeAccountIds = new Vector();
@@ -360,7 +360,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 	
 	public void testGetListOfAllFieldOfficeBulletinIdsOnServer() throws Exception
 	{
-		NetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
+		ClientSideNetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
 		MockClientSideNetworkGateway mockGateway = new MockClientSideNetworkGateway(networkInterface);
 		
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
@@ -439,7 +439,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 
 	public void testGetBulletin() throws Exception
 	{
-		NetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
+		ClientSideNetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
 		MockClientSideNetworkGateway mockGateway = new MockClientSideNetworkGateway(networkInterface);
 		
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());

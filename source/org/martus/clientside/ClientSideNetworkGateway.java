@@ -40,7 +40,6 @@ import org.martus.common.crypto.MartusCrypto;
 import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.network.BulletinRetrieverGatewayInterface;
 import org.martus.common.network.ClientSideNetworkInterface;
-import org.martus.common.network.NetworkInterface;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
@@ -50,12 +49,12 @@ import org.martus.common.packet.UniversalId;
 
 public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterface
 {
-	public ClientSideNetworkGateway(NetworkInterface serverToUse)
+	public ClientSideNetworkGateway(ClientSideNetworkInterface serverToUse)
 	{
 		server = serverToUse;
 	}
 	
-	public NetworkInterface getInterface()
+	public ClientSideNetworkInterface getInterface()
 	{
 		return server;
 	}
@@ -245,7 +244,7 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 	
 	static public ClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, TorTransportWrapper transportToUse)
 	{
-		NetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
+		ClientSideNetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
 		if(server == null)
 			return null;
 		
@@ -359,5 +358,5 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 
 	final static String defaultReservedString = "";
 
-	NetworkInterface server;
+	ClientSideNetworkInterface server;
 }
