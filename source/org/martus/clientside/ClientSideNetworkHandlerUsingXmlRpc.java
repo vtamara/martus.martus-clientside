@@ -368,7 +368,6 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		
 		public Vector call(ClientSideNetworkHandlerUsingXmlRpc handler, String serverName, int port)
 		{
-			System.out.println("Calling with timeout of " + timeoutMillis/1000 + " seconds");
 			BackgroundCallerTask task = new BackgroundCallerTask(this, handler, serverName, port);
 			Thread background = new Thread(task);
 			try
