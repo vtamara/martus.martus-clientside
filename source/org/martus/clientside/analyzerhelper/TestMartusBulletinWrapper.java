@@ -227,7 +227,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 				"<tr><td align='right' valign='top'>Version</td><td align='left' valign='top'>1</td></tr>\n"+
 				"<tr><td align='right' valign='top'>Bulletin Status:</td><td align='left' valign='top'>Sealed</td></tr>\n"+
 				"<tr></tr>\n" + 
-				"<tr><td align='right' valign='top'>Field Desk Bulletin</td><td align='left' valign='top'></td></tr>\n"+
+				"<tr><td align='right' valign='top'>Contact Bulletin</td><td align='left' valign='top'></td></tr>\n"+
 				"<tr></tr>\n" + 
 				"<tr><td colspan='2' align='left'><u><b>Private Information</b></u></td></tr>\n"+
 				"<tr><td align='right' valign='top'>Keep ALL Information Private</td><td align='left' valign='top'>Yes</td></tr>\n"+
@@ -247,7 +247,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 				"<tr><td align='right' valign='top'>Private</td><td align='left' valign='top'><p>"+privateData+"</p><p></p></td></tr>\n"+
 				"<tr><td align='right' valign='top'>Attachments</td><td align='left' valign='top'><p>"+tempFile3.getName()+"    ( 1 Kb )</p></td></tr>\n"+
 				"<tr></tr>\n" + 
-				"<tr><td colspan='2' align='left'><u><b>Headquarters</b></u></td></tr>\n"+
+				"<tr><td colspan='2' align='left'><u><b>Contacts</b></u></td></tr>\n"+
 				"<tr><td align='right' valign='top'></td><td align='left' valign='top'>"+key.getFormattedPublicCode()+"</td></tr>\n"+
 				"<p></p>" +
 				"<tr></tr>\n" + 
