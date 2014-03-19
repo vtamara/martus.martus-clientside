@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.martus.clientside.UiLocalization;
-import org.martus.util.TestCaseEnhanced;
 
 public class MockUiLocalization extends UiLocalization
 {
