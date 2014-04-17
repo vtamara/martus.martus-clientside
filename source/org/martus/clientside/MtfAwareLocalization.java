@@ -103,6 +103,10 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 			availableTranslations = new TreeMap();
 			textResources.put(key, availableTranslations);
 		}
+		else
+		{
+			System.out.println("Warning Language Key already exists:" + key +" ( First Encounter= '"+textResources.get(key).toString() +"', Second Encounter='"+ extractValueFromEntry(mtfEntryText) + "')"); 
+		}
 		
 		String translatedText = extractValueFromEntry(mtfEntryText);
 		String hash = extractHashFromMtfEntry(mtfEntryText);
