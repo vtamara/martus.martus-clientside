@@ -105,7 +105,8 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 		}
 		else
 		{
-			System.out.println("Warning Language Key already exists:" + key +" ( First Encounter= '"+textResources.get(key).toString() +"', Second Encounter='"+ extractValueFromEntry(mtfEntryText) + "')"); 
+			if(languageCode.equals(ENGLISH))
+				System.out.println("Warning Language Key already exists:" + key +" ( First Encounter= '"+textResources.get(key).toString() +"', Second Encounter='"+ extractValueFromEntry(mtfEntryText) + "')"); 
 		}
 		
 		String translatedText = extractValueFromEntry(mtfEntryText);
