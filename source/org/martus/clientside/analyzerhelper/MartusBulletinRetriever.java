@@ -78,7 +78,7 @@ public class MartusBulletinRetriever
 	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse) throws Exception
 	{
 		if (transport == null)
-			transport = TorTransportWrapper.create();
+			transport = TorTransportWrapper.createWithoutPersistentStore();
 		serverPublicKey = serverPublicKeyToUse;
 		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress, transport);
 		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse, transport);
