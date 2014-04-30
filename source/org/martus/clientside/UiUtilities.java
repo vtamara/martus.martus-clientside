@@ -26,6 +26,7 @@ Boston, MA 02111-1307, USA.
 
 package org.martus.clientside;
 
+import java.awt.Frame;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public class UiUtilities
 		new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
 	}
 
-	public static void messageDlg(UiLocalization localization, JFrame parent, String baseTag, String message, Map tokenReplacement)
+	public static void messageDlg(UiLocalization localization, Frame parent, String baseTag, String message, Map tokenReplacement)
 	{
 		String title = localization.getWindowTitle(baseTag);
 		String cause = localization.getFieldLabel("message" + baseTag + "cause");
@@ -64,13 +65,13 @@ public class UiUtilities
 		new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
 	}
 
-	public static boolean confirmDlg(UiLocalization localization, JFrame parent, String baseTag)
+	public static boolean confirmDlg(UiLocalization localization, Frame parent, String baseTag)
 	{
 		HashMap emptyTokenReplacement = new HashMap();
 		return confirmDlg(localization, parent, baseTag, emptyTokenReplacement);
 	}
 	
-	public static boolean confirmDlg(UiLocalization localization, JFrame parent, String baseTag, Map tokenReplacement)
+	public static boolean confirmDlg(UiLocalization localization, Frame parent, String baseTag, Map tokenReplacement)
 	{
 		String title = localization.getWindowTitle("confirm" + baseTag);
 		String cause = localization.getFieldLabel("confirm" + baseTag + "cause");
@@ -86,13 +87,13 @@ public class UiUtilities
 		return question;
 	}
 
-	public static boolean confirmDlg(MiniLocalization localization, JFrame parent, String title, String[] contents)
+	public static boolean confirmDlg(MiniLocalization localization, Frame parent, String title, String[] contents)
 	{
 		HashMap emptyTokenReplacement = new HashMap();
 		return confirmDlg(localization, parent, title, contents, emptyTokenReplacement);
 	}
 
-	public static boolean confirmDlg(MiniLocalization localization, JFrame parent, String title, String[] contents, Map tokenReplacement)
+	public static boolean confirmDlg(MiniLocalization localization, Frame parent, String title, String[] contents, Map tokenReplacement)
 	{
 		String[] buttons = getConfirmDialogButtons(localization);
 
@@ -107,13 +108,13 @@ public class UiUtilities
 		return buttons;
 	}
 
-	public static boolean confirmDlg(JFrame parent, String title, String[] contents, String[] buttons) 
+	public static boolean confirmDlg(Frame parent, String title, String[] contents, String[] buttons) 
 	{
 		HashMap emptyTokenReplacement = new HashMap();
 		return confirmDlg(parent, title, contents, buttons, emptyTokenReplacement); 
 	}
 
-	public static boolean confirmDlg(JFrame parent, String title, String[] contents, String[] buttons, Map tokenReplacement) 
+	public static boolean confirmDlg(Frame parent, String title, String[] contents, String[] buttons, Map tokenReplacement) 
 	{
 		UiNotifyDlg notify = new UiNotifyDlg(parent, title, contents, buttons, tokenReplacement);
 		String result = notify.getResult();
