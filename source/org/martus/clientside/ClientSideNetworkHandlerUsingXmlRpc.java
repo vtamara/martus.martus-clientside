@@ -445,6 +445,13 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 			String message = e.getMessage();
 			if(message == null)
 				message = "";
+			if(message.startsWith("No such handler:"))
+			{
+				Vector result = new Vector();
+				result.add(NetworkInterfaceConstants.SERVER_NOT_COMPATIBLE);
+				return result;
+			}
+			
 			boolean wasNoSuchMethodException = message.indexOf("NoSuchMethodException") >= 0;
 			boolean wasTimeoutException = message.indexOf("Connection timed out") >= 0;
 			boolean wasConnectionRefusedException = message.indexOf("Connection refused") >= 0;
