@@ -181,7 +181,9 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 	{
 		Vector parameters = new Vector();
 		String signature = signer.createSignatureOfVectorOfStrings(parameters);
-		return new NetworkResponse(server.getMartusAccountAccessToken(signer.getPublicKeyString(), parameters, signature));
+		String accountId = signer.getPublicKeyString();
+		Vector rawResult = server.getMartusAccountAccessToken(accountId, parameters, signature);
+		return new NetworkResponse(rawResult);
 	}
 
 	public NetworkResponse getMartusAccountIdFromAccessToken(MartusCrypto signer, MartusAccountAccessToken tokenToUse) throws
