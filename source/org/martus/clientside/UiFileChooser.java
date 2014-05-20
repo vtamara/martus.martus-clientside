@@ -37,6 +37,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import org.martus.common.MartusConstants;
 import org.martus.swing.UiLanguageDirection;
 
 public class UiFileChooser extends JFileChooser
@@ -89,8 +90,17 @@ public class UiFileChooser extends JFileChooser
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentDirectory, String buttonLabel, FileFilter filterToUse)
 	{
-		UiFileChooser chooser = new UiFileChooser(title, null, currentDirectory, buttonLabel, filterToUse);
+		UiFileChooser chooser = new UiFileChooser(title, null, ensureNonNullExistingCurrentDirectory(currentDirectory), buttonLabel, filterToUse);
 		return getFileResults(chooser.showOpenDialog(owner), chooser);
+	}
+	
+	//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
+	private static File ensureNonNullExistingCurrentDirectory(File currentDirectory) {
+		if (currentDirectory != null && currentDirectory.exists())
+			return currentDirectory;
+		
+		
+		return MartusConstants.determineMartusDataRootDirectory();
 	}
 	
 	private static FileDialogResults getFileResults(int result, UiFileChooser chooser)
