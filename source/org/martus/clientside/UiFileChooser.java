@@ -96,7 +96,8 @@ public class UiFileChooser extends JFileChooser
 		return getFileResults(chooser.showOpenDialog(owner), chooser);
 	}
 	
-	private static File ensureNonNullExistingCurrentDirectory(File currentDirectory) {
+	private static File ensureNonNullExistingCurrentDirectory(File currentDirectory) 
+	{
 		if (currentDirectory != null && currentDirectory.exists())
 			return currentDirectory;
 		
