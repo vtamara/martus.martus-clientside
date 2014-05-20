@@ -31,8 +31,7 @@ import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
-import org.martus.swing.UiFileChooser;
-import org.martus.swing.UiFileChooser.FileDialogResults;
+import org.martus.clientside.UiFileChooser.FileDialogResults;
 
 public class FileDialogHelpers
 {
