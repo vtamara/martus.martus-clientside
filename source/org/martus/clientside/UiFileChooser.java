@@ -90,11 +90,12 @@ public class UiFileChooser extends JFileChooser
 	
 	static public FileDialogResults displayFileOpenDialog(Component owner, String title, File currentDirectory, String buttonLabel, FileFilter filterToUse)
 	{
-		UiFileChooser chooser = new UiFileChooser(title, null, ensureNonNullExistingCurrentDirectory(currentDirectory), buttonLabel, filterToUse);
+		//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
+		File nonNullExistingCurrentDirectory = ensureNonNullExistingCurrentDirectory(currentDirectory);
+		UiFileChooser chooser = new UiFileChooser(title, null, nonNullExistingCurrentDirectory, buttonLabel, filterToUse);
 		return getFileResults(chooser.showOpenDialog(owner), chooser);
 	}
 	
-	//NOTE: Mac sometimes hangs if you pass a null or non-existent directory
 	private static File ensureNonNullExistingCurrentDirectory(File currentDirectory) {
 		if (currentDirectory != null && currentDirectory.exists())
 			return currentDirectory;
