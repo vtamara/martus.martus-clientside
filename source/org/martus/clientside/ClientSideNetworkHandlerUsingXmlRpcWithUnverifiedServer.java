@@ -216,7 +216,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 		try 
 		{
 			InetAddress address = InetAddress.getByName(serverName);
-			if(address != null && address.isSiteLocalAddress() && getTransport().isEnabled())
+			if(address != null && address.isSiteLocalAddress() && getTransport().isTorEnabled())
 			{
 				MartusLogger.log("Orchid cannot reach local address: " + serverName);
 				return null;
