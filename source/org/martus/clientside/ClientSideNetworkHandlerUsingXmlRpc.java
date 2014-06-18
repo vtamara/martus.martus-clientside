@@ -303,7 +303,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		try 
 		{
 			InetAddress address = InetAddress.getByName(serverName);
-			if(address != null && address.isSiteLocalAddress() && getTransport() != null && getTransport().isEnabled())
+			if(address != null && address.isSiteLocalAddress() && getTransport() != null && getTransport().isTorEnabled())
 			{
 				MartusLogger.log("Orchid cannot reach local address: " + serverName);
 				return null;
