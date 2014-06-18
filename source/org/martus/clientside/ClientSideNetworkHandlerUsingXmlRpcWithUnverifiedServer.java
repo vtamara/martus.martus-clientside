@@ -55,12 +55,12 @@ import org.martus.common.network.NonSSLNetworkAPI;
 import org.martus.common.network.NonSSLNetworkAPIWithHelpers;
 import org.martus.common.network.SimpleHostnameVerifier;
 import org.martus.common.network.SimpleX509TrustManager;
-import org.martus.common.network.OrchidTransportWrapper;
+import org.martus.common.network.TransportWrapper;
 
 public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends NonSSLNetworkAPIWithHelpers implements NetworkInterfaceConstants, NetworkInterfaceXmlRpcConstants
 	
 {
-	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, OrchidTransportWrapper transportToUse) throws Exception
+	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, TransportWrapper transportToUse) throws Exception
 	{
 		this(serverName, NetworkInterfaceXmlRpcConstants.defaultSSLPorts, transportToUse);
 	}
@@ -70,7 +70,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 		this(serverName, portsToUse, null);
 	}
 
-	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, int[] portsToUse, OrchidTransportWrapper transportToUse) throws Exception
+	public ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(String serverName, int[] portsToUse, TransportWrapper transportToUse) throws Exception
 	{
 		server = serverName;
 		ports = portsToUse;
@@ -278,7 +278,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 		return tm;
 	}
 
-	protected OrchidTransportWrapper getTransport()
+	protected TransportWrapper getTransport()
 	{
 		return transport;
 	}
@@ -287,7 +287,7 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 
 	String server;
 	int[] ports;
-	private OrchidTransportWrapper transport;
+	private TransportWrapper transport;
 	static int indexOfPortThatWorkedLast = 0;
 	boolean debugMode;
 	private KeyCollectingX509TrustManager tm;
