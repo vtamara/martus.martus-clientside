@@ -44,7 +44,7 @@ import org.martus.common.crypto.MartusCrypto.CryptoInitializationException;
 import org.martus.common.crypto.MartusCrypto.InvalidKeyPairFileVersionException;
 import org.martus.common.crypto.MartusCrypto.MartusSignatureException;
 import org.martus.common.crypto.MartusSecurity;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.OrchidTransportWrapper;
 import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.NonSSLNetworkAPI;
@@ -68,7 +68,7 @@ public class MartusBulletinRetriever
 		this(keyPair, password, null);
 	}
 	
-	public MartusBulletinRetriever(InputStream keyPair, char[] password, TorTransportWrapper transportToUse) throws CryptoInitializationException, InvalidKeyPairFileVersionException, AuthorizationFailedException, IOException
+	public MartusBulletinRetriever(InputStream keyPair, char[] password, OrchidTransportWrapper transportToUse) throws CryptoInitializationException, InvalidKeyPairFileVersionException, AuthorizationFailedException, IOException
 	{
 		security = new MartusSecurity();
 		security.readKeyPair(keyPair, password);
@@ -78,7 +78,7 @@ public class MartusBulletinRetriever
 	public void initalizeServer(String serverIPAddress, String serverPublicKeyToUse) throws Exception
 	{
 		if (transport == null)
-			transport = TorTransportWrapper.createWithoutPersistentStore();
+			transport = OrchidTransportWrapper.createWithoutPersistentStore();
 		serverPublicKey = serverPublicKeyToUse;
 		serverNonSSL = new ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer(serverIPAddress, transport);
 		serverSLL = ClientSideNetworkGateway.buildGateway(serverIPAddress, serverPublicKeyToUse, transport);
@@ -189,5 +189,5 @@ public class MartusBulletinRetriever
 	private ClientSideNetworkGateway serverSLL;
 	private MartusSecurity security;
 	private String serverPublicKey;
-	private TorTransportWrapper transport;
+	private OrchidTransportWrapper transport;
 }
