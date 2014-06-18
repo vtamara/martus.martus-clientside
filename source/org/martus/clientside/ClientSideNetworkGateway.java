@@ -44,7 +44,7 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.PartialUploadStatus;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.TransportWrapper;
 import org.martus.common.packet.UniversalId;
 
 public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterface
@@ -244,7 +244,7 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 
 	
 	
-	static public ClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, TorTransportWrapper transportToUse)
+	static public ClientSideNetworkGateway buildGateway(String serverName, String serverPublicKey, TransportWrapper transportToUse)
 	{
 		ClientSideNetworkInterface server = buildNetworkInterface(serverName, serverPublicKey, transportToUse);
 		if(server == null)
@@ -253,7 +253,7 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		return new ClientSideNetworkGateway(server);
 	}
 
-	public static ClientSideNetworkInterface buildNetworkInterface(String serverName, String serverPublicKey, TorTransportWrapper transport)
+	public static ClientSideNetworkInterface buildNetworkInterface(String serverName, String serverPublicKey, TransportWrapper transport)
 	{
 		if(serverName.length() == 0)
 			return null;
