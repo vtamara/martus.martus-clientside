@@ -50,7 +50,7 @@ import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.SSLUtilities;
 import org.martus.common.network.SimpleHostnameVerifier;
 import org.martus.common.network.SimpleX509TrustManager;
-import org.martus.common.network.TorTransportWrapper;
+import org.martus.common.network.TransportWrapper;
 import org.martus.util.Stopwatch;
 
 public class ClientSideNetworkHandlerUsingXmlRpc
@@ -66,7 +66,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		this(serverName, portsToUse, null);
 	}
 	
-	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse, TorTransportWrapper transportToUse) throws SSLSocketSetupException
+	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse, TransportWrapper transportToUse) throws SSLSocketSetupException
 	{
 		server = serverName;
 		ports = portsToUse;
@@ -506,7 +506,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return tm;
 	}
 
-	protected TorTransportWrapper getTransport()
+	protected TransportWrapper getTransport()
 	{
 		return transport;
 	}
@@ -516,7 +516,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	String server;
 	int[] ports;
 	int timeoutSecondsForGetServerInfo;
-	private TorTransportWrapper transport;
+	private TransportWrapper transport;
 	
 	static Vector RESULT_NO_SERVER;
 
