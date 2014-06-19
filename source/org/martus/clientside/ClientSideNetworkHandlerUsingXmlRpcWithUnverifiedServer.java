@@ -213,6 +213,11 @@ public class ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer extends Non
 	
 	public Object callServerAtPort(String serverName, String method, Vector params, int port) throws Exception
 	{
+		if(!transport.isOnline())
+		{
+			return new String[] { NetworkInterfaceConstants.TRANSPORT_OFFLINE };
+		}
+
 		try 
 		{
 			InetAddress address = InetAddress.getByName(serverName);
