@@ -33,6 +33,7 @@ import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Vector;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -59,6 +60,14 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 
 	public static class SSLSocketSetupException extends Exception 
 	{
+		public SSLSocketSetupException()
+		{
+		}
+		
+		public SSLSocketSetupException(String message)
+		{
+			super(message);
+		}
 	}
 
 	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse) throws SSLSocketSetupException
@@ -68,6 +77,12 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	
 	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse, TransportWrapper transportToUse) throws SSLSocketSetupException
 	{
+		if(!isServerAllowed(serverName))
+		{
+			String errorText = "Blocking attempt to connect to: " + serverName;
+			MartusLogger.log(errorText);
+			throw new SSLSocketSetupException(errorText);
+		}
 		server = serverName;
 		ports = portsToUse;
 		transport = transportToUse;
@@ -510,6 +525,24 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	{
 		return transport;
 	}
+
+	private boolean isServerAllowed(String serverName) 
+	{
+		if(allowedServers == null)
+			return true;
+		
+		return allowedServers.contains(serverName);
+	}
+	
+	public static void addAllowedServer(String serverName)
+	{
+		if(allowedServers == null)
+			allowedServers = new HashSet<String>();
+		
+		allowedServers.add(serverName);
+	}
+	
+	private static HashSet<String> allowedServers;
 
 	static int indexOfPortThatWorkedLast = 0;
 	SimpleX509TrustManager tm;
