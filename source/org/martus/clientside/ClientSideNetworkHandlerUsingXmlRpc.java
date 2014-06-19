@@ -486,6 +486,11 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	
 	public Object executeXmlRpc(String serverName, String method, Vector params, int port) throws Exception 
 	{
+		if(!transport.isOnline())
+		{
+			return new String[] { NetworkInterfaceConstants.TRANSPORT_OFFLINE };
+		}
+
 		if(!transport.isReady())
 		{
 			MartusLogger.log("Warning: Orchid transport not ready for " + method);
