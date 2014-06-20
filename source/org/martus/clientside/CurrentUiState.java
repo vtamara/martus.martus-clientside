@@ -35,6 +35,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.martus.common.MartusLogger;
 import org.martus.common.MiniLocalization;
 import org.martus.util.language.LanguageOptions;
 
@@ -334,7 +335,7 @@ public class CurrentUiState
 		}
 		catch(Exception e)
 		{
-			System.out.println("CurrentUiState.save error: " + e);
+			MartusLogger.logException(e);
 		}
 	}
 
