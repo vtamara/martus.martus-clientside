@@ -35,6 +35,7 @@ public class ServerSideNetworkHandlerNotAvailable implements ClientSideNetworkIn
 	{
 		return null;
 	}
+	
 	public Vector getUploadRights(
 		String myAccountId,
 		Vector parameters,
@@ -137,6 +138,12 @@ public class ServerSideNetworkHandlerNotAvailable implements ClientSideNetworkIn
 	}
 
 	public Vector getPartialUploadStatus(String publicKeyString, Vector parameters, String signature) 
+	{
+		return null;
+	}
+
+	@Override
+	public Vector listAvailableRevisionsSince(String myAccountId, Vector parameters, String signature)
 	{
 		return null;
 	}

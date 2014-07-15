@@ -170,5 +170,11 @@ public class NoServerNetworkInterfaceHandler implements ClientSideNetworkInterfa
 	{
 		return 1;
 	}
+
+	@Override
+	public Vector listAvailableRevisionsSince(String myAccountId, Vector parameters, String signature) 
+	{
+		return null;
+	}
 	
 }

@@ -44,8 +44,10 @@ import org.martus.common.network.NetworkInterfaceConstants;
 import org.martus.common.network.NetworkInterfaceXmlRpcConstants;
 import org.martus.common.network.NetworkResponse;
 import org.martus.common.network.PartialUploadStatus;
+import org.martus.common.network.SummaryOfAvailableBulletins;
 import org.martus.common.network.TransportWrapper;
 import org.martus.common.packet.UniversalId;
+import org.miradi.utils.EnhancedJsonObject;
 
 public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterface
 {
@@ -221,6 +223,18 @@ public class ClientSideNetworkGateway implements BulletinRetrieverGatewayInterfa
 		parameters.add(formTitle);
 		String signature = signer.createSignatureOfVectorOfStrings(parameters);
 		return new NetworkResponse(server.getFormTemplate(signer.getPublicKeyString(), parameters, signature));
+	}
+
+	public NetworkResponse listAvailableRevisionsSince(MartusCrypto signer, String earliestTimestamp) throws
+	MartusCrypto.MartusSignatureException
+	{
+		EnhancedJsonObject json = new EnhancedJsonObject();
+		json.put(SummaryOfAvailableBulletins.JSON_KEY_EARLIEST_SERVER_TIMESTAMP, earliestTimestamp);
+		
+		Vector parameters = new Vector();
+		parameters.add(json.toString());
+		String signature = signer.createSignatureOfVectorOfStrings(parameters);
+		return new NetworkResponse(server.listAvailableRevisionsSince(signer.getPublicKeyString(), parameters, signature));
 	}
 
 	public NetworkResponse	getServerCompliance(MartusCrypto signer) throws
