@@ -127,6 +127,12 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return 30 * ports.length;
 	}
 	
+	@Override
+	public String getServerIpAddress()
+	{
+		return server;
+	}
+	
 	public static void restrictCipherSuites() throws NoSuchAlgorithmException 
 	{
 		SSLSocketFactory socketFactory = (SSLSocketFactory)SSLSocketFactory.getDefault();
