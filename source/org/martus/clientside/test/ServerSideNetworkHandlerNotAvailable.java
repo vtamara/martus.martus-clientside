@@ -164,4 +164,10 @@ public class ServerSideNetworkHandlerNotAvailable implements ClientSideNetworkIn
 		return 1;
 	}
 	
+	@Override
+	public String getServerIpAddress()
+	{
+		return null;
+	}
+	
 }
