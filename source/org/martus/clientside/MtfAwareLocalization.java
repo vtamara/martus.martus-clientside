@@ -197,6 +197,11 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 			{
 				ZipFile zip = new ZipFile(translationFile);
 				ZipEntry zipEntry = zip.getEntry(mtfFileShortName);
+				if(zipEntry == null)
+				{
+					zip.close();
+					throw new IOException("Missing zip file entry: " + mtfFileShortName);
+				}
 				transStream = new ZipEntryInputStreamWithSeekThatClosesZipFile(zip, zipEntry);
 				ZipEntry metainf = zip.getEntry("META-INF");
 				mlpDate = new Date(metainf.getTime());
@@ -213,7 +218,7 @@ abstract public class MtfAwareLocalization extends MiniLocalization
 		}
 		catch (IOException e)
 		{
-			System.out.println("Localization.loadTranslationFile " + e);
+			MartusLogger.logException(e);
 			return;
 		}
 		finally
