@@ -70,20 +70,20 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		}
 	}
 
-	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse) throws SSLSocketSetupException
+	public ClientSideNetworkHandlerUsingXmlRpc(String serverIpAddressToUse, int[] portsToUse) throws SSLSocketSetupException
 	{
-		this(serverName, portsToUse, null);
+		this(serverIpAddressToUse, portsToUse, null);
 	}
 	
-	public ClientSideNetworkHandlerUsingXmlRpc(String serverName, int[] portsToUse, TransportWrapper transportToUse) throws SSLSocketSetupException
+	public ClientSideNetworkHandlerUsingXmlRpc(String serverIpAddressToUse, int[] portsToUse, TransportWrapper transportToUse) throws SSLSocketSetupException
 	{
-		if(!isServerAllowed(serverName))
+		if(!isServerAllowed(serverIpAddressToUse))
 		{
-			String errorText = "Blocking attempt to connect to: " + serverName;
+			String errorText = "Blocking attempt to connect to: " + serverIpAddressToUse;
 			MartusLogger.log(errorText);
 			throw new SSLSocketSetupException(errorText);
 		}
-		server = serverName;
+		serverIpAddress = serverIpAddressToUse;
 		ports = portsToUse;
 		transport = transportToUse;
 
@@ -130,7 +130,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	@Override
 	public String getServerIpAddress()
 	{
-		return server;
+		return serverIpAddress;
 	}
 	
 	public static void restrictCipherSuites() throws NoSuchAlgorithmException 
@@ -157,7 +157,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		Vector params = new Vector();
 		params.add(reservedForFuture);
 		Caller caller = new CallerWithTimeout(cmdGetServerInfo, params, timeoutSecondsForGetServerInfo);
-		return (Vector)callServer(server, caller);
+		return (Vector)callServer(serverIpAddress, caller);
 	}
 
 	public Vector getUploadRights(String myAccountId, Vector parameters, String signature)
@@ -166,7 +166,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetUploadRights, params);
+		return (Vector)callServer(serverIpAddress, cmdGetUploadRights, params);
 	}
 
 	public Vector getSealedBulletinIds(String myAccountId, Vector parameters, String signature)
@@ -175,7 +175,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetSealedBulletinIds, params);
+		return (Vector)callServer(serverIpAddress, cmdGetSealedBulletinIds, params);
 	}
 
 	public Vector getDraftBulletinIds(String myAccountId, Vector parameters, String signature)
@@ -184,7 +184,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetDraftBulletinIds, params);
+		return (Vector)callServer(serverIpAddress, cmdGetDraftBulletinIds, params);
 	}
 
 	public Vector getFieldOfficeAccountIds(String myAccountId, Vector parameters, String signature)
@@ -193,7 +193,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetFieldOfficeAccountIds, params);
+		return (Vector)callServer(serverIpAddress, cmdGetFieldOfficeAccountIds, params);
 	}
 
 	public Vector putBulletinChunk(String myAccountId, Vector parameters, String signature)
@@ -202,7 +202,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdPutBulletinChunk, params);
+		return (Vector)callServer(serverIpAddress, cmdPutBulletinChunk, params);
 	}
 
 	public Vector getBulletinChunk(String myAccountId, Vector parameters, String signature)
@@ -211,7 +211,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetBulletinChunk, params);
+		return (Vector)callServer(serverIpAddress, cmdGetBulletinChunk, params);
 	}
 
 	public Vector getPacket(String myAccountId, Vector parameters, String signature)
@@ -220,7 +220,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetPacket, params);
+		return (Vector)callServer(serverIpAddress, cmdGetPacket, params);
 	}
 
 	public Vector deleteDraftBulletins(String myAccountId, Vector parameters, String signature)
@@ -229,7 +229,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdDeleteDrafts, params);
+		return (Vector)callServer(serverIpAddress, cmdDeleteDrafts, params);
 	}
 
 	public Vector putContactInfo(String myAccountId, Vector parameters, String signature)
@@ -238,7 +238,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdPutContactInfo, params);
+		return (Vector)callServer(serverIpAddress, cmdPutContactInfo, params);
 	}
 
 	public Vector getNews(String myAccountId, Vector parameters, String signature)
@@ -247,7 +247,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetNews, params);
+		return (Vector)callServer(serverIpAddress, cmdGetNews, params);
 	}
 
 	public Vector getMartusAccountAccessToken(String myAccountId, Vector parameters, String signature)
@@ -256,7 +256,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetMartusAccountAccessToken, params);
+		return (Vector)callServer(serverIpAddress, cmdGetMartusAccountAccessToken, params);
 	}
 	
 	public Vector getMartusAccountIdFromAccessToken(String myAccountId, Vector parameters, String signature)
@@ -265,7 +265,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetMartusAccountIdFromAccessToken, params);
+		return (Vector)callServer(serverIpAddress, cmdGetMartusAccountIdFromAccessToken, params);
 	}
 
 	public Vector getServerCompliance(String myAccountId, Vector parameters, String signature)
@@ -274,7 +274,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetServerCompliance, params);
+		return (Vector)callServer(serverIpAddress, cmdGetServerCompliance, params);
 	}
 
 	public Vector getPartialUploadStatus(String myAccountId, Vector parameters, String signature)
@@ -283,7 +283,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetPartialUploadStatus, params);
+		return (Vector)callServer(serverIpAddress, cmdGetPartialUploadStatus, params);
 	}
 
 	public Vector getListOfFormTemplates(String myAccountId, Vector parameters, String signature) 
@@ -292,7 +292,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetListOfFormTemplates, params);
+		return (Vector)callServer(serverIpAddress, cmdGetListOfFormTemplates, params);
 	}
 
 	public Vector putFormTemplate(String myAccountId, Vector parameters, String signature) 
@@ -301,7 +301,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdPutFormTemplate, params);
+		return (Vector)callServer(serverIpAddress, cmdPutFormTemplate, params);
 	}
 
 	public Vector getFormTemplate(String myAccountId, Vector parameters, String signature) 
@@ -310,7 +310,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdGetFormTemplate, params);
+		return (Vector)callServer(serverIpAddress, cmdGetFormTemplate, params);
 	}
 
 	@Override
@@ -320,7 +320,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		params.add(myAccountId);
 		params.add(parameters);
 		params.add(signature);
-		return (Vector)callServer(server, cmdListAvailableRevisionsSince, params);
+		return (Vector)callServer(serverIpAddress, cmdListAvailableRevisionsSince, params);
 	}
 
 	public Object callServer(String serverName, String method, Vector params)
@@ -567,7 +567,7 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 
 	static int indexOfPortThatWorkedLast = 0;
 	SimpleX509TrustManager tm;
-	String server;
+	String serverIpAddress;
 	int[] ports;
 	int timeoutSecondsForGetServerInfo;
 	private TransportWrapper transport;
