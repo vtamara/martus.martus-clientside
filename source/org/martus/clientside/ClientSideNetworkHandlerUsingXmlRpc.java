@@ -566,10 +566,10 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	private static HashSet<String> allowedServers;
 
 	static int indexOfPortThatWorkedLast = 0;
-	SimpleX509TrustManager tm;
-	String serverIpAddress;
-	int[] ports;
-	int timeoutSecondsForGetServerInfo;
+	private SimpleX509TrustManager tm;
+	private String serverIpAddress;
+	private int[] ports;
+	private int timeoutSecondsForGetServerInfo;
 	private TransportWrapper transport;
 	
 	static Vector RESULT_NO_SERVER;
