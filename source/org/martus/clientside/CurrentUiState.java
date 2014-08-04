@@ -35,11 +35,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.martus.common.LanguageSettingsProvider;
 import org.martus.common.MartusLogger;
 import org.martus.common.MiniLocalization;
 import org.martus.util.language.LanguageOptions;
 
-public class CurrentUiState
+public class CurrentUiState implements LanguageSettingsProvider
 {
 	public CurrentUiState()
 	{
@@ -113,11 +114,13 @@ public class CurrentUiState
 		currentDefaultKeyboardIsVirtual = on;
 	}
 
+	@Override
 	public String getCurrentDateFormat()
 	{
 		return currentDateFormat;
 	}
 
+	@Override
 	public String getCurrentLanguage()
 	{
 		return currentLanguage;
@@ -190,16 +193,19 @@ public class CurrentUiState
 		return currentEditorPosition;
 	}
 	
+	@Override
 	public String getCurrentCalendarSystem()
 	{
 		return currentCalendarSystem;
 	}
 
+	@Override
 	public boolean getAdjustThaiLegacyDates()
 	{
 		return currentAdjustThaiLegacyDates;
 	}
 	
+	@Override
 	public boolean getAdjustPersianLegacyDates()
 	{
 		return currentAdjustPersianLegacyDates;
