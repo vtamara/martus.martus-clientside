@@ -126,11 +126,13 @@ public class CurrentUiState implements LanguageSettingsProvider
 		return currentLanguage;
 	}
 
+	@Override
 	public void setCurrentDateFormat(String currentDateFormat)
 	{
 		this.currentDateFormat = currentDateFormat;
 	}
 
+	@Override
 	public void setCurrentLanguage(String currentLanguage)
 	{
 		this.currentLanguage = currentLanguage;
@@ -271,16 +273,19 @@ public class CurrentUiState implements LanguageSettingsProvider
 		this.currentEditorPosition = currentEditorPosition;
 	}
 	
+	@Override
 	public void setCurrentCalendarSystem(String calendarSystem)
 	{
 		this.currentCalendarSystem = calendarSystem;
 	}
 	
+	@Override
 	public void setCurrentAdjustThaiLegacyDates(boolean newThaiAdjust)
 	{
 		currentAdjustThaiLegacyDates = newThaiAdjust;
 	}
 	
+	@Override
 	public void setCurrentAdjustPersianLegacyDates(boolean newPersianAdjust)
 	{
 		currentAdjustPersianLegacyDates = newPersianAdjust;
