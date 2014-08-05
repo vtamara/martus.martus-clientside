@@ -33,6 +33,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
+import javafx.beans.property.SimpleBooleanProperty;
+
 import org.martus.clientside.CurrentUiState;
 import org.martus.common.MiniLocalization;
 import org.martus.util.TestCaseEnhanced;
@@ -172,7 +174,9 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong calendar system?", sampleCalendarSystem, loaded.getCurrentCalendarSystem());
 
 		assertEquals("Wrong adjustThai?", sampleAdjustThai, loaded.getAdjustThaiLegacyDates());
+		assertEquals("Wrong adjustThaiProperty?", new Boolean(sampleAdjustThai), loaded.getAdjustThaiLegacyDatesProperty().getValue());
 		assertEquals("Wrong adjustPersian?", sampleAdjustPersian, loaded.getAdjustPersianLegacyDates());
+		assertEquals("Wrong adjustPersianProperty?", new Boolean(sampleAdjustPersian), loaded.getAdjustPersianLegacyDatesPropert().getValue());
 		
 		assertEquals("Wrong searchFinalBulletinsOnly?", sampleSearchFinalBulletinsOnly, loaded.searchFinalBulletinsOnly());
 		assertEquals("Wrong searchString?", sampleSearchString, loaded.getSearchString());
