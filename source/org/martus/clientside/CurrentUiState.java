@@ -35,9 +35,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
-
 import org.martus.common.LanguageSettingsProvider;
 import org.martus.common.MartusLogger;
 import org.martus.common.MiniLocalization;
