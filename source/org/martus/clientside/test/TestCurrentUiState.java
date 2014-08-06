@@ -140,9 +140,6 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		
 		state.setCurrentCalendarSystem(sampleCalendarSystem);
 		
-		state.setCurrentAdjustThaiLegacyDates(sampleAdjustThai);
-		state.setCurrentAdjustPersianLegacyDates(sampleAdjustPersian);
-
 		state.setSearchFinalBulletinsOnly(sampleSearchFinalBulletinsOnly);
 		state.setSearchString(sampleSearchString);
 		
@@ -174,9 +171,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong calendar system?", sampleCalendarSystem, loaded.getCurrentCalendarSystem());
 
 		assertEquals("Wrong adjustThai?", sampleAdjustThai, loaded.getAdjustThaiLegacyDates());
-		assertEquals("Wrong adjustThaiProperty?", new Boolean(sampleAdjustThai), loaded.getAdjustThaiLegacyDatesProperty().getValue());
 		assertEquals("Wrong adjustPersian?", sampleAdjustPersian, loaded.getAdjustPersianLegacyDates());
-		assertEquals("Wrong adjustPersianProperty?", new Boolean(sampleAdjustPersian), loaded.getAdjustPersianLegacyDatesPropert().getValue());
 		
 		assertEquals("Wrong searchFinalBulletinsOnly?", sampleSearchFinalBulletinsOnly, loaded.searchFinalBulletinsOnly());
 		assertEquals("Wrong searchString?", sampleSearchString, loaded.getSearchString());
@@ -264,8 +259,8 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		assertEquals("Wrong Initial PreviewSplitterPosition?", 100, loaded.getCurrentPreviewSplitterPosition());
 		assertEquals("Wrong Initial FolderSplitterPosition?", 180, loaded.getCurrentFolderSplitterPosition());
 		assertEquals("Wrong calendar?", MiniLocalization.GREGORIAN_SYSTEM, loaded.getCurrentCalendarSystem());
-		assertEquals("Wrong adjustThai?", false, loaded.getAdjustThaiLegacyDates());
-		assertEquals("Wrong adjustPersian?", false, loaded.getAdjustPersianLegacyDates());
+		assertEquals("Wrong adjustThai?", true, loaded.getAdjustThaiLegacyDates());
+		assertEquals("Wrong adjustPersian?", true, loaded.getAdjustPersianLegacyDates());
 		assertEquals("Wrong searchFinalBulletinsOnly?", false, loaded.searchFinalBulletinsOnly());
 		assertEquals("Wrong searchString?", "", loaded.getSearchString());
 		assertEquals("Wrong searchFinalBulletinsOnly?", false, loaded.searchSameRowsOnly());
