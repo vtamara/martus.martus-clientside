@@ -33,8 +33,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
-import javafx.beans.property.SimpleBooleanProperty;
-
 import org.martus.clientside.CurrentUiState;
 import org.martus.common.MiniLocalization;
 import org.martus.util.TestCaseEnhanced;
