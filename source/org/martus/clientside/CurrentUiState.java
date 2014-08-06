@@ -60,8 +60,6 @@ public class CurrentUiState implements LanguageSettingsProvider
 		searchFinalBulletinsOnly = false;
 		searchString = "";
 		searchSameRowsOnly = false;
-		currentAdjustThaiLegacyDates = new SimpleBooleanProperty();
-		currentAdjustPersianLegacyDates = new SimpleBooleanProperty();
 	}
 	
 	public int getVersion()
@@ -209,23 +207,13 @@ public class CurrentUiState implements LanguageSettingsProvider
 	@Override
 	public boolean getAdjustThaiLegacyDates()
 	{
-		return currentAdjustThaiLegacyDates.getValue();
+		return true;
 	}
 
-	public Property <Boolean> getAdjustThaiLegacyDatesProperty()
-	{
-		return currentAdjustThaiLegacyDates;
-	}
-	
 	@Override
 	public boolean getAdjustPersianLegacyDates()
 	{
-		return currentAdjustPersianLegacyDates.getValue();
-	}
-
-	public Property <Boolean> getAdjustPersianLegacyDatesPropert()
-	{
-		return currentAdjustPersianLegacyDates;
+		return true;
 	}
 
 	public boolean searchFinalBulletinsOnly()
@@ -294,18 +282,6 @@ public class CurrentUiState implements LanguageSettingsProvider
 		this.currentCalendarSystem = calendarSystem;
 	}
 	
-	@Override
-	public void setCurrentAdjustThaiLegacyDates(boolean newThaiAdjust)
-	{
-		currentAdjustThaiLegacyDates.setValue(newThaiAdjust);
-	}
-	
-	@Override
-	public void setCurrentAdjustPersianLegacyDates(boolean newPersianAdjust)
-	{
-		currentAdjustPersianLegacyDates.setValue(newPersianAdjust);
-	}
-
 	public void save()
 	{
 		save(currentUiStateFile);
@@ -347,8 +323,8 @@ public class CurrentUiState implements LanguageSettingsProvider
 			
 			out.writeUTF(currentCalendarSystem);
 			
-			out.writeBoolean(currentAdjustThaiLegacyDates.getValue());
-			out.writeBoolean(currentAdjustPersianLegacyDates.getValue());
+			out.writeBoolean(true); //Removed currentAdjustThaiLegacyDates
+			out.writeBoolean(true); //Removed currentAdjustPersianLegacyDates
 
 			out.writeBoolean(searchFinalBulletinsOnly);
 			
@@ -435,8 +411,8 @@ public class CurrentUiState implements LanguageSettingsProvider
 		if(version < 7)
 			return;
 		
-		currentAdjustThaiLegacyDates.setValue(in.readBoolean());
-		currentAdjustPersianLegacyDates.setValue(in.readBoolean());
+		in.readBoolean(); //Removed currentAdjustThaiLegacyDates
+		in.readBoolean(); //Removed currentAdjustPersianLegacyDates
 		
 		if(version < 8)
 			return;
@@ -515,8 +491,8 @@ public class CurrentUiState implements LanguageSettingsProvider
 	public String currentCalendarSystem; 
 	
 	//Version 7
-	private Property <Boolean> currentAdjustThaiLegacyDates;
-	private Property <Boolean> currentAdjustPersianLegacyDates;
+	//Removed private boolean currentAdjustThaiLegacyDates;
+	//Removed private boolean currentAdjustPersianLegacyDates;
 	
 	//Version 8
 	public boolean searchFinalBulletinsOnly;
