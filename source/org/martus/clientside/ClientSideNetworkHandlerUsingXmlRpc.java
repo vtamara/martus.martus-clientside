@@ -483,6 +483,9 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 				return result;
 			}
 			
+			if(e.getMessage().contains("Network is unreachable"))
+				return RESULT_NO_SERVER;
+
 			boolean wasNoSuchMethodException = message.indexOf("NoSuchMethodException") >= 0;
 			boolean wasTimeoutException = message.indexOf("Connection timed out") >= 0;
 			boolean wasConnectionRefusedException = message.indexOf("Connection refused") >= 0;
