@@ -550,11 +550,14 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 		return transport;
 	}
 
-	private boolean isServerAllowed(String serverName) 
+	public static boolean isServerAllowed(String serverName) 
 	{
 		if(allowedServers == null)
-			return true;
-		
+			 return serverName.matches("\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+			 		+ "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+			 		+ "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+			 		+ "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
+
 		return allowedServers.contains(serverName);
 	}
 	
