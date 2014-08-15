@@ -45,7 +45,7 @@ public class TestClientSideNetworkHandler extends TestCaseEnhanced
 	{
 		MockHandlerForSSL() throws Exception
 		{
-			super("", testPorts);
+			super("127.0.0.1", testPorts);
 		}
 		
 		public Object executeXmlRpc(String serverName, String method,
