@@ -553,11 +553,11 @@ public class ClientSideNetworkHandlerUsingXmlRpc
 	public static boolean isServerAllowed(String serverName) 
 	{
 		if(allowedServers == null)
-			 return serverName.matches("\\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-			 		+ "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-			 		+ "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
-			 		+ "\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b");
-
+		{
+			 final String IP_SEGMENT = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+			 return serverName.matches( "\\b" + IP_SEGMENT + "\\." +
+					 IP_SEGMENT + "\\." + IP_SEGMENT + "\\." + IP_SEGMENT + "\\b");
+		}
 		return allowedServers.contains(serverName);
 	}
 	
