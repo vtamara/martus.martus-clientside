@@ -38,6 +38,11 @@ abstract public class FormatFilter extends FileFilter implements java.io.FileFil
 		return new String[] {getExtension()};
 	}
 	
+	public String getWildCardExtension()
+	{
+		return "*" + getExtension();
+	}
+
 	public boolean accept(File f)
 	{
 		if(f.isDirectory())
