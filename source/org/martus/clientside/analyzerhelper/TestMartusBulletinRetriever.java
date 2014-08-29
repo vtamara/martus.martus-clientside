@@ -417,24 +417,31 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 	
 	class exitBulletinRetrieveProgressMeter implements ProgressMeterInterface
 	{
-
+		@Override
 		public void setStatusMessage(String message)
 		{
 		}
 
+		@Override
 		public void updateProgressMeter(int currentValue, int maxValue)
 		{
 		}
 
+		@Override
 		public boolean shouldExit()
 		{
 			return true;
 		}
 
+		@Override
 		public void hideProgressMeter()
 		{
 		}
 
+		@Override
+		public void finished()
+		{
+		}
 	}
 
 	public void testGetBulletin() throws Exception
