@@ -103,7 +103,7 @@ public class UiUtilities
 
 	public static String[] getConfirmDialogButtons(MiniLocalization localization) 
 	{
-		String yes = localization.getButtonLabel("yes");
+		String yes = localization.getButtonLabel(EnglishCommonStrings.YES);
 		String no = localization.getButtonLabel(EnglishCommonStrings.NO);
 		String[] buttons = {yes, no};
 		return buttons;
