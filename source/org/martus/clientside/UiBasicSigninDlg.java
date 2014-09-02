@@ -39,6 +39,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 
+import org.martus.common.EnglishCommonStrings;
 import org.martus.swing.UiButton;
 import org.martus.swing.UiLabel;
 import org.martus.swing.UiScrollPane;
@@ -65,7 +66,7 @@ public class UiBasicSigninDlg extends JDialog
 		
 		ok = new UiButton(localization.getButtonLabel("ok"));
 		ok.addActionListener(new OkHandler());
-		JButton cancel = new UiButton(localization.getButtonLabel("cancel"));
+		JButton cancel = new UiButton(localization.getButtonLabel(EnglishCommonStrings.CANCEL));
 		cancel.addActionListener(new CancelHandler());
 		Box buttonBox = Box.createHorizontalBox();
 		JComponent languageComponent = getLanguageComponent();
