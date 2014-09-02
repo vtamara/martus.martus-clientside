@@ -32,6 +32,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import org.martus.common.EnglishCommonStrings;
 import org.martus.common.MiniLocalization;
 import org.martus.swing.UiNotifyDlg;
 
@@ -103,7 +104,7 @@ public class UiUtilities
 	public static String[] getConfirmDialogButtons(MiniLocalization localization) 
 	{
 		String yes = localization.getButtonLabel("yes");
-		String no = localization.getButtonLabel("no");
+		String no = localization.getButtonLabel(EnglishCommonStrings.NO);
 		String[] buttons = {yes, no};
 		return buttons;
 	}
