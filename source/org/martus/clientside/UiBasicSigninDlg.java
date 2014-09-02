@@ -64,7 +64,7 @@ public class UiBasicSigninDlg extends JDialog
 		
 		signinPane = new UiSigninPanel(this, currentMode, username, password);
 		
-		ok = new UiButton(localization.getButtonLabel("ok"));
+		ok = new UiButton(localization.getButtonLabel(EnglishCommonStrings.OK));
 		ok.addActionListener(new OkHandler());
 		JButton cancel = new UiButton(localization.getButtonLabel(EnglishCommonStrings.CANCEL));
 		cancel.addActionListener(new CancelHandler());
