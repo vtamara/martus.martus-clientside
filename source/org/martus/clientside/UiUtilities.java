@@ -48,7 +48,7 @@ public class UiUtilities
 	{
 		String title = localization.getWindowTitle(titleTag);
 		String cause = localization.getFieldLabel("notify" + baseTag + "cause");
-		String ok = localization.getButtonLabel("ok");
+		String ok = localization.getButtonLabel(EnglishCommonStrings.OK);
 		String[] contents = {cause};
 		String[] buttons = {ok};
 
@@ -59,7 +59,7 @@ public class UiUtilities
 	{
 		String title = localization.getWindowTitle(baseTag);
 		String cause = localization.getFieldLabel("message" + baseTag + "cause");
-		String ok = localization.getButtonLabel("ok");
+		String ok = localization.getButtonLabel(EnglishCommonStrings.OK);
 		String[] contents = {cause, "", message};
 		String[] buttons = {ok};
 
