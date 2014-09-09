@@ -38,6 +38,7 @@ import java.io.IOException;
 import org.martus.common.LanguageSettingsProvider;
 import org.martus.common.MartusLogger;
 import org.martus.common.MiniLocalization;
+import org.martus.util.DatePreference;
 import org.martus.util.language.LanguageOptions;
 
 public class CurrentUiState implements LanguageSettingsProvider
@@ -46,8 +47,8 @@ public class CurrentUiState implements LanguageSettingsProvider
 	{
 		modifyingBulletin = false;
 		currentFolderName = "";
-		currentDateFormat = "";
-		currentLanguage = "";
+		currentDateFormat = null;
+		currentLanguage = null;
 		currentSortTag = "";
 		currentAppDimension = new Dimension();
 		currentAppPosition = new Point();
@@ -211,6 +212,13 @@ public class CurrentUiState implements LanguageSettingsProvider
 	public boolean getAdjustPersianLegacyDates()
 	{
 		return true;
+	}
+
+	@Override
+	public void setDateFormatFromLanguage()
+	{
+		DatePreference preference = MiniLocalization.getDefaultDatePreferenceForLanguage(getCurrentLanguage());
+		setCurrentDateFormat(preference.getDateTemplate());
 	}
 
 	public boolean searchFinalBulletinsOnly()
