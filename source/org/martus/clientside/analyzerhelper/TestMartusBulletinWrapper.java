@@ -69,7 +69,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		bulletin.set(BulletinConstants.TAGTITLE, title);
 		bulletin.set(BulletinConstants.TAGLOCATION, location);
 		bulletin.set(BulletinConstants.TAGPRIVATEINFO, privateData);
-		bulletin.setDraft();
+		bulletin.setMutable();
 		
 		File tempDirectory = createTempFileFromName("$$$TestBulletinWrapper");
 		tempDirectory.deleteOnExit();
@@ -153,7 +153,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		bulletin.addPublicAttachment(a2);
 		bulletin.addPrivateAttachment(a3);
 
-		bulletin.setDraft();
+		bulletin.setMutable();
 		
 		File tempDirectory = createTempFileFromName("$$$TestBulletinWrapperAttachments");
 		tempDirectory.deleteOnExit();
