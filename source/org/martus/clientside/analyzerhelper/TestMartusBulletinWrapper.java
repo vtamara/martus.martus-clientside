@@ -106,7 +106,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		bulletin.set(BulletinConstants.TAGPRIVATEINFO, privateData);
 		bulletin.set(BulletinConstants.TAGENTRYDATE, entryDate);
 		bulletin.set(BulletinConstants.TAGEVENTDATE, "2003-08-20,20030820+3");
-		bulletin.setSealed();
+		bulletin.setImmutable();
 		
 		HeadquartersKey key = new HeadquartersKey(security.getPublicKeyString());
 		HeadquartersKeys keys = new HeadquartersKeys(key);
@@ -202,7 +202,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 		bulletin.addPublicAttachment(a2);
 		bulletin.addPrivateAttachment(a3);
 		
-		bulletin.setSealed();
+		bulletin.setImmutable();
 		
 		HeadquartersKey key = new HeadquartersKey(security.getPublicKeyString(), "My HQ");
 		HeadquartersKeys keys = new HeadquartersKeys(key);
