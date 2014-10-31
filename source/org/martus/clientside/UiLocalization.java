@@ -285,6 +285,21 @@ abstract public class UiLocalization extends MtfAwareLocalization
 	{
 		return getLabel(getCurrentLanguageCode(), "keyword", code);
 	}
+	
+	public static String createConfirmEffectTag(String fieldName)
+	{
+		return createTag("confirm", fieldName, "effect");
+	}
+	
+	public static String createNotifyCauseTag(String fieldName)
+	{
+		return createTag("notify", fieldName, "cause");
+	}
+	
+	private static String createTag(String prefix, String fieldName, String postfix)
+	{
+		return prefix + fieldName + postfix;
+	}
 
 	public Vector getAllTranslationStrings(String languageCode)
 	{
