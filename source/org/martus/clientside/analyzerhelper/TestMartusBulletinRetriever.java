@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.martus.clientside.ClientSideNetworkGateway;
+import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpc;
 import org.martus.clientside.ClientSideNetworkHandlerUsingXmlRpcWithUnverifiedServer;
 import org.martus.clientside.analyzerhelper.MartusBulletinRetriever.ServerPublicCodeDoesNotMatchException;
 import org.martus.clientside.test.NoServerNetworkInterfaceForNonSSLHandler;
@@ -88,6 +89,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		streamOut = new ByteArrayOutputStream();
 		security.writeKeyPair(streamOut, password);
 		streamOut.close();
+		ClientSideNetworkHandlerUsingXmlRpc.addAllowedServer(TEST_SERVER_IP);
 	}	
 	
 	public void testInvalidIOStream() throws Exception
@@ -159,7 +161,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		
 		assertFalse("server hasn't been configured yet", retriever.isServerAvailable());
 		
-		retriever.initalizeServer("1.2.3.4", "some random public key");
+		retriever.initalizeServer(TEST_SERVER_IP, "some random public key");
 		retriever.serverNonSSL = new NoServerNetworkInterfaceForNonSSLHandler();
 		assertFalse("invalid server should not be pingable", retriever.isServerAvailable());
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
@@ -360,13 +362,13 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 	
 	public void testGetListOfAllFieldOfficeBulletinIdsOnServer() throws Exception
 	{
-		ClientSideNetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
+		ClientSideNetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface(TEST_SERVER_IP, serverSecurity.getPublicKeyString(), null);
 		MockClientSideNetworkGateway mockGateway = new MockClientSideNetworkGateway(networkInterface);
 		
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
 		MartusBulletinRetriever retriever = new MartusBulletinRetriever(streamIn, password );
 		streamIn.close();
-		retriever.initalizeServer("1.2.3.4", "some random public key");
+		retriever.initalizeServer(TEST_SERVER_IP, "some random public key");
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
 		retriever.setSSLServerToUse(mockGateway);
 		List emptyList = retriever.getFieldOfficeBulletinIds();
@@ -446,13 +448,13 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 
 	public void testGetBulletin() throws Exception
 	{
-		ClientSideNetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface("1.2.3.4", serverSecurity.getPublicKeyString(), null);
+		ClientSideNetworkInterface networkInterface = ClientSideNetworkGateway.buildNetworkInterface(TEST_SERVER_IP, serverSecurity.getPublicKeyString(), null);
 		MockClientSideNetworkGateway mockGateway = new MockClientSideNetworkGateway(networkInterface);
 		
 		ByteArrayInputStream streamIn = new ByteArrayInputStream(streamOut.toByteArray());
 		MartusBulletinRetriever retriever = new MartusBulletinRetriever(streamIn, password );
 		streamIn.close();
-		retriever.initalizeServer("1.2.3.4", "some random public key");
+		retriever.initalizeServer(TEST_SERVER_IP, "some random public key");
 		retriever.serverNonSSL = new TestServerNetworkInterfaceForNonSSLHandler();
 		retriever.setSSLServerToUse(mockGateway);
 		
@@ -493,6 +495,7 @@ public class TestMartusBulletinRetriever extends TestCaseEnhanced
 		assertNull("Should return a null bulletin if cancelled.", cancelledBulletin);
 	}
 	
+	private static final String TEST_SERVER_IP = "1.2.3.4";
 	
 	private static MartusSecurity security;
 	static MartusSecurity serverSecurity;
