@@ -52,7 +52,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		CurrentUiState state = new CurrentUiState();
 		assertEquals("Current Version not correct - more tests needed?", 10, CurrentUiState.VERSION);
 
-		assertEquals("Default Keyboard not Virtual?", true, state.isCurrentDefaultKeyboardVirtual());
+		assertEquals("Default Keyboard not Normal?", false, state.isCurrentDefaultKeyboardVirtual());
 		assertEquals("Default PreviewSplitterPosition not 100?", 100, state.getCurrentPreviewSplitterPosition());
 		assertEquals("Default FolderSplitterPosition not 180?", 180, state.getCurrentFolderSplitterPosition());
 		assertEquals("Default searchString not blank?", "", state.getSearchString());
@@ -228,7 +228,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		String sampleTag = "jj";
 		int sampleDir = 3;
 		int sampleBulletinPosition = 6;
-		boolean sampleDefaultKeyboardVirtual = false;
+		boolean sampleDefaultKeyboardVirtual = true;
 		String sampleDateFormat = "dd/mm/yyyy";
 		String sampleLanguage = "en";
 
@@ -326,7 +326,7 @@ public class TestCurrentUiState extends TestCaseEnhanced
 		CurrentUiState loaded = new CurrentUiState();
 		loaded.load(file);
 
-		assertEquals("Didn't get Default Keyboard?", true, loaded.isCurrentDefaultKeyboardVirtual());
+		assertEquals("Didn't get Default Keyboard?", false, loaded.isCurrentDefaultKeyboardVirtual());
 		assertEquals("Didn't get Default PreviewSplitterPosition?", 100, loaded.getCurrentPreviewSplitterPosition());
 		assertEquals("Didn't get Default FolderSplitterPosition?", 180, loaded.getCurrentFolderSplitterPosition());
 	}

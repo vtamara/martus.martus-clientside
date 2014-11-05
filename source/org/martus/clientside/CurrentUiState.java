@@ -466,7 +466,7 @@ public class CurrentUiState implements LanguageSettingsProvider
 	protected String currentSortTag;
 	protected int currentSortDirection;
 	protected int currentBulletinPosition;
-	protected boolean currentDefaultKeyboardIsVirtual = true;
+	protected boolean currentDefaultKeyboardIsVirtual = false;
 	protected String currentDateFormat;
 	protected String currentLanguage;
 
