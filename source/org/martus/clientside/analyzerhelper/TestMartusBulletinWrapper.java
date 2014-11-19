@@ -244,7 +244,7 @@ public class TestMartusBulletinWrapper extends TestCaseEnhanced
 				"<tr><td align='right' valign='top'>Attachments</td><td align='left' valign='top'><p>"+tempFile1.getName()+"    ( 1 Kb )</p><p>"+tempFile2.getName()+"    ( 1 Kb )</p></td></tr>\n"+
 				"<tr></tr>\n" + 
 				"<tr><td colspan='2' align='left'><u><b>Private Information</b></u></td></tr>\n"+
-				"<tr><td align='right' valign='top'>Private</td><td align='left' valign='top'><p>"+privateData+"</p><p></p></td></tr>\n"+
+				"<tr><td align='right' valign='top'>Additional Information</td><td align='left' valign='top'><p>"+privateData+"</p><p></p></td></tr>\n"+
 				"<tr><td align='right' valign='top'>Attachments</td><td align='left' valign='top'><p>"+tempFile3.getName()+"    ( 1 Kb )</p></td></tr>\n"+
 				"<tr></tr>\n" + 
 				"<tr><td colspan='2' align='left'><u><b>Contacts</b></u></td></tr>\n"+
